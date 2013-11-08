@@ -1,0 +1,19 @@
+pessoa
+cliente
+usuario
+fornecedor
+
+endereço
+cidades
+estados
+pais
+
+telefone
+
+dados do cartao
+
+produto
+marca
+tipo de medida
+
+local de estoque
