@@ -22,7 +22,8 @@ function cabecalho($mensagem) {
 </div>
 <div id="login"> <p>';
     $conteudo .= (isset($_SESSION[SESSAO_LOGADO]) ? $_SESSION[SESSAO_USUARIO_LOGIN]
-        . ' <sub><a href="/ebm/core/logout.php">Sair</a></sub>': '<a href="/ebm/core/login.php">Realizar login</a>');
+        . ' <sub><a href="/ebm/core/logout.php">Sair</a></sub>':
+        '<a href="/ebm/core/login.php">Realizar login</a><br><a href="/ebm/core/realizarCadastro.php">Cadastrar</a>');
     echo $conteudo . '</p></div>';
 }
 
