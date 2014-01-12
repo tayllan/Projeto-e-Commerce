@@ -7,7 +7,7 @@ function cabecalhoHTML($titulo) {
     <head>
         <title>{$titulo}</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="/ebm/resource/css/estilo.css">
+        <link rel="stylesheet" type="text/css" href="/resource/css/estilo.css">
     </head>
     <body>
 CABECALHO_HTML;
@@ -18,12 +18,18 @@ function cabecalho($mensagem) {
     <p>' . $mensagem . '</p>
 </header>
 <div>
-    <a id="home" href="/ebm/index.php">Voltar à HOME</a>
+    <a id="home" href="/index.php">Voltar à HOME</a>
 </div>
 <div id="login"> <p>';
-    $conteudo .= (isset($_SESSION[SESSAO_LOGADO]) ? $_SESSION[SESSAO_USUARIO_LOGIN]
-        . ' <sub><a href="/ebm/core/logout.php">Sair</a></sub>':
-        '<a href="/ebm/core/login.php">Realizar login</a><br><a href="/ebm/core/realizarCadastro.php">Cadastrar</a>');
+    if ((isset($_SESSION[SESSAO_LOGADO]))) {
+        $conteudo .= $_SESSION[SESSAO_USUARIO_LOGIN] . ' <sub><a href="/core/logout.php">Sair</a></sub>';
+    }
+    else {
+        $conteudo .= '<a href="/core/login.php">Realizar login</a>'
+        . '<br>'
+        . '<a href="/view/realizarCadastroView.php">Cadastre-se</a>';
+    }
+        
     echo $conteudo . '</p></div>';
 }
 

@@ -103,7 +103,7 @@ class Login {
     }
     
     private function construirFormulario() {
-        $conteudo = '<form action="/ebm/core/login.php" method="POST">
+        $conteudo = '<form action="/core/login.php" method="POST">
     <fieldset>
         <legend>Login:</legend>
 

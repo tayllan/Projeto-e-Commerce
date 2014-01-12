@@ -71,7 +71,7 @@ class Colunas {
     const ITEM_DE_PRODUTO_FK_PRODUTO = 'item_de_produto_fk_id_produto';
 }
 
-\define('ROOT', '/var/www/ebm/');
+\define('ROOT', '/home/tayllan/Projeto e-Commerce/source/ebm/');
 
 \define('MENSAGEM_CADASTRO_SUCESSO', ' salvo(a) com sucesso!');
 
