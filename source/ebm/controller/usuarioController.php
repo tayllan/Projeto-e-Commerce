@@ -22,13 +22,13 @@ class UsuarioController extends BaseController {
             . ', ' . Colunas::USUARIO_SENHA . ', ' . Colunas::USUARIO_CPF
             . ', ' . Colunas::USUARIO_TELEFONE . ', ' . Colunas::USUARIO_DATA_DE_NASCIMENTO
             . ', ' . Colunas::USUARIO_ADMINISTRADOR . ', ' . Colunas::USUARIO_FK_ENDERECO
-            . ', ' . Colunas::USUARIO_FK_GENERO_SEXUAL . ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            . ', ' . Colunas::USUARIO_FK_GENERO_SEXUAL . ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );
         
         return $sqlQuery->execute(
             array(
                 $usuario->nome, $usuario->login,
-                $usuario->senha, $usuario->cpf,
+                md5($usuario->senha), $usuario->cpf,
                 $usuario->telefone, $usuario->dataDeNascimento,
                 $usuario->administrador, $usuario->endereco->id,
                 $usuario->generoSexual->id

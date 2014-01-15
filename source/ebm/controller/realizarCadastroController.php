@@ -9,6 +9,7 @@ require_once ROOT . 'controller/generoSexualController.php';
 
 class RealizarCadastroController {
 
+    private $regiaoController;
     private $unidadeFederativaController;
     private $cidadeController;
     private $enderecoController;
@@ -16,6 +17,7 @@ class RealizarCadastroController {
     private $generoSexualController;
     
     public function __construct() {
+        $this->regiaoController = new RegiaoController();
         $this->unidadeFederativaController = new UnidadeFederativaController();
         $this->cidadeController = new CidadeController();
         $this->enderecoController = new EnderecoController();
@@ -24,22 +26,76 @@ class RealizarCadastroController {
     }
 
     public function inserir() {
+        $regiao = $this->construirObjetoRegiao();
+        $unidadeFederativa = $this->construirObjetoUnidadeFederativa($regiao);
+        $cidade = $this->construirObjetoCidade($unidadeFederativa);
+        $endereco = $this->construirObjetoEndereco($cidade);
+        $generoSexual = $this->construirObjetoGeneroSexual();
+        $usuario = $this->construirObjetoUsuario($endereco, $generoSexual);
+        
+        return true;
+    }
+    
+    private function construirObjetoRegiao() {
+        $regiao = new Regiao(
+            NULL, $_POST[Colunas::REGIAO_NOME]
+        );
+        $this->regiaoController->rotearInsercao($regiao);
+        $array = $this->regiaoController->getId($regiao);
+        $regiao->id = $array[Colunas::REGIAO_ID];
+        
+        return $regiao;
+    }
+    
+    private function construirObjetoUnidadeFederativa($regiao) {
         $unidadeFederativa = new UnidadeFederativa(
             NULL, $_POST[Colunas::UNIDADE_FEDERATIVA_NOME],
-            $_POST[Colunas::UNIDADE_FEDERATIVA_SIGLA], Regiao::getNullObject()
+            $_POST[Colunas::UNIDADE_FEDERATIVA_SIGLA], $regiao
         );
+        $this->unidadeFederativaController->rotearInsercao($unidadeFederativa);
+        $array = $this->unidadeFederativaController->getId($unidadeFederativa);
+        $unidadeFederativa->id = $array[Colunas::UNIDADE_FEDERATIVA_ID];
+        
+        return $unidadeFederativa;
+    }
+    
+    private function construirObjetoCidade($unidadeFederativa) {
         $cidade = new Cidade(
             NULL, $_POST[Colunas::CIDADE_NOME],
             $unidadeFederativa
         );
+        $this->cidadeController->rotearInsercao($cidade);
+        $array = $this->cidadeController->getId($cidade);
+        $cidade->id = $array[Colunas::CIDADE_ID];
+        
+        return $cidade;
+    }
+    
+    private function construirObjetoEndereco($cidade) {
         $endereco = new Endereco(
             NULL, $_POST[Colunas::ENDERECO_BAIRRO],
             $_POST[Colunas::ENDERECO_CEP], $_POST[Colunas::ENDERECO_RUA],
             $_POST[Colunas::ENDERECO_NUMERO], $cidade
         );
+        $this->enderecoController->rotearInsercao($endereco);
+        $array = $this->enderecoController->getId($endereco);
+        $endereco->id = $array[Colunas::ENDERECO_ID];
+        
+        return $endereco;
+    }
+    
+    private function construirObjetoGeneroSexual() {
         $generoSexual = new GeneroSexual(
-            NULL, $_POST[Colunas::USUARIO_FK_GENERO_SEXUAL]
+            NULL, $_POST[Colunas::GENERO_SEXUAL_NOME]
         );
+        $this->generoSexualController->rotearInsercao($generoSexual);
+        $array = $this->generoSexualController->getId($generoSexual);
+        $generoSexual->id = $array[Colunas::GENERO_SEXUAL_ID];
+        
+        return $generoSexual;
+    }
+    
+    private function construirObjetoUsuario($endereco, $generoSexual) {
         $usuario = new Usuario(
             NULL, $_POST[Colunas::USUARIO_NOME],
             $_POST[Colunas::USUARIO_LOGIN], $_POST[Colunas::USUARIO_SENHA],
@@ -48,11 +104,14 @@ class RealizarCadastroController {
             $endereco, $generoSexual
         );
         
-        $this->unidadeFederativaController->rotearInsercao($unidadeFederativa);
-        $this->cidadeController->rotearInsercao($cidade);
-        $this->enderecoController->rotearInsercao($endereco);
-        $this->generoSexualController->rotearInsercao($generoSexual);
+        /*
+         * TODO: Tá dando algum erro nas próximas linhas.
+         */
         $this->usuarioController->rotearInsercao($usuario);
+        $array = $this->usuarioController->getId($usuario);
+        $usuario->id = $array[Colunas::USUARIO_ID];
+        
+        return $usuario;
     }
 
     public function construirFormulario($usuario) {
@@ -102,7 +161,7 @@ class RealizarCadastroController {
 		
 		<div>
 			<label for="genero">Gênero Sexual:</label>
-			<select id="genero" name="' . Colunas::USUARIO_FK_GENERO_SEXUAL . '">
+			<select id="genero" name="' . Colunas::GENERO_SEXUAL_NOME . '">
 				<option value="feminino">Feminino</option>
 				<option value="masculino">Masculino</option>
 				<option value="outro">Outro</option>
@@ -153,6 +212,12 @@ class RealizarCadastroController {
 			<label for="ufSigla">Unidade Federativa (sigla):</label>
 			<input type="text" id="ufSigla" name="' . Colunas::UNIDADE_FEDERATIVA_SIGLA
             . '" value="' . $usuario->endereco->cidade->unidadeFederativa->sigla . '" maxlength="2" size="2">
+		</div>
+                
+                <div>
+			<label for="regiao">Região:</label>
+			<input type="text" id="regiao" name="' . Colunas::REGIAO_NOME . '"'
+            . 'value="' . $usuario->endereco->cidade->unidadeFederativa->regiao->nome . '">
 		</div>
 	</fieldset>
         

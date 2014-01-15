@@ -59,6 +59,28 @@ class UnidadeFederativaController extends BaseController {
             return array();
         }
     }
+    
+    public function getId($unidadeFederativa) {
+        $sqlQuery = $this->conexao->prepare(
+            'SELECT ' . Colunas::UNIDADE_FEDERATIVA_ID . ' FROM ' . Colunas::UNIDADE_FEDERATIVA
+            . ' WHERE ' . Colunas::UNIDADE_FEDERATIVA_NOME . ' LIKE ? AND ' . Colunas::UNIDADE_FEDERATIVA_SIGLA
+            . ' LIKE ? AND ' . Colunas::UNIDADE_FEDERATIVA_FK_REGIAO . ' = ?'
+        );
+        
+        $sqlQuery->execute(
+            array(
+                $unidadeFederativa->nome, $unidadeFederativa->sigla,
+                $unidadeFederativa->regiao->id
+            )
+        );
+        
+        if ($sqlQuery->rowCount() > 0) {
+            return $sqlQuery->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+            return array();
+        }
+    }
 
     public function construirObjeto(array $codigosIdentificadores = NULL) {
         $regiao = $this->regiaoController->construirObjetoPorId(

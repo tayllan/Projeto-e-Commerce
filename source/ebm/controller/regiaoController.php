@@ -46,6 +46,26 @@ class RegiaoController extends BaseController {
         }
     }
     
+    public function getId($regiao) {
+        $sqlQuery = $this->conexao->prepare(
+            'SELECT ' . Colunas::REGIAO_ID . ' FROM ' . Colunas::REGIAO . ' WHERE '
+            . Colunas::REGIAO_NOME . ' LIKE ?'
+        );
+        
+        $sqlQuery->execute(
+            array(
+                $regiao->nome
+            )
+        );
+        
+        if ($sqlQuery->rowCount() > 0) {
+            return $sqlQuery->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+            return array();
+        }
+    }
+    
     public function construirObjeto(array $codigosIdentificadores = NULL) {
         $regiao = new Regiao(
             $codigosIdentificadores[Colunas::REGIAO_ID],

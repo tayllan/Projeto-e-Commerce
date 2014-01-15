@@ -45,6 +45,24 @@ class GeneroSexualController extends BaseController {
         }
     }
     
+    public function getId($generoSexual) {
+        $sqlQuery = $this->conexao->prepare(
+            'SELECT ' . Colunas::GENERO_SEXUAL_ID . ' FROM ' . Colunas::GENERO_SEXUAL
+            . ' WHERE ' . Colunas::GENERO_SEXUAL_NOME . ' LIKE ?'
+        );
+        
+        $sqlQuery->execute(
+            array($generoSexual->nome)
+        );
+        
+        if ($sqlQuery->rowCount() > 0) {
+            return $sqlQuery->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+            return array();
+        }
+    }
+    
     public function construirObjeto(array $codigosIdentificadores = NULL) {
         $generoSexual = new GeneroSexual(
             $codigosIdentificadores[Colunas::GENERO_SEXUAL_ID],

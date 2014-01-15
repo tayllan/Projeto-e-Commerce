@@ -16,7 +16,12 @@ class RealizarCadastroView {
 
     public function rotear() {
         if (isset($_POST[Colunas::USUARIO_NOME])) {
-            $this->controller->inserir();
+            if ($this->controller->inserir()) {
+                echo 'deu certo';
+            }
+            else {
+                echo 'deu ERRADO';
+            }
         }
         else {
             $usuario = Usuario::getNullObject();

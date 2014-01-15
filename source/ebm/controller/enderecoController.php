@@ -68,15 +68,15 @@ class EnderecoController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::ENDERECO_ID . ' FROM ' . Colunas::ENDERECO
             . ' WHERE ' . Colunas::ENDERECO_BAIRRO
-            . ' = ? AND ' . Colunas::ENDERECO_CEP . ' = ? AND ' . Colunas::ENDERECO_RUA
-            . ' = ? AND ' . Colunas::ENDERECO_NUMERO . ' = ? AND ' . Colunas::ENDERECO_FK_CIDADE . ' = ?'
+            . ' LIKE ? AND ' . Colunas::ENDERECO_CEP . ' LIKE ? AND ' . Colunas::ENDERECO_RUA
+            . ' LIKE ? AND ' . Colunas::ENDERECO_NUMERO . ' LIKE ? AND ' . Colunas::ENDERECO_FK_CIDADE . ' = ?'
         );
 
         $sqlQuery->execute(
                 array(
-                    $endereco->id, $endereco->bairro,
-                    $endereco->cep, $endereco->rua,
-                    $endereco->numero, $endereco->cidade->id
+                    $endereco->bairro, $endereco->cep,
+                    $endereco->rua, $endereco->numero,
+                    $endereco->cidade->id
                 )
         );
         
