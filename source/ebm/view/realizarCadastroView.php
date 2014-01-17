@@ -24,8 +24,7 @@ class RealizarCadastroView {
             }
         }
         else {
-            $usuario = Usuario::getNullObject();
-            $formulario = $this->controller->construirFormulario($usuario);
+            $formulario = $this->controller->construirFormulario();
             $this->exibirConteudo($formulario);
         }
     }
