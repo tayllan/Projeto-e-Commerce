@@ -1,9 +1,9 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/regiaoController.php';
-require_once ROOT . 'entity/regiaoModel.php';
-require_once ROOT . 'view/template/regiaoEdicao.php';
+require_once DIR_ROOT . 'controller/regiaoController.php';
+require_once DIR_ROOT . 'entity/regiaoModel.php';
+require_once DIR_ROOT . 'view/template/regiaoEdicao.php';
 
 class RegiaoView extends BaseView {
 
@@ -23,7 +23,7 @@ class RegiaoView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($regiao);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Região', $trueFalse
             );
         }

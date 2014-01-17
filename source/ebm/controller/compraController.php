@@ -1,7 +1,7 @@
 <?php
 
-require_once ROOT . 'entity/compraModel.php';
-require_once ROOT . 'controller/usuarioController.php';
+require_once DIR_ROOT . 'entity/compraModel.php';
+require_once DIR_ROOT . 'controller/usuarioController.php';
 require_once 'baseController.php';
 
 class CompraController extends BaseController {

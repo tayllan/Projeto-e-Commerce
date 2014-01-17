@@ -1,11 +1,11 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/unidadeFederativaController.php';
-require_once ROOT . 'controller/regiaoController.php';
-require_once ROOT . 'entity/unidadeFederativaModel.php';
-require_once ROOT . 'entity/regiaoModel.php';
-require_once ROOT . 'view/template/unidadeFederativaEdicao.php';
+require_once DIR_ROOT . 'controller/unidadeFederativaController.php';
+require_once DIR_ROOT . 'controller/regiaoController.php';
+require_once DIR_ROOT . 'entity/unidadeFederativaModel.php';
+require_once DIR_ROOT . 'entity/regiaoModel.php';
+require_once DIR_ROOT . 'view/template/unidadeFederativaEdicao.php';
 
 class UnidadeFederativaView extends BaseView {
     
@@ -30,7 +30,7 @@ class UnidadeFederativaView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($unidadeFederativa);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Unidade Federativa', $trueFalse
             );
         }

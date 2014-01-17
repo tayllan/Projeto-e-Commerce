@@ -1,9 +1,9 @@
 <?php
 
 require_once '../config.php';
-require_once ROOT . 'view/template/html.php';
-require_once ROOT . 'controller/realizarCadastroController.php';
-require_once ROOT . 'entity/usuarioModel.php';
+require_once DIR_ROOT . 'view/template/html.php';
+require_once DIR_ROOT . 'controller/realizarCadastroController.php';
+require_once DIR_ROOT . 'entity/usuarioModel.php';
 
 class RealizarCadastroView {
     

@@ -1,9 +1,9 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/generoSexualController.php';
-require_once ROOT . 'entity/generoSexualModel.php';
-require_once ROOT . 'view/template/generoSexualEdicao.php';
+require_once DIR_ROOT . 'controller/generoSexualController.php';
+require_once DIR_ROOT . 'entity/generoSexualModel.php';
+require_once DIR_ROOT . 'view/template/generoSexualEdicao.php';
 
 class GeneroSexualView extends BaseView {
 
@@ -23,7 +23,7 @@ class GeneroSexualView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($generoSexual);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Gênero Sexual', $trueFalse
             );
         }

@@ -1,8 +1,8 @@
 <?php
 
-require_once ROOT . 'entity/produtoModel.php';
-require_once ROOT . 'controller/marcaDeProdutoController.php';
-require_once ROOT . 'controller/categoriaDeProdutoController.php';
+require_once DIR_ROOT . 'entity/produtoModel.php';
+require_once DIR_ROOT . 'controller/marcaDeProdutoController.php';
+require_once DIR_ROOT . 'controller/categoriaDeProdutoController.php';
 require_once 'baseController.php';
 
 class ProdutoController extends BaseController {

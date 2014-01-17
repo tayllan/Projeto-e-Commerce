@@ -1,11 +1,11 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/produtoController.php';
-require_once ROOT . 'controller/marcaDeProdutoController.php';
-require_once ROOT . 'controller/categoriaDeProdutoController.php';
-require_once ROOT . 'entity/produtoModel.php';
-require_once ROOT . 'view/template/produtoEdicao.php';
+require_once DIR_ROOT . 'controller/produtoController.php';
+require_once DIR_ROOT . 'controller/marcaDeProdutoController.php';
+require_once DIR_ROOT . 'controller/categoriaDeProdutoController.php';
+require_once DIR_ROOT . 'entity/produtoModel.php';
+require_once DIR_ROOT . 'view/template/produtoEdicao.php';
 
 class ProdutoView extends BaseView {
     
@@ -35,7 +35,7 @@ class ProdutoView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($produto);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Produto', $trueFalse
             );
         }

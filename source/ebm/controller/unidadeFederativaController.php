@@ -1,7 +1,7 @@
 <?php
 
-require_once ROOT . 'entity/unidadeFederativaModel.php';
-require_once ROOT . 'controller/regiaoController.php';
+require_once DIR_ROOT . 'entity/unidadeFederativaModel.php';
+require_once DIR_ROOT . 'controller/regiaoController.php';
 require_once 'baseController.php';
 
 class UnidadeFederativaController extends BaseController {

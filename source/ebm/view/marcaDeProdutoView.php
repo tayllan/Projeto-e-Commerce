@@ -1,9 +1,9 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/marcaDeProdutoController.php';
-require_once ROOT . 'entity/marcaDeProdutoModel.php';
-require_once ROOT . 'view/template/marcaDeProdutoEdicao.php';
+require_once DIR_ROOT . 'controller/marcaDeProdutoController.php';
+require_once DIR_ROOT . 'entity/marcaDeProdutoModel.php';
+require_once DIR_ROOT . 'view/template/marcaDeProdutoEdicao.php';
 
 class MarcaDeProdutoView extends BaseView {
 
@@ -23,7 +23,7 @@ class MarcaDeProdutoView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($marcaDeProduto);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Marca de Produto', $trueFalse
             );
         }

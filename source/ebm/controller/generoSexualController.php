@@ -1,6 +1,6 @@
 <?php
 
-require_once ROOT . 'entity/generoSexualModel.php';
+require_once DIR_ROOT . 'entity/generoSexualModel.php';
 require_once 'baseController.php';
 
 class GeneroSexualController extends BaseController {

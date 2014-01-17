@@ -1,11 +1,11 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/enderecoController.php';
-require_once ROOT . 'controller/cidadeController.php';
-require_once ROOT . 'entity/enderecoModel.php';
-require_once ROOT . 'entity/cidadeModel.php';
-require_once ROOT . 'view/template/enderecoEdicao.php';
+require_once DIR_ROOT . 'controller/enderecoController.php';
+require_once DIR_ROOT . 'controller/cidadeController.php';
+require_once DIR_ROOT . 'entity/enderecoModel.php';
+require_once DIR_ROOT . 'entity/cidadeModel.php';
+require_once DIR_ROOT . 'view/template/enderecoEdicao.php';
 
 class EnderecoView extends BaseView {
     
@@ -32,7 +32,7 @@ class EnderecoView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($endereco);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Endereço', $trueFalse
             );
         }

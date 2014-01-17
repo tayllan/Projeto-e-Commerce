@@ -1,11 +1,11 @@
 <?php
 
 require_once '../config.php';
-require_once ROOT . 'controller/unidadeFederativaController.php';
-require_once ROOT . 'controller/cidadeController.php';
-require_once ROOT . 'controller/enderecoController.php';
-require_once ROOT . 'controller/usuarioController.php';
-require_once ROOT . 'controller/generoSexualController.php';
+require_once DIR_ROOT . 'controller/unidadeFederativaController.php';
+require_once DIR_ROOT . 'controller/cidadeController.php';
+require_once DIR_ROOT . 'controller/enderecoController.php';
+require_once DIR_ROOT . 'controller/usuarioController.php';
+require_once DIR_ROOT . 'controller/generoSexualController.php';
 
 class RealizarCadastroController {
 

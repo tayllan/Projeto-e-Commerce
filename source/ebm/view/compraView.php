@@ -1,11 +1,11 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/compraController.php';
-require_once ROOT . 'controller/usuarioController.php';
-require_once ROOT . 'entity/compraModel.php';
-require_once ROOT . 'entity/usuarioModel.php';
-require_once ROOT . 'view/template/compraEdicao.php';
+require_once DIR_ROOT . 'controller/compraController.php';
+require_once DIR_ROOT . 'controller/usuarioController.php';
+require_once DIR_ROOT . 'entity/compraModel.php';
+require_once DIR_ROOT . 'entity/usuarioModel.php';
+require_once DIR_ROOT . 'view/template/compraEdicao.php';
 
 class CompraView extends BaseView {
 
@@ -30,7 +30,7 @@ class CompraView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($compra);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Compra', $trueFalse
             );
         }

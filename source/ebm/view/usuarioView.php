@@ -1,13 +1,13 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/usuarioController.php';
-require_once ROOT . 'controller/enderecoController.php';
-require_once ROOT . 'controller/generoSexualController.php';
-require_once ROOT . 'entity/usuarioModel.php';
-require_once ROOT . 'entity/enderecoModel.php';
-require_once ROOT . 'entity/generoSexualModel.php';
-require_once ROOT . 'view/template/usuarioEdicao.php';
+require_once DIR_ROOT . 'controller/usuarioController.php';
+require_once DIR_ROOT . 'controller/enderecoController.php';
+require_once DIR_ROOT . 'controller/generoSexualController.php';
+require_once DIR_ROOT . 'entity/usuarioModel.php';
+require_once DIR_ROOT . 'entity/enderecoModel.php';
+require_once DIR_ROOT . 'entity/generoSexualModel.php';
+require_once DIR_ROOT . 'view/template/usuarioEdicao.php';
 
 class UsuarioView extends BaseView {
     
@@ -40,7 +40,7 @@ class UsuarioView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($usuario);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Usuario', $trueFalse
             );
         }

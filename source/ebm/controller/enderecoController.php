@@ -1,7 +1,7 @@
 <?php
 
-require_once ROOT . 'entity/enderecoModel.php';
-require_once ROOT . 'controller/cidadeController.php';
+require_once DIR_ROOT . 'entity/enderecoModel.php';
+require_once DIR_ROOT . 'controller/cidadeController.php';
 require_once 'baseController.php';
 
 class EnderecoController extends BaseController {

@@ -1,6 +1,6 @@
 <?php
 
-require_once ROOT . 'entity/categoriaDeProdutoModel.php';
+require_once DIR_ROOT . 'entity/categoriaDeProdutoModel.php';
 require_once 'baseController.php';
 
 class CategoriaDeProdutoController extends BaseController {

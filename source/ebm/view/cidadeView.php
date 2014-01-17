@@ -1,11 +1,11 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/cidadeController.php';
-require_once ROOT . 'controller/unidadeFederativaController.php';
-require_once ROOT . 'entity/cidadeModel.php';
-require_once ROOT . 'entity/unidadeFederativaModel.php';
-require_once ROOT . 'view/template/cidadeEdicao.php';
+require_once DIR_ROOT . 'controller/cidadeController.php';
+require_once DIR_ROOT . 'controller/unidadeFederativaController.php';
+require_once DIR_ROOT . 'entity/cidadeModel.php';
+require_once DIR_ROOT . 'entity/unidadeFederativaModel.php';
+require_once DIR_ROOT . 'view/template/cidadeEdicao.php';
 
 class CidadeView extends BaseView {
     
@@ -29,7 +29,7 @@ class CidadeView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($cidade);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Cidade', $trueFalse
             );
         }

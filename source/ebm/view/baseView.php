@@ -1,8 +1,8 @@
 <?php
 
 require_once '../config.php';
-require_once ROOT . 'view/template/html.php';
-require_once ROOT . 'view/template/listagens.php';
+require_once DIR_ROOT . 'view/template/html.php';
+require_once DIR_ROOT . 'view/template/listagens.php';
 
 abstract class BaseView {
 
@@ -13,28 +13,33 @@ abstract class BaseView {
     abstract protected function cadastrar();
 
     abstract protected function listar();
-    
+
     abstract protected function construirTabela($linha);
 
     abstract protected function alterar();
 
     protected function deletar($apelidoDaTabela, $nomeColunaIdDaTabela, $nomeDaTabela) {
         $trueFalse = $this->controller->deletar(
-            $_POST['deletar'], $nomeColunaIdDaTabela,
-            $nomeDaTabela
+            $_POST['deletar'], $nomeColunaIdDaTabela, $nomeDaTabela
         );
 
+        $this->exibirMensagemDelecao(
+            $apelidoDaTabela, $trueFalse
+        );
+    }
+
+    protected function exibirMensagemCadastro($apelidoDaTabela, $trueFalse) {
         if ($trueFalse) {
-            $this->exibirConteudo($apelidoDaTabela . MENSAGEM_DELECAO_SUCESSO);
+            $this->exibirConteudo($apelidoDaTabela . MENSAGEM_CADASTRO_SUCESSO);
         }
         else {
             $this->exibirConteudo(MENSAGEM_ERRO);
         }
     }
-    
-    protected function exibirMensagem($apelidoDaTabela, $trueFalse) {
+
+    protected function exibirMensagemDelecao($apelidoDaTabela, $trueFalse) {
         if ($trueFalse) {
-            $this->exibirConteudo($apelidoDaTabela . MENSAGEM_CADASTRO_SUCESSO);
+            $this->exibirConteudo($apelidoDaTabela . MENSAGEM_DELECAO_SUCESSO);
         }
         else {
             $this->exibirConteudo(MENSAGEM_ERRO);

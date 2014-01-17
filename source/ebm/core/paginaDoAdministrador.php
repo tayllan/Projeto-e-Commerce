@@ -1,7 +1,7 @@
 <?php
 
 require_once '../config.php';
-require_once ROOT . 'view/template/html.php';
+require_once DIR_ROOT . 'view/template/html.php';
 
 cabecalhoHTML('Página do Administrador');
 cabecalho('Super Cabeçalho');

@@ -1,6 +1,6 @@
 <?php
 
-require_once ROOT . 'entity/regiaoModel.php';
+require_once DIR_ROOT . 'entity/regiaoModel.php';
 require_once 'baseController.php';
 
 class RegiaoController extends BaseController {

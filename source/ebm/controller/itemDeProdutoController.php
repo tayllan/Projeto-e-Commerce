@@ -1,8 +1,8 @@
 <?php
 
-require_once ROOT . 'entity/itemDeProdutoModel.php';
-require_once ROOT . 'controller/compraController.php';
-require_once ROOT . 'controller/produtoController.php';
+require_once DIR_ROOT . 'entity/itemDeProdutoModel.php';
+require_once DIR_ROOT . 'controller/compraController.php';
+require_once DIR_ROOT . 'controller/produtoController.php';
 require_once 'baseController.php';
 
 class ItemDeProdutoController extends BaseController {

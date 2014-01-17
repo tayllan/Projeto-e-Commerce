@@ -1,13 +1,13 @@
 <?php
 
 require_once 'baseView.php';
-require_once ROOT . 'controller/itemDeProdutoController.php';
-require_once ROOT . 'controller/compraController.php';
-require_once ROOT . 'controller/produtoController.php';
-require_once ROOT . 'entity/itemDeProdutoModel.php';
-require_once ROOT . 'entity/compraModel.php';
-require_once ROOT . 'entity/produtoModel.php';
-require_once ROOT . 'view/template/itemDeProdutoEdicao.php';
+require_once DIR_ROOT . 'controller/itemDeProdutoController.php';
+require_once DIR_ROOT . 'controller/compraController.php';
+require_once DIR_ROOT . 'controller/produtoController.php';
+require_once DIR_ROOT . 'entity/itemDeProdutoModel.php';
+require_once DIR_ROOT . 'entity/compraModel.php';
+require_once DIR_ROOT . 'entity/produtoModel.php';
+require_once DIR_ROOT . 'view/template/itemDeProdutoEdicao.php';
 
 class ItemDeProdutoView extends BaseView {
     
@@ -35,7 +35,7 @@ class ItemDeProdutoView extends BaseView {
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($itemDeProduto);
-            $this->exibirMensagem(
+            $this->exibirMensagemCadastro(
                 'Item De Prdotuo', $trueFalse
             );
         }

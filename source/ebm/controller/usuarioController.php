@@ -1,8 +1,8 @@
 <?php
 
-require_once ROOT . 'entity/usuarioModel.php';
-require_once ROOT . 'controller/enderecoController.php';
-require_once ROOT . 'controller/generoSexualController.php';
+require_once DIR_ROOT . 'entity/usuarioModel.php';
+require_once DIR_ROOT . 'controller/enderecoController.php';
+require_once DIR_ROOT . 'controller/generoSexualController.php';
 require_once 'baseController.php';
 
 class UsuarioController extends BaseController {
