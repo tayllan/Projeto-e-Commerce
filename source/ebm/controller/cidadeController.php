@@ -103,5 +103,13 @@ class CidadeController extends BaseController {
 
         return $cidade;
     }
+    
+    public function getStateName($linha) {
+        $nomeUnidadeFederativa = $this->unidadeFederativaController->getById(
+            $linha[Colunas::CIDADE_FK_UNIDADE_FEDERATIVA]
+        )[Colunas::UNIDADE_FEDERATIVA_NOME];
+        
+        return $nomeUnidadeFederativa;
+    }
 
 }

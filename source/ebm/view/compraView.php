@@ -9,11 +9,8 @@ require_once DIR_ROOT . 'view/template/compraEdicao.php';
 
 class CompraView extends BaseView {
 
-    private $usuarioController;
-
     public function __construct() {
         $this->controller = new CompraController();
-        $this->usuarioController = new UsuarioController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -78,19 +75,11 @@ class CompraView extends BaseView {
         $conteudo = '<tr><td><a href="compraView.php?editar=true&id=' . $linha[Colunas::COMPRA_ID] . '">'
             . $linha[Colunas::COMPRA_DATA] . '</a></td>'
             . '<td>' . $linha[Colunas::COMPRA_TOTAL] . '</td>'
-            . '<td>' . $this->getUserName($linha) . '</td>'
+            . '<td>' . $this->controller->getUserName($linha) . '</td>'
             . '<td><form action="compraView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::COMPRA_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getUserName($linha) {
-        $nomeUsuario = $this->usuarioController->getById(
-            $linha[Colunas::COMPRA_FK_USUARIO]
-        )[Colunas::USUARIO_NOME];
-        
-        return $nomeUsuario;
     }
 
     protected function alterar() {

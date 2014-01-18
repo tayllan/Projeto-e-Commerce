@@ -8,14 +8,9 @@ require_once DIR_ROOT . 'entity/produtoModel.php';
 require_once DIR_ROOT . 'view/template/produtoEdicao.php';
 
 class ProdutoView extends BaseView {
-    
-    private $marcaController;
-    private $categoriaController;
 
     public function __construct() {
         $this->controller = new ProdutoController();
-        $this->marcaController = new MarcaDeProdutoController();
-        $this->categoriaController = new CategoriaDeProdutoController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -85,30 +80,14 @@ class ProdutoView extends BaseView {
         $conteudo = '<tr><td><a href="produtoView.php?editar=true&id=' . $linha[Colunas::PRODUTO_ID] . '">'
             . $linha[Colunas::PRODUTO_NOME] . '</a></td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
-            . '<td>' . $this->getBrandName($linha) . '</td>'
-            . '<td>' . $this->getCategoryName($linha) . '</td>'
+            . '<td>' . $this->controller->getBrandName($linha) . '</td>'
+            . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td>'
             . '<td><form action="produtoView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::PRODUTO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getBrandName($linha) {
-        $nomeMarca = $this->marcaController->getById(
-            $linha[Colunas::PRODUTO_FK_MARCA]
-        )[Colunas::MARCA_DE_PRODUTO_NOME];
-        
-        return $nomeMarca;
-    }
-    
-    private function getCategoryName($linha) {
-        $nomeCategoria = $this->categoriaController->getById(
-            $linha[Colunas::PRODUTO_FK_CATEGORIA]
-        )[Colunas::CATEGORIA_DE_PRODUTO_NOME];
-        
-        return $nomeCategoria;
     }
 
     protected function alterar() {
@@ -120,7 +99,7 @@ class ProdutoView extends BaseView {
     }
     
     protected function exibirConteudo($conteudo) {
-        cabecalhoHTML('Cadastro de Usuarios');
+        cabecalhoHTML('Cadastro de Produtos');
         cabecalho('Super Cabeçalho');
         echo $conteudo;
         rodape('Super Rodapé');

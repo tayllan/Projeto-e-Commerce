@@ -6,11 +6,11 @@ require_once 'baseController.php';
 
 class EnderecoController extends BaseController {
     
-    private $cidade;
+    private $cidadeController;
     
     public function __construct() {
         parent::__construct();
-        $this->cidade = new CidadeController();
+        $this->cidadeController = new CidadeController();
     }
 
     protected function inserir($endereco) {
@@ -89,7 +89,7 @@ class EnderecoController extends BaseController {
     }
 
     public function construirObjeto(array $codigosIdentificadores = NULL) {
-        $cidade = $this->cidade->construirObjetoPorId(
+        $cidade = $this->cidadeController->construirObjetoPorId(
             $codigosIdentificadores[Colunas::ENDERECO_FK_CIDADE]
         );
         $endereco = new Endereco(
@@ -106,7 +106,7 @@ class EnderecoController extends BaseController {
 
     public function construirObjetoPorId($id) {
         $arrayEndereco = $this->getById($id);
-        $cidade = $this->cidade->construirObjetoPorId(
+        $cidade = $this->cidadeController->construirObjetoPorId(
             $arrayEndereco[Colunas::ENDERECO_FK_CIDADE]
         );
         $endereco = new Endereco(
@@ -119,6 +119,14 @@ class EnderecoController extends BaseController {
         );
 
         return $endereco;
+    }
+    
+    public function getCityName($linha) {
+        $nomeCidade = $this->cidadeController->getById(
+            $linha[Colunas::ENDERECO_FK_CIDADE]
+        )[Colunas::CIDADE_NOME];
+        
+        return $nomeCidade;
     }
 
 }

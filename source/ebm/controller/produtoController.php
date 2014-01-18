@@ -130,5 +130,21 @@ class ProdutoController extends BaseController {
         
         return $produto;
     }
+    
+    public function getBrandName($linha) {
+        $nomeMarca = $this->marcaController->getById(
+            $linha[Colunas::PRODUTO_FK_MARCA]
+        )[Colunas::MARCA_DE_PRODUTO_NOME];
+        
+        return $nomeMarca;
+    }
+    
+    public function getCategoryName($linha) {
+        $nomeCategoria = $this->categoriaController->getById(
+            $linha[Colunas::PRODUTO_FK_CATEGORIA]
+        )[Colunas::CATEGORIA_DE_PRODUTO_NOME];
+        
+        return $nomeCategoria;
+    }
 
 }

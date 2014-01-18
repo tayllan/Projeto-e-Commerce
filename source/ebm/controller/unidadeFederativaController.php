@@ -110,5 +110,13 @@ class UnidadeFederativaController extends BaseController {
 
         return $unidadeFederativa;
     }
+    
+    public function getRegionName($linha) {
+        $nomeRegiao = $this->regiaoController->getById(
+            $linha[Colunas::UNIDADE_FEDERATIVA_FK_REGIAO]
+        )[Colunas::REGIAO_NOME];
+        
+        return $nomeRegiao;
+    }
 
 }

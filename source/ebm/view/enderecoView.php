@@ -8,12 +8,9 @@ require_once DIR_ROOT . 'entity/cidadeModel.php';
 require_once DIR_ROOT . 'view/template/enderecoEdicao.php';
 
 class EnderecoView extends BaseView {
-    
-    private $cidadeController;
 
     public function __construct() {
         $this->controller = new EnderecoController();
-        $this->cidadeController = new CidadeController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -82,19 +79,11 @@ class EnderecoView extends BaseView {
             . '<td>' . $linha[Colunas::ENDERECO_CEP] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_RUA] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_NUMERO] . '</td>'
-            . '<td>' . $this->getCityName($linha) . '</td>'
+            . '<td>' . $this->controller->getCityName($linha) . '</td>'
             . '<td><form action="enderecoView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::ENDERECO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getCityName($linha) {
-        $nomeCidade = $this->cidadeController->getById(
-            $linha[Colunas::ENDERECO_FK_CIDADE]
-        )[Colunas::CIDADE_NOME];
-        
-        return $nomeCidade;
     }
 
     protected function alterar() {

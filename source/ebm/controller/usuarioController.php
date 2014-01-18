@@ -134,5 +134,25 @@ class UsuarioController extends BaseController {
         
         return $usuario;
     }
+    
+    public function getAddressName($linha) {
+        $arrayEndereco = $this->enderecoController->getById(
+            $linha[Colunas::USUARIO_FK_ENDERECO]
+        );
+        $nomeEndereco = $arrayEndereco[Colunas::ENDERECO_BAIRRO] . ' '
+            . $arrayEndereco[Colunas::ENDERECO_RUA] . ' '
+            . $arrayEndereco[Colunas::ENDERECO_NUMERO] . ' '
+            . $arrayEndereco[Colunas::ENDERECO_CEP];
+        
+        return $nomeEndereco;
+    }
+    
+    public function getGenderName($linha) {
+        $nomeGenero = $this->generoSexualController->getById(
+            $linha[Colunas::USUARIO_FK_GENERO_SEXUAL]
+        )[Colunas::GENERO_SEXUAL_NOME];
+        
+        return $nomeGenero;            
+    }
 
 }

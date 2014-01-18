@@ -10,14 +10,9 @@ require_once DIR_ROOT . 'entity/generoSexualModel.php';
 require_once DIR_ROOT . 'view/template/usuarioEdicao.php';
 
 class UsuarioView extends BaseView {
-    
-    private $enderecoController;
-    private $generoSexualController;
 
     public function __construct() {
         $this->controller = new UsuarioController();
-        $this->enderecoController = new EnderecoController();
-        $this->generoSexualController = new GeneroSexualController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -99,32 +94,12 @@ class UsuarioView extends BaseView {
             . '<td>' . $linha[Colunas::USUARIO_TELEFONE] . '</td>'
             . '<td>' . $linha[Colunas::USUARIO_DATA_DE_NASCIMENTO] . '</td>'
             . '<td>' . $linha[Colunas::USUARIO_ADMINISTRADOR] . '</td>'
-            . '<td>' . $this->getAddressName($linha) . '</td>'
-            . '<td>' . $this->getGenderName($linha) . '</td>'
+            . '<td>' . $this->controller->getAddressName($linha) . '</td>'
+            . '<td>' . $this->controller->getGenderName($linha) . '</td>'
             . '<td><form action="usuarioView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::USUARIO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getAddressName($linha) {
-        $arrayEndereco = $this->enderecoController->getById(
-            $linha[Colunas::USUARIO_FK_ENDERECO]
-        );
-        $nomeEndereco = $arrayEndereco[Colunas::ENDERECO_BAIRRO] . ' '
-            . $arrayEndereco[Colunas::ENDERECO_RUA] . ' '
-            . $arrayEndereco[Colunas::ENDERECO_NUMERO] . ' '
-            . $arrayEndereco[Colunas::ENDERECO_CEP];
-        
-        return $nomeEndereco;
-    }
-    
-    private function getGenderName($linha) {
-        $nomeGenero = $this->generoSexualController->getById(
-            $linha[Colunas::USUARIO_FK_GENERO_SEXUAL]
-        )[Colunas::GENERO_SEXUAL_NOME];
-        
-        return $nomeGenero;            
     }
 
     protected function alterar() {

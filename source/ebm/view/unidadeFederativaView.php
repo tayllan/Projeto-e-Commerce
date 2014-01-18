@@ -8,12 +8,9 @@ require_once DIR_ROOT . 'entity/regiaoModel.php';
 require_once DIR_ROOT . 'view/template/unidadeFederativaEdicao.php';
 
 class UnidadeFederativaView extends BaseView {
-    
-    private $regiaoController;
 
     public function __construct() {
         $this->controller = new UnidadeFederativaController();
-        $this->regiaoController = new RegiaoController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -78,19 +75,11 @@ class UnidadeFederativaView extends BaseView {
         $conteudo = '<tr><td><a href="unidadeFederativaView.php?editar=true&id='
             . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '">' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . '</a></td>'
             . '<td>' . $linha[Colunas::UNIDADE_FEDERATIVA_SIGLA] . '</td>'
-            . '<td>' . $this->getRegionName($linha) . '</td>'
+            . '<td>' . $this->controller->getRegionName($linha) . '</td>'
             . '<td><form action="unidadeFederativaView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getRegionName($linha) {
-        $nomeRegiao = $this->regiaoController->getById(
-            $linha[Colunas::UNIDADE_FEDERATIVA_FK_REGIAO]
-        )[Colunas::REGIAO_NOME];
-        
-        return $nomeRegiao;
     }
 
     protected function alterar() {

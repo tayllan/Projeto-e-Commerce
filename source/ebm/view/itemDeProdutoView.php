@@ -10,14 +10,9 @@ require_once DIR_ROOT . 'entity/produtoModel.php';
 require_once DIR_ROOT . 'view/template/itemDeProdutoEdicao.php';
 
 class ItemDeProdutoView extends BaseView {
-    
-    private $compraController;
-    private $produtoController;
 
     public function __construct() {
         $this->controller = new ItemDeProdutoController();
-        $this->compraController = new CompraController();
-        $this->produtoController = new ProdutoController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -84,30 +79,12 @@ class ItemDeProdutoView extends BaseView {
         $conteudo = '<tr><td><a href="itemDeProdutoView.php?editar=true&id='
             . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '">' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '</a></td>'
             . '<td>' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td>'
-            . '<td>' . $this->getBuyName($linha) . '</td>'
-            . '<td>' . $this->getProductName($linha) . '</td>'
+            . '<td>' . $this->controller->getBuyName($linha) . '</td>'
+            . '<td>' . $this->controller->getProductName($linha) . '</td>'
             . '<td><form action="itemDeProdutoView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getBuyName($linha) {
-        $arrayCompra = $this->compraController->getById(
-            $linha[Colunas::ITEM_DE_PRODUTO_FK_COMPRA]
-        );
-        $nomeCompra = $arrayCompra[Colunas::COMPRA_DATA] . ' '
-            . $arrayCompra[Colunas::COMPRA_TOTAL];
-        
-        return $nomeCompra;
-    }
-    
-    private function getProductName($linha) {
-        $nomeProduto = $this->produtoController->getById(
-            $linha[Colunas::ITEM_DE_PRODUTO_FK_PRODUTO]
-        )[Colunas::PRODUTO_NOME];
-        
-        return $nomeProduto;            
     }
 
     protected function alterar() {

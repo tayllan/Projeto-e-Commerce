@@ -122,5 +122,23 @@ class ItemDeProdutoController extends BaseController {
 
         return $itemDeProduto;
     }
+    
+    public function getBuyName($linha) {
+        $arrayCompra = $this->compraController->getById(
+            $linha[Colunas::ITEM_DE_PRODUTO_FK_COMPRA]
+        );
+        $nomeCompra = $arrayCompra[Colunas::COMPRA_DATA] . ' '
+            . $arrayCompra[Colunas::COMPRA_TOTAL];
+        
+        return $nomeCompra;
+    }
+    
+    public function getProductName($linha) {
+        $nomeProduto = $this->produtoController->getById(
+            $linha[Colunas::ITEM_DE_PRODUTO_FK_PRODUTO]
+        )[Colunas::PRODUTO_NOME];
+        
+        return $nomeProduto;            
+    }
 
 }

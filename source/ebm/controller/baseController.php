@@ -1,7 +1,7 @@
 <?php
 
 require_once '../config.php';
-require_once 'database.php';
+require_once DIR_ROOT . 'controller/database.php';
 
 abstract class BaseController extends DAO {
 

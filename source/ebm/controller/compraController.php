@@ -107,5 +107,13 @@ class CompraController extends BaseController {
 
         return $compra;
     }
+    
+    public function getUserName($linha) {
+        $nomeUsuario = $this->usuarioController->getById(
+            $linha[Colunas::COMPRA_FK_USUARIO]
+        )[Colunas::USUARIO_NOME];
+        
+        return $nomeUsuario;
+    }
 
 }

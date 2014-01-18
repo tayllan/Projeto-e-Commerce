@@ -8,12 +8,9 @@ require_once DIR_ROOT . 'entity/unidadeFederativaModel.php';
 require_once DIR_ROOT . 'view/template/cidadeEdicao.php';
 
 class CidadeView extends BaseView {
-    
-    private $unidadeFederativaController;
 
     public function __construct() {
         $this->controller = new CidadeController();
-        $this->unidadeFederativaController = new UnidadeFederativaController();
         if ($this->controller->testarLogin()) {
             $this->rotear();
         }
@@ -76,19 +73,11 @@ class CidadeView extends BaseView {
     protected function construirTabela($linha) {
         $conteudo = '<tr><td><a href="cidadeView.php?editar=true&id=' . $linha[Colunas::CIDADE_ID] . '">'
             . $linha[Colunas::CIDADE_NOME] . '</a></td>'
-            . '<td>' . $this->getStateName($linha) . '</td>'
+            . '<td>' . $this->controller->getStateName($linha) . '</td>'
             . '<td><form action="cidadeView.php" method="POST"><button type="submit" name="deletar"'
             . 'value="' . $linha[Colunas::CIDADE_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
-    }
-    
-    private function getStateName($linha) {
-        $nomeUnidadeFederativa = $this->unidadeFederativaController->getById(
-            $linha[Colunas::CIDADE_FK_UNIDADE_FEDERATIVA]
-        )[Colunas::UNIDADE_FEDERATIVA_NOME];
-        
-        return $nomeUnidadeFederativa;
     }
 
     protected function alterar() {
