@@ -9,7 +9,7 @@ class RegiaoView extends BaseView {
 
     public function __construct() {
         $this->controller = new RegiaoController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

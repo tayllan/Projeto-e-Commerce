@@ -9,7 +9,7 @@ class CategoriaDeProdutoView extends BaseView {
 
     public function __construct() {
         $this->controller = new CategoriaDeProdutoController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

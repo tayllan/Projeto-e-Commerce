@@ -13,7 +13,7 @@ class ItemDeProdutoView extends BaseView {
 
     public function __construct() {
         $this->controller = new ItemDeProdutoController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

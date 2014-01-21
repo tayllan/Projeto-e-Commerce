@@ -11,7 +11,7 @@ class UnidadeFederativaView extends BaseView {
 
     public function __construct() {
         $this->controller = new UnidadeFederativaController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

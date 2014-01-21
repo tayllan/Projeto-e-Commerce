@@ -9,7 +9,7 @@ class GeneroSexualView extends BaseView {
 
     public function __construct() {
         $this->controller = new GeneroSexualController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

@@ -13,7 +13,7 @@ class UsuarioView extends BaseView {
 
     public function __construct() {
         $this->controller = new UsuarioController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

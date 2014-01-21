@@ -1,7 +1,7 @@
 <?php
 
 require_once '../config.php';
-#require_once DIR_ROOT . 'core/login.php';
+require_once DIR_ROOT . 'core/login.php';
 require_once DIR_ROOT . 'view/template/html.php';
 require_once DIR_ROOT . 'controller/realizarCadastroController.php';
 require_once DIR_ROOT . 'entity/usuarioModel.php';
@@ -18,10 +18,10 @@ class RealizarCadastroView {
     public function rotear() {
         if (isset($_POST[Colunas::USUARIO_NOME])) {
             if ($this->controller->inserir()) {
-                echo 'deu certo';
+                $this->controller->logarRedirecionar();
             }
             else {
-                echo 'deu ERRADO';
+                echo '<p class="erro">Ocorreu algum erro no cadastro</p>';
             }
         }
         else {

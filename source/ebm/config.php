@@ -77,7 +77,7 @@ class Colunas {
 
 \define('MENSAGEM_DELECAO_SUCESSO', ' deletado(a) com sucesso!');
 
-\define('MENSAGEM_ERRO', 'Ocorreu algum erro!');
+\define('MENSAGEM_ERRO', '<p class="erro">Ocorreu algum erro!<p>');
 
 \define('SESSAO_LOGADO', 'logado');
 

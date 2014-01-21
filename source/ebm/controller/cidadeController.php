@@ -20,9 +20,9 @@ class CidadeController extends BaseController {
         );
 
         return $sqlQuery->execute(
-                array(
-                    $cidade->unidadeFederativa->id, $cidade->nome
-                )
+            array(
+                $cidade->unidadeFederativa->id, $cidade->nome
+            )
         );
     }
 

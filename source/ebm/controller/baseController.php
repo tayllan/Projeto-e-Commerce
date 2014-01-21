@@ -2,6 +2,7 @@
 
 require_once '../config.php';
 require_once DIR_ROOT . 'controller/database.php';
+require_once DIR_ROOT . 'core/login.php';
 
 abstract class BaseController extends DAO {
 
@@ -37,10 +38,9 @@ abstract class BaseController extends DAO {
         return $sqlQuery;
     }
 
-    public function testarLogin() {
-        if (isset($_SESSION[SESSAO_USUARIO_PERMISSAO])) {
+    public function testarLoginAdministrador() {
+        if (Login::testarLoginAdministrador()) {
             return true;
-            #$this->rotear();
         }
         else {
             header('Location: ../index.php');

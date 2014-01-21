@@ -22,3 +22,7 @@ header, footer {
 table {
     margin: auto;
 }
+
+.erro {
+    background-color: red;
+}

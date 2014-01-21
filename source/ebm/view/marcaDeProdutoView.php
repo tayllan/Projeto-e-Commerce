@@ -9,7 +9,7 @@ class MarcaDeProdutoView extends BaseView {
 
     public function __construct() {
         $this->controller = new MarcaDeProdutoController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }

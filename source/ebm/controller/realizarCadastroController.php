@@ -6,6 +6,7 @@ require_once DIR_ROOT . 'controller/cidadeController.php';
 require_once DIR_ROOT . 'controller/enderecoController.php';
 require_once DIR_ROOT . 'controller/usuarioController.php';
 require_once DIR_ROOT . 'controller/generoSexualController.php';
+require_once DIR_ROOT . 'core/login.php';
 
 class RealizarCadastroController {
 
@@ -14,6 +15,7 @@ class RealizarCadastroController {
     private $enderecoController;
     private $usuarioController;
     private $generoSexualController;
+    private $usuario;
 
     public function __construct() {
         $this->unidadeFederativaController = new UnidadeFederativaController();
@@ -21,6 +23,7 @@ class RealizarCadastroController {
         $this->enderecoController = new EnderecoController();
         $this->usuarioController = new UsuarioController();
         $this->generoSexualController = new GeneroSexualController();
+        $this->usuario = Usuario::getNullObject();
     }
 
     public function inserir() {
@@ -76,7 +79,7 @@ class RealizarCadastroController {
     }
     
     private function construirObjetoUsuario($endereco, $generoSexual) {
-        $usuario = new Usuario(
+        $this->usuario = new Usuario(
             NULL, $_POST[Colunas::USUARIO_NOME],
             $_POST[Colunas::USUARIO_LOGIN], $_POST[Colunas::USUARIO_SENHA],
             $_POST[Colunas::USUARIO_CPF], $_POST[Colunas::USUARIO_TELEFONE],
@@ -84,9 +87,14 @@ class RealizarCadastroController {
             $endereco, $generoSexual
         );
         
-        $trueFalse = $this->usuarioController->rotearInsercao($usuario);
+        $trueFalse = $this->usuarioController->rotearInsercao($this->usuario);
         
         return $trueFalse;
+    }
+    
+    public function logarRedirecionar() {
+        Login::realizarLogin($this->usuario);
+        header('Location: ../index.php');
     }
 
     public function construirFormulario() {

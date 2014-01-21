@@ -11,7 +11,7 @@ class CompraView extends BaseView {
 
     public function __construct() {
         $this->controller = new CompraController();
-        if ($this->controller->testarLogin()) {
+        if ($this->controller->testarLoginAdministrador()) {
             $this->rotear();
         }
     }
