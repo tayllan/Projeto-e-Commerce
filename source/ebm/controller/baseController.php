@@ -2,7 +2,6 @@
 
 require_once '../config.php';
 require_once DIR_ROOT . 'controller/database.php';
-require_once DIR_ROOT . 'core/login.php';
 
 abstract class BaseController extends DAO {
 
@@ -39,7 +38,7 @@ abstract class BaseController extends DAO {
     }
 
     public function testarLoginAdministrador() {
-        if (Login::testarLoginAdministrador()) {
+        if (LoginController::testarLoginAdministrador()) {
             return true;
         }
         else {
@@ -73,3 +72,5 @@ abstract class BaseController extends DAO {
     
     abstract public function construirObjetoPorId($id);
 }
+
+require_once DIR_ROOT . 'controller/loginController.php';

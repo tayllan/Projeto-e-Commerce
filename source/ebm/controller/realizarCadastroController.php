@@ -6,7 +6,7 @@ require_once DIR_ROOT . 'controller/cidadeController.php';
 require_once DIR_ROOT . 'controller/enderecoController.php';
 require_once DIR_ROOT . 'controller/usuarioController.php';
 require_once DIR_ROOT . 'controller/generoSexualController.php';
-require_once DIR_ROOT . 'core/login.php';
+require_once DIR_ROOT . 'controller/loginController.php';
 
 class RealizarCadastroController {
 
@@ -93,7 +93,7 @@ class RealizarCadastroController {
     }
     
     public function logarRedirecionar() {
-        Login::realizarLogin($this->usuario);
+        LoginController::realizarLogin($this->usuario);
         header('Location: ../index.php');
     }
 
