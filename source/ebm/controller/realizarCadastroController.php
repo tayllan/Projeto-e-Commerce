@@ -24,10 +24,6 @@ class RealizarCadastroController {
     }
 
     public function inserir() {
-        /*
-         * Cidade e Endereço estão sendo inseridos no Banco repetidamente. O Usuário nunca é inserido.
-         * TEM UM ERRO AQUI.
-         */
         $unidadeFederativa = $this->construirObjetoUnidadeFederativa();
         $cidade = $this->construirObjetoCidade($unidadeFederativa);
         $endereco = $this->construirObjetoEndereco($cidade);
@@ -84,7 +80,7 @@ class RealizarCadastroController {
             NULL, $_POST[Colunas::USUARIO_NOME],
             $_POST[Colunas::USUARIO_LOGIN], $_POST[Colunas::USUARIO_SENHA],
             $_POST[Colunas::USUARIO_CPF], $_POST[Colunas::USUARIO_TELEFONE],
-            $_POST[Colunas::USUARIO_DATA_DE_NASCIMENTO], FALSE,
+            $_POST[Colunas::USUARIO_DATA_DE_NASCIMENTO], 'false',
             $endereco, $generoSexual
         );
         
