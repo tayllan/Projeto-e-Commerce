@@ -1,6 +1,7 @@
 <?php
 
-require_once '../config.php';
+# TODO: consertar os REQUIRE_ONCE e utilizar sempre a constante DIR_ROOT
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once DIR_ROOT . 'controller/database.php';
 
 abstract class BaseController extends DAO {

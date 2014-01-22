@@ -1,7 +1,9 @@
 <?php
 
-require_once '../config.php';
+# TODO: consertar os REQUIRE_ONCE e utilizar sempre a constante DIR_ROOT
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once DIR_ROOT . 'controller/usuarioController.php';
+require_once DIR_ROOT . 'entity/usuarioModel.php';
 require_once DIR_ROOT . 'view/template/html.php';
 
 class LoginController {
@@ -32,6 +34,33 @@ class LoginController {
         }
         else {
             return false;
+        }
+    }
+    
+    public static function getUsuarioLogado() {
+        if (LoginController::testarLogin()) {
+            LoginController::$usuario = new UsuarioController();
+            $usuario = LoginController::$usuario->construirObjetoPorId($_SESSION[SESSAO_USUARIO_ID]);
+            
+            return $usuario;
+        }
+        else {
+            return NULL;
+        }
+    }
+    
+    public static function setIdCompra($compraId) {
+        if (LoginController::testarLogin()) {
+            $_SESSION[SESSAO_COMPRA_ID] = $compraId;
+        }
+    }
+    
+    public static function getIdCompra() {
+        if (isset($_SESSION[SESSAO_COMPRA_ID])) {
+            return $_SESSION[SESSAO_COMPRA_ID];
+        }
+        else {
+            return NULL;
         }
     }
 

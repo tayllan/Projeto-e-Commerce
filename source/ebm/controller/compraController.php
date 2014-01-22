@@ -48,7 +48,7 @@ class CompraController extends BaseController {
         );
 
         $sqlQuery->execute(
-                array($id)
+            array($id)
         );
         
         if ($sqlQuery->rowCount() > 0) {
@@ -62,7 +62,7 @@ class CompraController extends BaseController {
     public function getId($compra) {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::COMPRA_ID . ' FROM ' . Colunas::COMPRA . ' WHERE '
-            . Colunas::COMPRA_DATA . ' LIKE ? AND ' . Colunas::COMPRA_TOTAL . ' = ? AND '
+            . Colunas::COMPRA_DATA . ' = ? AND ' . Colunas::COMPRA_TOTAL . ' = ? AND '
             . Colunas::COMPRA_FK_USUARIO . ' = ?'
         );
 

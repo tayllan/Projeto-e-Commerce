@@ -87,4 +87,6 @@ class Colunas {
 
 \define('SESSAO_USUARIO_PERMISSAO', 'usuarioPermissao');
 
+\define('SESSAO_COMPRA_ID', 'compraId');
+
 session_start();
