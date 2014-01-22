@@ -34,17 +34,12 @@ class CarrinhoDeComprasController extends DAO {
         if ($compraId) {
             $compra = $this->compraController->construirObjetoPorId($compraId);
             $produto = $this->produtoController->construirObjetoPorId($produtoId);
-        }
-
-        if ($compraId && !$compra->concluida) {
-            $this->inserirItemDeProdutoAlterarCompra($produto, $compra);
-
-            echo 'Compra sendo realizada!';
+            if ($compraId && !$compra->concluida) {
+                $this->inserirItemDeProdutoAlterarCompra($produto, $compra);
+            }
         }
         else {
             $compraId = $this->inserirCompra($produtoId);
-
-            echo 'Nova compra!';
         }
     }
 
@@ -82,8 +77,32 @@ class CarrinhoDeComprasController extends DAO {
         return $compra->id;
     }
 
-    private function listar() {
+    public function listar($usuario) {
+        $sqlQuery = $this->conexao->prepare(
+            'SELECT ' . Colunas::PRODUTO_NOME . ', ' . Colunas::PRODUTO_DESCRICAO . ', '
+            . Colunas::MARCA_DE_PRODUTO_NOME . ', ' . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', '
+            . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . ', ' . Colunas::ITEM_DE_PRODUTO_PRECO . ' FROM '
+            . Colunas::USUARIO . ', ' . Colunas::COMPRA . ', '
+            . Colunas::ITEM_DE_PRODUTO . ', ' . Colunas::PRODUTO . ', '
+            . Colunas::CATEGORIA_DE_PRODUTO . ', ' . Colunas::MARCA_DE_PRODUTO . ' WHERE '
+            . Colunas::USUARIO_ID . ' = ? AND ' . Colunas::USUARIO_ID . ' = '
+            . Colunas::COMPRA_FK_USUARIO . ' AND ' . Colunas::COMPRA_ID . ' = '
+            . Colunas::ITEM_DE_PRODUTO_FK_COMPRA . ' AND ' . Colunas::ITEM_DE_PRODUTO_FK_PRODUTO . ' = '
+            . Colunas::PRODUTO_ID . ' AND ' . Colunas::COMPRA_CONCLUIDA . ' = FALSE AND '
+            . Colunas::PRODUTO_FK_MARCA . ' = ' . Colunas::MARCA_DE_PRODUTO_ID . ' AND '
+            . Colunas::PRODUTO_FK_CATEGORIA . ' = ' . Colunas::CATEGORIA_DE_PRODUTO_ID
+        );
         
+        $sqlQuery->execute(
+            array($usuario->id)
+        );
+        
+        if ($sqlQuery->rowCount() > 0) {
+            return $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else {
+            return array();
+        }
     }
 
 }

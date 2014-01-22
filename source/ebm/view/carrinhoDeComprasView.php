@@ -15,17 +15,24 @@ class CarrinhoDeComprasView {
     private function rotear() {
         if (isset($_POST[Colunas::PRODUTO_ID])) {
             $this->controller->rotearInsercao($_POST[Colunas::PRODUTO_ID]);
+            header('Location: carrinhoDeComprasView.php');
+        }
+        else {
+            $usuario = LoginController::getUsuarioLogado();
+            $this->exibirConteudo(
+                $this->construirFormulario($usuario)
+            );
         }
     }
     
-    public function construirFormulario() {
-        $conteudo = '<form action="/view/carrinhoDeComprasControllerView.php" method="POST">
+    public function construirFormulario($usuario) {
+        $conteudo = '<form action="" method="POST">
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>
                 
                 <div>';
         
-        $conteudo .= $this->listar();
+        $conteudo .= $this->listar($usuario);
 
         $conteudo .= '</div>
 
@@ -38,14 +45,13 @@ class CarrinhoDeComprasView {
         return $conteudo;
     }
     
-    public function listar() {
-        $array = $this->controller->listar();
+    public function listar($usuario) {
+        $array = $this->controller->listar($usuario);
         $conteudo = $this->criarTabela(
             'Produtos Cadastrados', array(
-                'Comprar', 'Nome',
-                'Descrição', 'Marca',
-                'Categoria', 'Preço',
-                'Quantidade'
+                'Nome', 'Descrição',
+                'Marca', 'Categoria',
+                'Quantidade', 'Preço'
             )
         );
 
@@ -53,7 +59,7 @@ class CarrinhoDeComprasView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        echo $conteudo . '</tbody></table>';
+        return $conteudo . '</tbody></table>';
     }
 
     private function criarTabela($caption, array $array) {
@@ -71,15 +77,12 @@ class CarrinhoDeComprasView {
     }
 
     private function construirTabela($linha) {
-        $conteudo = '<form action="/view/carrinhoDeComprasView.php" method="POST">'
-            . '<tr><td><button class="comprar" type="submit" name="' . Colunas::PRODUTO_ID
-            . '" value="' . $linha[Colunas::PRODUTO_ID] . '">comprar</button></td>'
-            . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
+        $conteudo = '<tr><td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
-            . '<td>' . $this->controller->getBrandName($linha) . '</td>'
-            . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td></tr></form>';
+            . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
+            . '<td>' . $linha[Colunas::CATEGORIA_DE_PRODUTO_NOME] . '</td>'
+            . '<td><input type="number" value="' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '"</td>'
+            . '<td>' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td></tr>';
 
         return $conteudo;
     }
