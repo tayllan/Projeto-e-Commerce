@@ -69,7 +69,8 @@ class MarcaDeProdutoView extends BaseView {
         $conteudo = '<tr><td><a href="marcaDeProdutoView.php?editar=true&id='
             . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '">' . $linha[Colunas::MARCA_DE_PRODUTO_NOME]
             . '</a></td>'
-            . '<td><form action="marcaDeProdutoView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="marcaDeProdutoView.php" method="POST"><button class="deletar"'
+            . ' type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

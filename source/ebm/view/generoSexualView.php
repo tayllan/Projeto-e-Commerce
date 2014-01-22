@@ -69,7 +69,8 @@ class GeneroSexualView extends BaseView {
         $conteudo = '<tr><td><a href="generoSexualView.php?editar=true&id='
             . $linha[Colunas::GENERO_SEXUAL_ID] . '">'
             . $linha[Colunas::GENERO_SEXUAL_NOME] . '</a></td>'
-            . '<td><form action="generoSexualView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="generoSexualView.php" method="POST"><button class="deletar" '
+            . 'type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

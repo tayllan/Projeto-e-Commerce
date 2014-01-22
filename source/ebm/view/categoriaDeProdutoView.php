@@ -68,7 +68,8 @@ class CategoriaDeProdutoView extends BaseView {
     protected function construirTabela($linha) {
         $conteudo = '<tr><td><a href="categoriaDeProdutoView.php?editar=true&id='
             . $linha[Colunas::CATEGORIA_DE_PRODUTO_ID] . '">' . $linha[Colunas::CATEGORIA_DE_PRODUTO_NOME] . '</a></td>'
-            . '<td><form action="categoriaDeProdutoView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="categoriaDeProdutoView.php" method="POST"><button class="deletar" '
+            . 'type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::CATEGORIA_DE_PRODUTO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

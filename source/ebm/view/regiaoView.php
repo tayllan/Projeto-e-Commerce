@@ -66,7 +66,8 @@ class RegiaoView extends BaseView {
     protected function construirTabela($linha) {
         $conteudo = '<tr><td><a href="regiaoView.php?editar=true&id='
             . $linha[Colunas::REGIAO_ID] . '">' . $linha[Colunas::REGIAO_NOME] . '</a></td>'
-            . '<td><form action="regiaoView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="regiaoView.php" method="POST"><button class="deletar" type="submit"'
+            . ' name="deletar" '
             . 'value="' . $linha[Colunas::REGIAO_ID] . '">Deletar</button></form></td></tr>';
 
         return $conteudo;

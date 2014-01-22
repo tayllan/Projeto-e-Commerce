@@ -76,7 +76,8 @@ class UnidadeFederativaView extends BaseView {
             . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '">' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . '</a></td>'
             . '<td>' . $linha[Colunas::UNIDADE_FEDERATIVA_SIGLA] . '</td>'
             . '<td>' . $this->controller->getRegionName($linha) . '</td>'
-            . '<td><form action="unidadeFederativaView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="unidadeFederativaView.php" method="POST"><button class="deletar"'
+            . ' type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

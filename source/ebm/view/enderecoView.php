@@ -80,7 +80,8 @@ class EnderecoView extends BaseView {
             . '<td>' . $linha[Colunas::ENDERECO_RUA] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_NUMERO] . '</td>'
             . '<td>' . $this->controller->getCityName($linha) . '</td>'
-            . '<td><form action="enderecoView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="enderecoView.php" method="POST"><button class="deletar" '
+            . 'type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::ENDERECO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

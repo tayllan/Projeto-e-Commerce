@@ -26,3 +26,15 @@ table {
 .erro {
     background-color: red;
 }
+
+.deletar {
+    background: url(../images/iconeDeletar.png) no-repeat;
+    border: none;
+    text-indent:-9999px;
+    width: 16px;
+    height: 16px;
+}
+
+td {
+    text-align: center;
+}

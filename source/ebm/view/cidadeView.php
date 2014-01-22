@@ -74,7 +74,8 @@ class CidadeView extends BaseView {
         $conteudo = '<tr><td><a href="cidadeView.php?editar=true&id=' . $linha[Colunas::CIDADE_ID] . '">'
             . $linha[Colunas::CIDADE_NOME] . '</a></td>'
             . '<td>' . $this->controller->getStateName($linha) . '</td>'
-            . '<td><form action="cidadeView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="cidadeView.php" method="POST"><button class="deletar" '
+            . 'type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::CIDADE_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

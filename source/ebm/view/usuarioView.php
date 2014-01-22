@@ -96,8 +96,8 @@ class UsuarioView extends BaseView {
             . '<td>' . $linha[Colunas::USUARIO_ADMINISTRADOR] . '</td>'
             . '<td>' . $this->controller->getAddressName($linha) . '</td>'
             . '<td>' . $this->controller->getGenderName($linha) . '</td>'
-            . '<td><form action="usuarioView.php" method="POST"><button type="submit" name="deletar"'
-            . 'value="' . $linha[Colunas::USUARIO_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><form action="usuarioView.php" method="POST"><button class="deletar" type="submit"'
+            . ' name="deletar" value="' . $linha[Colunas::USUARIO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
     }

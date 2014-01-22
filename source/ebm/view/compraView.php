@@ -76,7 +76,8 @@ class CompraView extends BaseView {
             . $linha[Colunas::COMPRA_DATA] . '</a></td>'
             . '<td>' . $linha[Colunas::COMPRA_TOTAL] . '</td>'
             . '<td>' . $this->controller->getUserName($linha) . '</td>'
-            . '<td><form action="compraView.php" method="POST"><button type="submit" name="deletar"'
+            . '<td><form action="compraView.php" method="POST"><button class="deletar" '
+            . 'type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::COMPRA_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;

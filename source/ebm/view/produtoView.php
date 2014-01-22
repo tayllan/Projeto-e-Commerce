@@ -84,8 +84,8 @@ class ProdutoView extends BaseView {
             . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td>'
-            . '<td><form action="produtoView.php" method="POST"><button type="submit" name="deletar"'
-            . 'value="' . $linha[Colunas::PRODUTO_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><form action="produtoView.php" method="POST"><button class ="deletar" type="submit"'
+            . ' name="deletar" value="' . $linha[Colunas::PRODUTO_ID] . '">Deletar</button></form></td></tr>';
         
         return $conteudo;
     }
