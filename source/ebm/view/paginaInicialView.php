@@ -14,9 +14,10 @@ class PaginaInicialView {
         $array = $this->controller->listar();
         $conteudo = $this->criarTabela(
             'Produtos Cadastrados', array(
-                'Nome', 'Descrição',
-                'Marca', 'Categoria',
-                'Preço', 'Quantidade'
+                'Comprar', 'Nome',
+                'Descrição', 'Marca',
+                'Categoria', 'Preço',
+                'Quantidade'
             )
         );
 
@@ -42,12 +43,15 @@ class PaginaInicialView {
     }
 
     private function construirTabela($linha) {
-        $conteudo = '<tr><td>' . $linha[Colunas::PRODUTO_NOME] . '</a></td>'
+        $conteudo = '<form action="/view/carrinhoDeComprasView.php" method="POST">'
+            . '<tr><td><button class="comprar" type="submit" name="' . Colunas::PRODUTO_ID
+            . '" value="' . $linha[Colunas::PRODUTO_ID] . '">comprar</button></td>'
+            . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'
             . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td></tr>';
+            . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td></tr></form>';
 
         return $conteudo;
     }

@@ -17,12 +17,15 @@ function cabecalho($mensagem) {
     $conteudo ='<header>
     <p>' . $mensagem . '</p>
 </header>
-<div>
-    <a id="home" href="/index.php">Voltar à HOME</a>
+<div class="home">
+    <a href="/index.php">Voltar à HOME</a>
 </div>
-<div id="login"> <p>';
+<div class="login"> <p>';
     if ((isset($_SESSION[SESSAO_LOGADO]))) {
-        $conteudo .= $_SESSION[SESSAO_USUARIO_LOGIN] . ' <sub><a href="/core/logout.php">Sair</a></sub>';
+        $conteudo .= $_SESSION[SESSAO_USUARIO_LOGIN] . ' <sub><a href="/core/logout.php">Sair</a></sub>'
+        . '<br>'
+        . '<a href="/view/carrinhoDeComprasView.php">Meu Carrinho</a>';
+        
     }
     else {
         $conteudo .= '<a href="/core/login.php">Realizar login</a>'
