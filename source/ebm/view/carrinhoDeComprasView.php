@@ -26,7 +26,7 @@ class CarrinhoDeComprasView {
     }
     
     public function construirFormulario($usuario) {
-        $conteudo = '<form action="" method="POST">
+        $conteudo = '<form action="/view/pagamentoView.php" method="POST">
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>
                 
@@ -48,7 +48,7 @@ class CarrinhoDeComprasView {
     public function listar($usuario) {
         $array = $this->controller->listar($usuario);
         $conteudo = $this->criarTabela(
-            'Produtos Cadastrados', array(
+            'Produtos Adicionados no Carrinho', array(
                 'Nome', 'Descrição',
                 'Marca', 'Categoria',
                 'Quantidade', 'Preço'
@@ -77,7 +77,8 @@ class CarrinhoDeComprasView {
     }
 
     private function construirTabela($linha) {
-        $conteudo = '<tr><td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
+        $conteudo = '<tr>'
+            . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::CATEGORIA_DE_PRODUTO_NOME] . '</td>'
