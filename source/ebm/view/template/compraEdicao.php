@@ -10,7 +10,7 @@ function construirFormulario($compra) {
         
         <div>
             <label for="data">Data:</label>
-            <input type="date" id="data" name="' . Colunas::COMPRA_DATA . '" value="' . $compra->data . '">
+            <input type="text" id="data" name="' . Colunas::COMPRA_DATA . '" value="' . $compra->data . '">
         </div>
         
         <div>
@@ -33,6 +33,21 @@ function construirFormulario($compra) {
         </div>
         
         <div>
+            <label for="concluida">Concluida ?</label>
+            <select id="concluida" size="1" name="' . Colunas::COMPRA_CONCLUIDA . '">';
+    if ($compra->concluida) {
+        $conteudo .= '<option value="true" selected>SIM</option>
+                <option value="false">NÃO</option>';
+    }
+    else {
+        $conteudo .= '<option value="true">SIM</option>
+                <option value="false" selected>NÃO</option>';
+    }
+    
+    $conteudo .= '</select>
+        </div>
+        
+        <div>
             <input type="submit" name="submeter" value="Salvar">
         </div>
             
@@ -43,4 +58,13 @@ function construirFormulario($compra) {
 </form>';
             
     return $conteudo;
+}
+
+function ajustarConclusao($concluida) {
+    if ($concluida) {
+        return 'SIM';
+    }
+    else {
+        return 'NÃO';
+    }
 }

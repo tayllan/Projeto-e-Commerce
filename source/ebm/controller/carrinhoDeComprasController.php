@@ -26,29 +26,25 @@ class CarrinhoDeComprasController extends DAO {
         $this->compraController = new CompraController();
         $this->itemDeProdutoController = new ItemDeProdutoController();
     }
-    
+
     public function rotearInsercao($produtoId) {
-        $compraId = LoginController::getIdCompra();
-        
-        /*
-         * Se um outro usuário logar no sistema ele não vai interferir na compra do usuário anterior.
-         * Mas se o mesmo usuário deslogar e logar denovo, é feita uma nova compra, ao invés
-         * de atualizar a compra anterir (ainda não concluída).
-         */
-        
-        $compra = $this->compraController->construirObjetoPorId($compraId[Colunas::COMPRA_ID]);
         $usuario = LoginController::getUsuarioLogado();
+        $compraId = $this->compraController->getIdByUser($usuario);
         
-        if ($compraId && $compra->usuario->id === $usuario->id) {
-            $this->alterarCompra($produtoId, $compraId[Colunas::COMPRA_ID]);
-            
-            echo 'Compra sendo realizada';
+        if ($compraId) {
+            $compra = $this->compraController->construirObjetoPorId($compraId);
+            $produto = $this->produtoController->construirObjetoPorId($produtoId);
+        }
+
+        if ($compraId && !$compra->concluida) {
+            $this->inserirItemDeProdutoAlterarCompra($produto, $compra);
+
+            echo 'Compra sendo realizada!';
         }
         else {
             $compraId = $this->inserirCompra($produtoId);
-            LoginController::setIdCompra($compraId);
-            
-            echo 'Nova compra';
+
+            echo 'Nova compra!';
         }
     }
 
@@ -56,44 +52,34 @@ class CarrinhoDeComprasController extends DAO {
         $usuario = LoginController::getUsuarioLogado();
         $compra = new Compra(
             NULL, date('d/m/Y h:i:s', time()),
-            0, $usuario
+            0, $usuario,
+            'false'
         );
         $this->compraController->rotearInsercao($compra);
         $compraId = $this->compraController->getId($compra);
         $compra->id = $compraId[Colunas::COMPRA_ID];
-        
+
         $produto = $this->produtoController->construirObjetoPorId($produtoId);
-        
-        $itemDeProduto = new ItemDeProduto(
-            NULL, 1,
-            floatval($produto->preco), $compra,
-            $produto
+
+        return $this->inserirItemDeProdutoAlterarCompra(
+            $produto, $compra
         );
-        
-        $this->itemDeProdutoController->rotearInsercao($itemDeProduto);
-        
-        $compra->total += $itemDeProduto->preco * $itemDeProduto->quantidade;
-        $this->compraController->rotearInsercao($compra);
-        
-        return $compraId;
     }
-    
-    private function alterarCompra($produtoId, $compraId) {
-        $compra = $this->compraController->construirObjetoPorId($compraId);
-        $produto = $this->produtoController->construirObjetoPorId($produtoId);
-        
+
+    private function inserirItemDeProdutoAlterarCompra($produto, $compra) {
         $itemDeProduto = new ItemDeProduto(
             NULL, 1,
             floatval($produto->preco), $compra,
             $produto
         );
-        
+
         $this->itemDeProdutoController->rotearInsercao($itemDeProduto);
-        
+
         $compra->total += $itemDeProduto->preco * $itemDeProduto->quantidade;
+        $compra->concluida = 'false';
         $this->compraController->rotearInsercao($compra);
-        
-        return $compraId;
+
+        return $compra->id;
     }
 
     private function listar() {

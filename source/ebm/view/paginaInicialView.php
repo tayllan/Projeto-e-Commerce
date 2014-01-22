@@ -18,8 +18,7 @@ class PaginaInicialView {
                 'Produtos Cadastrados', array(
                     'Comprar', 'Nome',
                     'Descrição', 'Marca',
-                    'Categoria', 'Preço',
-                    'Quantidade'
+                    'Categoria', 'Preço'
                 )
             );
         }
@@ -28,7 +27,7 @@ class PaginaInicialView {
                 'Produtos Cadastrados', array(
                     'Nome', 'Descrição',
                     'Marca', 'Categoria',
-                    'Preço', 'Quantidade'
+                    'Preço'
                 )
             );
         }
@@ -73,8 +72,7 @@ class PaginaInicialView {
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'
             . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td></tr></form>';
+            . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td></tr></form>';
         
         return $conteudo;
     }
@@ -84,8 +82,7 @@ class PaginaInicialView {
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'
             . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td></tr>';
+            . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td></tr>';
         
         return $conteudo;
     }

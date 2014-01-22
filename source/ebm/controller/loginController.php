@@ -48,21 +48,6 @@ class LoginController {
             return NULL;
         }
     }
-    
-    public static function setIdCompra($compraId) {
-        if (LoginController::testarLogin()) {
-            $_SESSION[SESSAO_COMPRA_ID] = $compraId;
-        }
-    }
-    
-    public static function getIdCompra() {
-        if (isset($_SESSION[SESSAO_COMPRA_ID])) {
-            return $_SESSION[SESSAO_COMPRA_ID];
-        }
-        else {
-            return NULL;
-        }
-    }
 
     public static function testarLoginAdministrador() {
         if (isset($_SESSION[SESSAO_USUARIO_PERMISSAO])) {

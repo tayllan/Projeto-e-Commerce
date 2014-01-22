@@ -62,6 +62,7 @@ class Colunas {
     const COMPRA_DATA = 'compra_data';
     const COMPRA_TOTAL = 'compra_total';
     const COMPRA_FK_USUARIO = 'compra_fk_id_usuario';
+    const COMPRA_CONCLUIDA = 'compra_concluida';
     
     const ITEM_DE_PRODUTO = 'itemDeProduto';
     const ITEM_DE_PRODUTO_ID = 'item_de_produto_id';
@@ -86,7 +87,5 @@ class Colunas {
 \define('SESSAO_USUARIO_LOGIN', 'usuarioLogin');
 
 \define('SESSAO_USUARIO_PERMISSAO', 'usuarioPermissao');
-
-\define('SESSAO_COMPRA_ID', 'compraId');
 
 session_start();

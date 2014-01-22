@@ -16,13 +16,14 @@ class CompraController extends BaseController {
     protected function inserir($compra) {
         $sqlQuery = $this->conexao->prepare(
             'INSERT INTO ' . Colunas::COMPRA . ' (' . Colunas::COMPRA_DATA . ', '
-            . Colunas::COMPRA_TOTAL. ', ' . Colunas::COMPRA_FK_USUARIO . ') VALUES (?, ?, ?)'
+            . Colunas::COMPRA_TOTAL. ', ' . Colunas::COMPRA_FK_USUARIO . ', '
+            . Colunas::COMPRA_CONCLUIDA . ') VALUES (?, ?, ?, ?)'
         );
 
         return $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
-                    $compra->usuario->id
+                    $compra->usuario->id, $compra->concluida
                 )
         );
     }
@@ -30,14 +31,15 @@ class CompraController extends BaseController {
     protected function alterar($compra) {
         $sqlQuery = $this->conexao->prepare(
             'UPDATE ' . Colunas::COMPRA . ' SET ' . Colunas::COMPRA_DATA . ' = ?, '
-            . Colunas::COMPRA_TOTAL . ' = ?, ' . Colunas::COMPRA_FK_USUARIO . ' = ? WHERE '
-            . Colunas::COMPRA_ID . ' = ?'
+            . Colunas::COMPRA_TOTAL . ' = ?, ' . Colunas::COMPRA_FK_USUARIO . ' = ?, '
+            . Colunas::COMPRA_CONCLUIDA . ' = ? WHERE ' . Colunas::COMPRA_ID . ' = ?'
         );
-
+        
         return $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
-                    $compra->usuario->id, $compra->id
+                    $compra->usuario->id, $compra->concluida,
+                    $compra->id
                 )
         );
     }
@@ -63,13 +65,13 @@ class CompraController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::COMPRA_ID . ' FROM ' . Colunas::COMPRA . ' WHERE '
             . Colunas::COMPRA_DATA . ' = ? AND ' . Colunas::COMPRA_TOTAL . ' = ? AND '
-            . Colunas::COMPRA_FK_USUARIO . ' = ?'
+            . Colunas::COMPRA_FK_USUARIO . ' = ? AND ' . Colunas::COMPRA_CONCLUIDA . ' = ?'
         );
 
         $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
-                    $compra->usuario->id
+                    $compra->usuario->id, $compra->concluida
                 )
         );
         
@@ -78,6 +80,24 @@ class CompraController extends BaseController {
         }
         else {
             return array();
+        }
+    }
+    
+    public function getIdByUser($usuario) {
+        $sqlQuery = $this->conexao->prepare(
+            'SELECT ' . Colunas::COMPRA_ID . ' FROM ' . Colunas::COMPRA . ' WHERE '
+            . Colunas::COMPRA_FK_USUARIO . ' = ? AND ' . Colunas::COMPRA_CONCLUIDA . ' = FALSE'
+        );
+        
+        $sqlQuery->execute(
+            array($usuario->id)
+        );
+        
+        if ($sqlQuery->rowCount() > 0) {
+            return $sqlQuery->fetch(PDO::FETCH_ASSOC)[Colunas::COMPRA_ID];
+        }
+        else {
+            return NULL;
         }
     }
 
@@ -89,7 +109,8 @@ class CompraController extends BaseController {
             $codigosIdentificadores[Colunas::COMPRA_ID],
             $codigosIdentificadores[Colunas::COMPRA_DATA],
             $codigosIdentificadores[Colunas::COMPRA_TOTAL],
-            $usuario
+            $usuario,
+            $codigosIdentificadores[Colunas::COMPRA_CONCLUIDA]
         );
 
         return $compra;
@@ -102,7 +123,8 @@ class CompraController extends BaseController {
         );
         $compra = new Compra(
             $arrayCompra[Colunas::COMPRA_ID], $arrayCompra[Colunas::COMPRA_DATA],
-            $arrayCompra[Colunas::COMPRA_TOTAL], $usuario
+            $arrayCompra[Colunas::COMPRA_TOTAL], $usuario,
+            $arrayCompra[Colunas::COMPRA_CONCLUIDA]
         );
 
         return $compra;
