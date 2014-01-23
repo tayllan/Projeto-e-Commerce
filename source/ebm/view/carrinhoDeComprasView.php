@@ -77,7 +77,7 @@ class CarrinhoDeComprasView {
     }
 
     private function construirTabela($linha) {
-        $conteudo = '<tr>'
+        $conteudo = '<tr><input type="hidden" name="produto[]" value="' . $linha[Colunas::PRODUTO_ID] . '">'
             . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
