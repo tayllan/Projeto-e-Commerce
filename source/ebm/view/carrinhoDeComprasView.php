@@ -80,17 +80,23 @@ class CarrinhoDeComprasView {
     }
 
     private function construirTabela($linha) {
-        $conteudo = '<tr><td hidden><input type="hidden" name="' . Colunas::PRODUTO
-            . '[]" value="' . $linha[Colunas::PRODUTO_ID] . '"></td>'
-            . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
-            . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
-            . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
-            . '<td>' . $linha[Colunas::CATEGORIA_DE_PRODUTO_NOME] . '</td>'
+        $produto = $this->controller->produtoController->construirObjetoPorId(
+            $linha[Colunas::PRODUTO_ID]
+        );
+        $itemDeProduto = $this->controller->itemDeProdutoController->construirObjetoPorId(
+            $linha[Colunas::ITEM_DE_PRODUTO_ID]
+        );
+        $conteudo = '<tr><td hidden><input type="hidden" name="' . Colunas::PRODUTO_ID
+            . '[]" value="' . $produto->id . '"></td>'
+            . '<td>' . $produto->nome . '</td>'
+            . '<td>' . $produto->descricao . '</td>'
+            . '<td>' . $produto->marca->nome . '</td>'
+            . '<td>' . $produto->categoria->nome . '</td>'
+            . '<td hidden><input type="hidden" name="' . Colunas::ITEM_DE_PRODUTO_ID
+            . '[]" value="' . $itemDeProduto->id . '"</td>'
             . '<td><input type="number" name="' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE
-            . '[]" value="' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '"</td>'
-            . '<td hidden><input type="hidden" name="' . Colunas::ITEM_DE_PRODUTO_PRECO
-            . '[]" value="' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '"></td>'
-            . '<td>' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td></tr>';
+            . '[]" value="' . $itemDeProduto->quantidade . '"</td>'
+            . '<td>' . $produto->preco . '</td></tr>';
 
         return $conteudo;
     }

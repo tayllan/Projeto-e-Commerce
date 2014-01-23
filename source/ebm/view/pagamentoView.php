@@ -13,10 +13,7 @@ class PagamentoView {
     }
 
     private function rotear() {
-        /*#$arrayItensDeProdutosQuantidade = $_POST[Colunas::ITEM_DE_PRODUTO_QUANTIDADE];
-        #$arrayItensDeProdutosPreco = $_POST[Colunas::ITEM_DE_PRODUTO_PRECO];*/
-        
-        if (isset($_POST[Colunas::PRODUTO])) {
+        if (isset($_POST[Colunas::PRODUTO_ID])) {
             $this->exibirFormasDePagamento();
         }
         else {
@@ -28,13 +25,13 @@ class PagamentoView {
             }
         }
     }
-    
+
     private function exibirFormasDePagamento() {
         $this->exibirConteudo(
             $this->contruirFormulario()
         );
     }
-    
+
     private function contruirFormulario() {
         $conteudo = '<form action="/view/pagamentoView.php" method="POST">
             <div>
@@ -51,10 +48,10 @@ class PagamentoView {
                 <input type="submit" name="pagar" value="Pagar">
             </div>
         </form>';
-        
+
         return $conteudo;
     }
-    
+
     private function exibirConteudo($conteudo) {
         cabecalhoHTML('Formas de Pagamento');
         cabecalho('Super Cabeçalho');

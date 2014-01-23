@@ -14,9 +14,9 @@ require_once DIR_ROOT . 'entity/itemDeProdutoModel.php';
 class CarrinhoDeComprasController extends DAO {
 
     private $usuarioController;
-    private $produtoController;
-    private $compraController;
-    private $itemDeProdutoController;
+    public $produtoController;
+    public $compraController;
+    public $itemDeProdutoController;
 
     public function __construct() {
         parent::__construct();
@@ -79,11 +79,8 @@ class CarrinhoDeComprasController extends DAO {
 
     public function listar($usuario) {
         $sqlQuery = $this->conexao->prepare(
-            'SELECT ' . Colunas::PRODUTO_ID . ', ' . Colunas::PRODUTO_NOME . ', '
-            . Colunas::PRODUTO_DESCRICAO . ', '
-            . Colunas::MARCA_DE_PRODUTO_NOME . ', ' . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', '
-            . Colunas::ITEM_DE_PRODUTO_ID . ', '
-            . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . ', ' . Colunas::ITEM_DE_PRODUTO_PRECO . ' FROM '
+            'SELECT ' . Colunas::PRODUTO_ID . ', ' . Colunas::MARCA_DE_PRODUTO_NOME . ', '
+            . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', ' . Colunas::ITEM_DE_PRODUTO_ID . ' FROM '
             . Colunas::USUARIO . ', ' . Colunas::COMPRA . ', '
             . Colunas::ITEM_DE_PRODUTO . ', ' . Colunas::PRODUTO . ', '
             . Colunas::CATEGORIA_DE_PRODUTO . ', ' . Colunas::MARCA_DE_PRODUTO . ' WHERE '
