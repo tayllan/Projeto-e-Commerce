@@ -1,7 +1,6 @@
 <?php
 
 require_once '../config.php';
-#require_once DIR_ROOT . 'core/login.php';
 require_once DIR_ROOT . 'view/template/html.php';
 require_once DIR_ROOT . 'view/template/listagens.php';
 

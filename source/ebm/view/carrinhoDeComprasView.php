@@ -1,6 +1,7 @@
 <?php
 
 require_once '../config.php';
+require_once DIR_ROOT . 'controller/loginController.php';
 require_once DIR_ROOT . 'controller/carrinhoDeComprasController.php';
 
 class CarrinhoDeComprasView {
@@ -9,7 +10,9 @@ class CarrinhoDeComprasView {
 
     public function __construct() {
         $this->controller = new CarrinhoDeComprasController();
-        $this->rotear();
+        if (LoginController::testarLogin()) {
+            $this->rotear();
+        }
     }
 
     private function rotear() {
@@ -77,12 +80,16 @@ class CarrinhoDeComprasView {
     }
 
     private function construirTabela($linha) {
-        $conteudo = '<tr><input type="hidden" name="produto[]" value="' . $linha[Colunas::PRODUTO_ID] . '">'
+        $conteudo = '<tr><td hidden><input type="hidden" name="' . Colunas::PRODUTO
+            . '[]" value="' . $linha[Colunas::PRODUTO_ID] . '"></td>'
             . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::CATEGORIA_DE_PRODUTO_NOME] . '</td>'
-            . '<td><input type="number" value="' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '"</td>'
+            . '<td><input type="number" name="' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE
+            . '[]" value="' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '"</td>'
+            . '<td hidden><input type="hidden" name="' . Colunas::ITEM_DE_PRODUTO_PRECO
+            . '[]" value="' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '"></td>'
             . '<td>' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td></tr>';
 
         return $conteudo;

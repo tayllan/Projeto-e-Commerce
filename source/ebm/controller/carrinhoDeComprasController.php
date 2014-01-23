@@ -82,6 +82,7 @@ class CarrinhoDeComprasController extends DAO {
             'SELECT ' . Colunas::PRODUTO_ID . ', ' . Colunas::PRODUTO_NOME . ', '
             . Colunas::PRODUTO_DESCRICAO . ', '
             . Colunas::MARCA_DE_PRODUTO_NOME . ', ' . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', '
+            . Colunas::ITEM_DE_PRODUTO_ID . ', '
             . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . ', ' . Colunas::ITEM_DE_PRODUTO_PRECO . ' FROM '
             . Colunas::USUARIO . ', ' . Colunas::COMPRA . ', '
             . Colunas::ITEM_DE_PRODUTO . ', ' . Colunas::PRODUTO . ', '
