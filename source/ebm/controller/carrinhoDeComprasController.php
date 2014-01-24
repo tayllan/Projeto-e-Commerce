@@ -13,10 +13,11 @@ require_once DIR_ROOT . 'entity/itemDeProdutoModel.php';
 
 class CarrinhoDeComprasController extends DAO {
 
-    private $usuarioController;
+    public $usuarioController;
     public $produtoController;
     public $compraController;
     public $itemDeProdutoController;
+    public $usuario;
 
     public function __construct() {
         parent::__construct();
@@ -28,8 +29,7 @@ class CarrinhoDeComprasController extends DAO {
     }
 
     public function rotearInsercao($produtoId) {
-        $usuario = LoginController::getUsuarioLogado();
-        $compraId = $this->compraController->getIdByUser($usuario);
+        $compraId = $this->compraController->getIdByUser($this->usuario);
         
         if ($compraId) {
             $compra = $this->compraController->construirObjetoPorId($compraId);
@@ -44,10 +44,9 @@ class CarrinhoDeComprasController extends DAO {
     }
 
     private function inserirCompra($produtoId) {
-        $usuario = LoginController::getUsuarioLogado();
         $compra = new Compra(
             NULL, date('d/m/Y h:i:s', time()),
-            0, $usuario,
+            0, $this->usuario,
             'false'
         );
         $this->compraController->rotearInsercao($compra);
@@ -77,7 +76,7 @@ class CarrinhoDeComprasController extends DAO {
         return $compra->id;
     }
 
-    public function listar($usuario) {
+    public function listar() {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::PRODUTO_ID . ', ' . Colunas::MARCA_DE_PRODUTO_NOME . ', '
             . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', ' . Colunas::ITEM_DE_PRODUTO_ID . ' FROM '
@@ -93,7 +92,7 @@ class CarrinhoDeComprasController extends DAO {
         );
         
         $sqlQuery->execute(
-            array($usuario->id)
+            array($this->usuario->id)
         );
         
         if ($sqlQuery->rowCount() > 0) {

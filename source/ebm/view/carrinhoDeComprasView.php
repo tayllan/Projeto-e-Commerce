@@ -10,32 +10,34 @@ class CarrinhoDeComprasView {
 
     public function __construct() {
         $this->controller = new CarrinhoDeComprasController();
-        if (LoginController::testarLogin()) {
-            $this->rotear();
-        }
+        $this->rotear();
     }
 
     private function rotear() {
+        if (LoginController::testarLogin()) {
+            $this->controller->usuario = LoginController::getUsuarioLogado();
+        }
+        else {
+            $this->controller->usuario = $this->controller->usuarioController->construirObjetoPorId(0);
+        }
+        
         if (isset($_POST[Colunas::PRODUTO_ID])) {
             $this->controller->rotearInsercao($_POST[Colunas::PRODUTO_ID]);
             header('Location: carrinhoDeComprasView.php');
         }
         else {
-            $usuario = LoginController::getUsuarioLogado();
-            $this->exibirConteudo(
-                $this->construirFormulario($usuario)
-            );
+            $this->exibirConteudo($this->construirFormulario());
         }
     }
     
-    public function construirFormulario($usuario) {
+    public function construirFormulario() {
         $conteudo = '<form action="/view/pagamentoView.php" method="POST">
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>
                 
                 <div>';
         
-        $conteudo .= $this->listar($usuario);
+        $conteudo .= $this->listar();
 
         $conteudo .= '</div>
 
@@ -48,8 +50,8 @@ class CarrinhoDeComprasView {
         return $conteudo;
     }
     
-    public function listar($usuario) {
-        $array = $this->controller->listar($usuario);
+    public function listar() {
+        $array = $this->controller->listar();
         $conteudo = $this->criarTabela(
             'Produtos Adicionados no Carrinho', array(
                 'Nome', 'Descrição',

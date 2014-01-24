@@ -22,9 +22,7 @@ function cabecalho($mensagem) {
 </div>
 <div class="login"> <p>';
     if ((isset($_SESSION[SESSAO_LOGADO]))) {
-        $conteudo .= $_SESSION[SESSAO_USUARIO_LOGIN] . ' <sub><a href="/core/logout.php">Sair</a></sub>'
-        . '<br>'
-        . '<a href="/view/carrinhoDeComprasView.php">Meu Carrinho</a>';
+        $conteudo .= $_SESSION[SESSAO_USUARIO_LOGIN] . ' <sub><a href="/core/logout.php">Sair</a></sub>';
         
     }
     else {
@@ -33,7 +31,7 @@ function cabecalho($mensagem) {
         . '<a href="/view/realizarCadastroView.php">Cadastre-se</a>';
     }
         
-    echo $conteudo . '</p></div>';
+    echo $conteudo . '<br><a href="/view/carrinhoDeComprasView.php">Meu Carrinho</a></p></div>';
 }
 
 function rodape($mensagem) {

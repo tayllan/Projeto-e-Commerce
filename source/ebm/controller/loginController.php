@@ -1,6 +1,5 @@
 <?php
 
-# TODO: consertar os REQUIRE_ONCE e utilizar sempre a constante DIR_ROOT
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once DIR_ROOT . 'controller/usuarioController.php';
 require_once DIR_ROOT . 'entity/usuarioModel.php';
@@ -67,7 +66,8 @@ class LoginController {
                 header('Location: paginaDoAdministrador.php');
             }
             else {
-                header('Location: ../index.php');
+                $pagina = $_GET['paginaDestino'];
+                header('Location: ' . $pagina);
             }
         }
         else {
@@ -100,8 +100,8 @@ class LoginController {
         }
     }
 
-    public static function construirFormulario() {
-        $conteudo = '<form action="/core/login.php" method="POST">
+    public static function construirFormulario($paginaDestino) {
+        $conteudo = '<form action="/core/login.php?paginaDestino=' . $paginaDestino . '" method="POST">
     <fieldset>
         <legend>Login:</legend>
 

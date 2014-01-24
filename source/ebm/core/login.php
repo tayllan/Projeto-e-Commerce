@@ -21,7 +21,7 @@ class Login {
         if (isset($_POST['erro'])) {
             LoginController::exibirConteudo(
                 '<p class="erro">Login e/ou Senha inválidos</p><br>'
-                . LoginController::construirFormulario()
+                . LoginController::construirFormulario('/index.php')
             );
         }
         else if (isset($_POST['logout'])) {
@@ -29,7 +29,9 @@ class Login {
             header('Location: ../index.php');
         }
         else {
-            LoginController::exibirConteudo(LoginController::construirFormulario());
+            LoginController::exibirConteudo(
+                LoginController::construirFormulario('/index.php')
+            );
         }
     }
 

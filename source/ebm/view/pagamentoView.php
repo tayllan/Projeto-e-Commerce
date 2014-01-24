@@ -10,18 +10,24 @@ class PagamentoView {
         if (LoginController::testarLogin()) {
             $this->rotear();
         }
+        else {
+            LoginController::exibirConteudo(
+                LoginController::construirFormulario('/view/carrinhoDeComprasView.php')
+            );
+        }
     }
 
     private function rotear() {
         if (isset($_POST[Colunas::PRODUTO_ID])) {
             $this->exibirFormasDePagamento();
+            $_SESSION[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] = $_POST[Colunas::ITEM_DE_PRODUTO_QUANTIDADE];
         }
         else {
             if ($_POST['pagamento'] === 'boleto') {
-                echo 'Boleto';
+                header('Location: boletoBancarioView.php');
             }
             else {
-                echo 'Cartão';
+                header('Location: cartaoDeCreditoView.php');
             }
         }
     }
