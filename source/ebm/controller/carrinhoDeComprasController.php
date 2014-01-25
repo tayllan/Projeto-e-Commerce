@@ -29,18 +29,34 @@ class CarrinhoDeComprasController extends DAO {
     }
 
     public function rotearInsercao($produtoId) {
-        $compraId = $this->compraController->getIdByUser($this->usuario);
+        $trueFalse = $this->testeProdutoExistenteNoCarrinho($produtoId);
         
-        if ($compraId) {
-            $compra = $this->compraController->construirObjetoPorId($compraId);
-            $produto = $this->produtoController->construirObjetoPorId($produtoId);
-            if ($compraId && !$compra->concluida) {
-                $this->inserirItemDeProdutoAlterarCompra($produto, $compra);
+        if ($trueFalse) {
+            $compraId = $this->compraController->getIdByUser($this->usuario);
+
+            if ($compraId) {
+                $compra = $this->compraController->construirObjetoPorId($compraId);
+                $produto = $this->produtoController->construirObjetoPorId($produtoId);
+                if ($compraId && !$compra->concluida) {
+                    $this->inserirItemDeProdutoAlterarCompra($produto, $compra);
+                }
+            }
+            else {
+                $compraId = $this->inserirCompra($produtoId);
             }
         }
-        else {
-            $compraId = $this->inserirCompra($produtoId);
+    }
+    
+    private function testeProdutoExistenteNoCarrinho($produtoId) {
+        $array = $this->listar();
+        
+        foreach ($array as $registro) {
+            if ($registro[Colunas::PRODUTO_ID] == $produtoId) {
+                return false;
+            }
         }
+        
+        return true;
     }
 
     private function inserirCompra($produtoId) {

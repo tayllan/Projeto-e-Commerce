@@ -25,6 +25,15 @@ class CarrinhoDeComprasView {
             $this->controller->rotearInsercao($_POST[Colunas::PRODUTO_ID]);
             header('Location: carrinhoDeComprasView.php');
         }
+        else if (isset ($_SESSION[Colunas::PRODUTO_ID])) {
+            $array = $_SESSION[Colunas::PRODUTO_ID];
+            unset($_SESSION[Colunas::PRODUTO_ID]);
+            
+            foreach ($array as $produtoId) {
+                $this->controller->rotearInsercao($produtoId);
+            }
+            header('Location: carrinhoDeComprasView.php');
+        }
         else {
             $this->exibirConteudo($this->construirFormulario());
         }

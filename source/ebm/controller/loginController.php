@@ -21,10 +21,11 @@ class LoginController {
     }
 
     public static function realizarLogout() {
-        $_SESSION[SESSAO_LOGADO] = NULL;
-        $_SESSION[SESSAO_USUARIO_ID] = NULL;
-        $_SESSION[SESSAO_USUARIO_LOGIN] = NULL;
-        $_SESSION[SESSAO_USUARIO_PERMISSAO] = NULL;
+        unset($_SESSION[SESSAO_LOGADO]);
+        unset($_SESSION[SESSAO_USUARIO_ID]);
+        unset($_SESSION[SESSAO_USUARIO_LOGIN]);
+        unset($_SESSION[SESSAO_USUARIO_PERMISSAO]);
+        unset($_SESSION[Colunas::PRODUTO_ID]);
     }
 
     public static function testarLogin() {

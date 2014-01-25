@@ -11,6 +11,9 @@ class PagamentoView {
             $this->rotear();
         }
         else {
+            $_SESSION[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] = $_POST[Colunas::ITEM_DE_PRODUTO_QUANTIDADE];
+            $_SESSION[Colunas::ITEM_DE_PRODUTO_ID] = $_POST[Colunas::ITEM_DE_PRODUTO_ID];
+            $_SESSION[Colunas::PRODUTO_ID] = $_POST[Colunas::PRODUTO_ID];
             LoginController::exibirConteudo(
                 LoginController::construirFormulario('/view/carrinhoDeComprasView.php')
             );
@@ -19,7 +22,7 @@ class PagamentoView {
 
     private function rotear() {
         if (isset($_POST[Colunas::PRODUTO_ID])) {
-            $this->exibirFormasDePagamento();
+            $this->exibirConteudo($this->contruirFormulario());
             $_SESSION[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] = $_POST[Colunas::ITEM_DE_PRODUTO_QUANTIDADE];
         }
         else {
@@ -30,12 +33,6 @@ class PagamentoView {
                 header('Location: cartaoDeCreditoView.php');
             }
         }
-    }
-
-    private function exibirFormasDePagamento() {
-        $this->exibirConteudo(
-            $this->contruirFormulario()
-        );
     }
 
     private function contruirFormulario() {
