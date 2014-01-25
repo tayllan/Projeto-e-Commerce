@@ -16,11 +16,17 @@ class CartaoDeCreditoView {
     }
     
     private function rotear() {
-        $this->exibirConteudo('Aqui. Falta tudo sobre Cartão de Crédito');
+        if (isset($_POST['compraSucesso'])) {
+            $this->exibirConteudo('<p class="sucesso">Compra Efetuada com sucesso!</p>');
+            $this->controller->finalizarCompra();
+        }
+        else {
+            $this->exibirConteudo($this->controller->construirFormularioCartao());
+        }
     }
 
     private function exibirConteudo($conteudo) {
-        cabecalhoHTML('Pagamento com Cartão de Crédito');
+        cabecalhoHTML('Cartão de Crédito');
         cabecalho('Super Cabeçalho');
         echo '<div>' . $conteudo . '</div>';
         rodape('Super Rodapé');

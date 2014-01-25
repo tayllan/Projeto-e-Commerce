@@ -5,7 +5,7 @@ require_once DIR_ROOT . 'controller/database.php';
 class PaginaInicialController extends DAO {
 
     public function listar() {
-        $sqlQuery = $this->conexao->query($this->getSQLSelectAll());
+        $sqlQuery = $this->conexao->query($this->getSQLSelect());
         
         if ($sqlQuery->rowCount() > 0) {
             return $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -15,8 +15,9 @@ class PaginaInicialController extends DAO {
         }
     }
     
-    private function getSQLSelectAll() {
-        $sqlQuery = 'SELECT * FROM ' . Colunas::PRODUTO;
+    private function getSQLSelect() {
+        $sqlQuery = 'SELECT * FROM ' . Colunas::PRODUTO . ' WHERE '
+            . Colunas::PRODUTO_QUANTIDADE . ' > 0';
 
         return $sqlQuery;
     }

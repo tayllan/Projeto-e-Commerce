@@ -28,7 +28,7 @@ class CarrinhoDeComprasController extends DAO {
         $this->itemDeProdutoController = new ItemDeProdutoController();
     }
 
-    public function rotearInsercao($produtoId) {
+    public function rotearInsercao($produtoId, $itemDeProdutoQuantidade) {
         $trueFalse = $this->testeProdutoExistenteNoCarrinho($produtoId);
         
         if ($trueFalse) {
@@ -38,11 +38,16 @@ class CarrinhoDeComprasController extends DAO {
                 $compra = $this->compraController->construirObjetoPorId($compraId);
                 $produto = $this->produtoController->construirObjetoPorId($produtoId);
                 if ($compraId && !$compra->concluida) {
-                    $this->inserirItemDeProdutoAlterarCompra($produto, $compra);
+                    $this->inserirItemDeProdutoAlterarCompra(
+                        $produto, $compra,
+                        $itemDeProdutoQuantidade
+                    );
                 }
             }
             else {
-                $compraId = $this->inserirCompra($produtoId);
+                $compraId = $this->inserirCompra(
+                    $produtoId, $itemDeProdutoQuantidade
+                );
             }
         }
     }
@@ -59,7 +64,7 @@ class CarrinhoDeComprasController extends DAO {
         return true;
     }
 
-    private function inserirCompra($produtoId) {
+    private function inserirCompra($produtoId, $itemDeProdutoQuantidade) {
         $compra = new Compra(
             NULL, date('d/m/Y h:i:s', time()),
             0, $this->usuario,
@@ -72,13 +77,14 @@ class CarrinhoDeComprasController extends DAO {
         $produto = $this->produtoController->construirObjetoPorId($produtoId);
 
         return $this->inserirItemDeProdutoAlterarCompra(
-            $produto, $compra
+            $produto, $compra,
+            $itemDeProdutoQuantidade
         );
     }
 
-    private function inserirItemDeProdutoAlterarCompra($produto, $compra) {
+    private function inserirItemDeProdutoAlterarCompra($produto, $compra, $itemDeProdutoQuantidade) {
         $itemDeProduto = new ItemDeProduto(
-            NULL, 1,
+            NULL, $itemDeProdutoQuantidade,
             floatval($produto->preco), $compra,
             $produto
         );
@@ -117,6 +123,13 @@ class CarrinhoDeComprasController extends DAO {
         else {
             return array();
         }
+    }
+    
+    public function deletar($itemDeProdutoId) {
+        $this->itemDeProdutoController->deletar(
+            $itemDeProdutoId, Colunas::ITEM_DE_PRODUTO_ID,
+            Colunas::ITEM_DE_PRODUTO
+        );
     }
 
 }

@@ -15,5 +15,5 @@ function criarTabela($caption, $nomeView, array $array) {
         $conteudo .= '<th><strong>' . $elemento . '</strong></th>';
     }
     
-    return $conteudo . '<th><strong>Opção</strong></th></tr></thead><tbody>';
+    return $conteudo . '<th><strong>Deletar</strong></th></tr></thead><tbody>';
 }

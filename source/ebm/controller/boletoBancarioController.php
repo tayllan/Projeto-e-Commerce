@@ -3,6 +3,7 @@
 require_once DIR_ROOT . 'controller/database.php';
 require_once DIR_ROOT . 'controller/produtoController.php';
 require_once DIR_ROOT . 'controller/itemDeProdutoController.php';
+require_once DIR_ROOT . 'controller/compraController.php';
 require_once DIR_ROOT . 'boleto/autoloader.php';
 
 use OpenBoleto\Banco\Itau;
@@ -13,16 +14,18 @@ class BoletoBancarioController extends DAO {
     private $usuario;
     private $produtoController;
     private $itemDeProdutoController;
+    private $compraController;
 
     public function __construct() {
         parent::__construct();
         $this->usuario = LoginController::getUsuarioLogado();
         $this->produtoController = new ProdutoController();
         $this->itemDeProdutoController = new ItemDeProdutoController();
+        $this->compraController = new CompraController();
     }
 
     private function getValorTotalDaCompra() {
-        $array = $this->listar($this->usuario);
+        $array = $this->listar();
         $arrayItensDeProdutosQuantidade = $_SESSION[Colunas::ITEM_DE_PRODUTO_QUANTIDADE];
         $index = 0;
         $totalCompra = 0;
@@ -34,17 +37,25 @@ class BoletoBancarioController extends DAO {
             $itemDeProduto = $this->itemDeProdutoController->construirObjetoPorId(
                 $linha[Colunas::ITEM_DE_PRODUTO_ID]
             );
-
+            $itemDeProduto->quantidade = $arrayItensDeProdutosQuantidade[$index];
+            $this->itemDeProdutoController->rotearInsercao($itemDeProduto);
+            
+            $produto->quantidade -= $itemDeProduto->quantidade;
+            $this->produtoController->rotearInsercao($produto);            
+            
             $totalCompra += $arrayItensDeProdutosQuantidade[$index++] * $itemDeProduto->preco;
         }
+        
+        $this->finalizarCompra($array['0'][Colunas::COMPRA_ID], $totalCompra);
 
         return $totalCompra;
     }
 
-    private function listar($usuario) {
+    private function listar() {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::PRODUTO_ID . ', ' . Colunas::MARCA_DE_PRODUTO_NOME . ', '
-            . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', ' . Colunas::ITEM_DE_PRODUTO_ID . ' FROM '
+            . Colunas::CATEGORIA_DE_PRODUTO_NOME . ', ' . Colunas::ITEM_DE_PRODUTO_ID . ', '
+            . Colunas::COMPRA_ID . ' FROM '
             . Colunas::USUARIO . ', ' . Colunas::COMPRA . ', '
             . Colunas::ITEM_DE_PRODUTO . ', ' . Colunas::PRODUTO . ', '
             . Colunas::CATEGORIA_DE_PRODUTO . ', ' . Colunas::MARCA_DE_PRODUTO . ' WHERE '
@@ -57,7 +68,7 @@ class BoletoBancarioController extends DAO {
         );
 
         $sqlQuery->execute(
-            array($usuario->id)
+            array($this->usuario->id)
         );
 
         if ($sqlQuery->rowCount() > 0) {
@@ -79,7 +90,7 @@ class BoletoBancarioController extends DAO {
         );
         $cedente = new Agente(
             'EBM e-Commerce LTDA', '02.123.123/0001-11',
-            'Centro Anchieta 1451', '86300-000',
+            'UTFPR Campus Cornélio Procópio - Avenida Alberto Carazzai, 1640', '86300-000',
             'Cornélio Procópio', 'PR'
         );
 
@@ -97,6 +108,15 @@ class BoletoBancarioController extends DAO {
         );
 
         return $boleto->getOutput();
+    }
+    
+    private function finalizarCompra($compraId, $totalCompra) {
+        $compra = $this->compraController->construirObjetoPorId($compraId);
+        
+        $compra->concluida = TRUE;
+        $compra->total = $totalCompra;
+        
+        $this->compraController->rotearInsercao($compra);
     }
 
 }

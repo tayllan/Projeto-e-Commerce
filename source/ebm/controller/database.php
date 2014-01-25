@@ -5,11 +5,11 @@ class Conexao {
     private $conexao;
 
     public function __construct() {
-        $dsn = 'pgsql:host=localhost;dbname=ebm';
+        $dsn = 'mysql:host=localhost;dbname=ebm';
         try {
             $this->conexao = new PDO(
                 $dsn,
-                'tayllan',
+                'root',
                 'tolkien'
             );
         }
