@@ -20,7 +20,6 @@ abstract class BaseController extends DAO {
     }
 
     public function listar($nomeDaTabela) {
-        $this->conexao->query("SET CHARSET 'utf8'");
         $sqlQuery = $this->conexao->query(
             $this->getSQLSelectAll($nomeDaTabela)
         );

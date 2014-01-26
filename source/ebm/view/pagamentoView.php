@@ -36,19 +36,28 @@ class PagamentoView {
     }
 
     private function contruirFormulario() {
-        $conteudo = '<form action="/view/pagamentoView.php" method="POST">
-            <div>
-                <span class="label">Escolha sua forma de pagamento:</span>
+        $conteudo = '<form class="ui form segment" action="/view/pagamentoView.php" method="POST">
+            <div class="grouped inline fields">
+                <span class="ui top attached label">Escolha sua forma de pagamento:</span>
+                <br>
                     
-                <input type="radio" id="formaUm" name="pagamento" value="boleto" checked>
-                <label for="formaUm">Bolento Bancário</label>
-                    
-                <input type="radio" id="formaDois" name="pagamento" value="cartao">
-                <label for="formaDois">Cartão de Crédito</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input id="boleto" type="radio" name="pagamento" value="boleto" checked>
+                        <label for="boleto">Boleto Bancário</label>
+                    </div>
+                </div>
+    
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input id="cartao" type="radio" name="pagamento" value="cartao">
+                        <label for="cartao">Cartão de Crédito</label>
+                    </div>
+                </div>
             </div>
             
             <div>
-                <input type="submit" name="pagar" value="Pagar">
+                <input type="submit" name="pagar" value="Pagar" class="ui black submit button small">
             </div>
         </form>';
 

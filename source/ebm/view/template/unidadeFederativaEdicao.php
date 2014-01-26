@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($unidadeFederativa) {
     $controller = new UnidadeFederativaController();
     $conteudo = '<form action="unidadeFederativaView.php" method="POST">
@@ -25,11 +23,13 @@ function construirFormulario($unidadeFederativa) {
             <select id="regiao" name="' . Colunas::UNIDADE_FEDERATIVA_FK_REGIAO. '" size="1">';
     $array = $controller->listar(Colunas::REGIAO);
     foreach ($array as $linha) {
-        $conteudo .= '<option value="' . $linha[Colunas::REGIAO_ID] . '"';
-        if ($linha[Colunas::REGIAO_ID] === $unidadeFederativa->regiao->id) {
-            $conteudo .= ' selected';
+        if ($linha[Colunas::REGIAO_NOME] != 'REGIAO_ANONIMA') {
+            $conteudo .= '<option value="' . $linha[Colunas::REGIAO_ID] . '"';
+            if ($linha[Colunas::REGIAO_ID] === $unidadeFederativa->regiao->id) {
+                $conteudo .= ' selected';
+            }
+            $conteudo .= '>' . $linha[Colunas::REGIAO_NOME] . '</option>';
         }
-        $conteudo .= '>' . $linha[Colunas::REGIAO_NOME] . '</option>';
     }
     $conteudo .= '</select>
         </div>

@@ -12,6 +12,7 @@ class Conexao {
                 'root',
                 'tolkien'
             );
+            $this->conexao->query("SET CHARSET 'utf8'");
         }
         catch (PDOException $exception) {
             echo 'Erro na hora de conectar no banco!';

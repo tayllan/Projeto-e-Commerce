@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($itemDeProduto) {
     $compraController = new CompraController();
     $produtoController = new ProdutoController();

@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($marcaDeProduto) {
     $conteudo = '<form action="marcaDeProdutoView.php" method="POST">
     <fieldset>

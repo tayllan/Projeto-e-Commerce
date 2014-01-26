@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($categoriaDeProduto) {
     $conteudo = '<form action="categoriaDeProdutoView.php" method="POST">
     <fieldset>

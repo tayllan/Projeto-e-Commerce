@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($endereco) {
     $controller = new CidadeController();
     $conteudo = '<form action="enderecoView.php" method="POST">
@@ -33,11 +31,13 @@ function construirFormulario($endereco) {
             <select id="cidade" name="' . Colunas::ENDERECO_FK_CIDADE. '" size="1">';
     $array = $controller->listar(Colunas::CIDADE);
     foreach ($array as $linha) {
-        $conteudo .= '<option value="' . $linha[Colunas::CIDADE_ID] . '"';
-        if ($linha[Colunas::CIDADE_ID] === $endereco->cidade->id) {
-            $conteudo .= ' selected';
+        if ($linha[Colunas::CIDADE_NOME] != 'CIDADE_ANONIMA') {
+            $conteudo .= '<option value="' . $linha[Colunas::CIDADE_ID] . '"';
+            if ($linha[Colunas::CIDADE_ID] === $endereco->cidade->id) {
+                $conteudo .= ' selected';
+            }
+            $conteudo .= '>' . $linha[Colunas::CIDADE_NOME] . '</option>';
         }
-        $conteudo .= '>' . $linha[Colunas::CIDADE_NOME] . '</option>';
     }
     $conteudo .= '</select>
         </div>

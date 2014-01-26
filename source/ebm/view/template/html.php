@@ -7,37 +7,51 @@ function cabecalhoHTML($titulo) {
     <head>
         <title>{$titulo}</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="/resource/css/estilo.css">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/resource/packaged/css/semantic.css">
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
+        <script src="/resource/packaged/javascript/semantic.js"></script>
     </head>
     <body>
 CABECALHO_HTML;
 }
 
 function cabecalho($mensagem) {
-    $conteudo ='<header>
-    <p>' . $mensagem . '</p>
+    $conteudo ='<header class="ui center aligned segment">
+    <p class="ui black label">' . $mensagem . '</p>
 </header>
-<div class="home">
-    <a href="/index.php">Voltar à HOME</a>
-</div>
-<div class="login"> <p>';
-    if ((isset($_SESSION[SESSAO_LOGADO]))) {
-        $conteudo .= $_SESSION[SESSAO_USUARIO_LOGIN] . ' <sub><a href="/core/logout.php">Sair</a></sub>';
+<div class="ui center aligned segment">
+<div class="ui label">
+    <a href="/index.php"><i class="home icon">Voltar à HOME</i></a>
+</div>';
+    if (isset($_SESSION[SESSAO_LOGADO])) {
+        $conteudo .= '<div class="ui label"><i class="mail icon"> ' . $_SESSION[SESSAO_USUARIO_LOGIN]
+            . '</i></div>';
+        if (isset($_SESSION[SESSAO_USUARIO_PERMISSAO])) {
+            $conteudo .= '<div class="ui label"><a href="/core/paginaDoAdministrador.php" class="detail">'
+            . '<i class="settings icon"> Página do Administrador</i></a></div>';
+        }
+        $conteudo .= '<div class="ui label"><a href="/core/logout.php" class="detail">'
+            . '<i class="sign out icon"> Sair</i></a></div>';
         
     }
     else {
-        $conteudo .= '<a href="/core/login.php">Realizar login</a>'
-        . '<br>'
-        . '<a href="/view/realizarCadastroView.php">Cadastre-se</a>';
+        $conteudo .= '<div class="ui label"><a href="/core/login.php" class="detail">'
+            . '<i class="user icon"> Realizar login</i></a></div>'
+        . '<div class="ui label"><a href="/view/realizarCadastroView.php" class="detail">'
+            . '<i class="sign in icon"> Cadastre-se</i></a></div>';
     }
         
-    echo $conteudo . '<br><a href="/view/carrinhoDeComprasView.php">Meu Carrinho</a></p></div>';
+    echo $conteudo . '<div class="ui label"><a href="/view/carrinhoDeComprasView.php">'
+        . '<i class="cart icon"> Meu Carrinho</i></a></div></div>';
 }
 
 function rodape($mensagem) {
     echo <<<RODAPE
-<footer>
-    <p>{$mensagem}</p>
+<footer class="ui center aligned segment">
+    <p class="ui black label">{$mensagem}</p>
 </footer>
 RODAPE;
 }

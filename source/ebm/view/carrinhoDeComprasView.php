@@ -50,7 +50,7 @@ class CarrinhoDeComprasView {
     }
     
     public function construirFormulario() {
-        $conteudo = '<form action="/view/pagamentoView.php" method="POST">
+        $conteudo = '<form action="/view/pagamentoView.php" method="POST" class="ui segment">
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>
                 
@@ -59,9 +59,10 @@ class CarrinhoDeComprasView {
         $conteudo .= $this->listar();
 
         $conteudo .= '</div>
-
+            
+                <br>
                 <div>
-                    <input type="submit" name="submeter" value="Efetuar Pagamento">
+                    <input class="ui button small" type="submit" name="submeter" value="Efetuar Pagamento">
                 </div>
             </fieldset>
         </form>';
@@ -88,7 +89,7 @@ class CarrinhoDeComprasView {
     }
 
     private function criarTabela($caption, array $array) {
-        $conteudo = '<table border="1">
+        $conteudo = '<table class="ui table segment small">
             <caption>' . $caption . '</caption>
             
             <thead>
@@ -120,7 +121,7 @@ class CarrinhoDeComprasView {
             . '[]" value="' . $itemDeProduto->quantidade . '" min="1" max="' . $produto->quantidade . '"></td>'
             . '<td>' . $produto->preco . '</td>'
             . '<td><a href="/view/carrinhoDeComprasView.php?deletar='
-            . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '" class="deletar">Deletar</a></td></tr>';
+            . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '" class="ui button small"><i class="delete icon"></i></a></td></tr>';
 
         return $conteudo;
     }

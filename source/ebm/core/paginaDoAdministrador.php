@@ -8,50 +8,89 @@ cabecalho('Super Cabeçalho');
 
 if (isset($_SESSION[SESSAO_USUARIO_PERMISSAO])) {
     echo <<<MENU
-    <div>
-        <p>
-            <a href="/view/regiaoView.php">Sessão de Regiões</a>
-        </p>
+    <div class="ui center aligned relaxed divided list segment">
+        <div class="item">
+            <div class="content">
+                <label class="ui header top attached label">CRUDs</label>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/unidadeFederativaView.php">Sessão de Unidades Federativas</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/regiaoView.php">Regiões</a>
+            </div>
+        </div>
+        
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/unidadeFederativaView.php">Unidades Federativas</a>
+            </div>
+        </div>
+        
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/cidadeView.php">Cidades</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/cidadeView.php">Sessão de Cidades</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/enderecoView.php">Endereços</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/enderecoView.php">Sessão de Endereços</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/usuarioView.php">Usuários</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/usuarioView.php">Sessão de Usuários</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/categoriaDeProdutoView.php">Categorias de Produtos</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/categoriaDeProdutoView.php">Sessão de Categorias de Produtos</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/marcaDeProdutoView.php">Marcas de Produtos</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/marcaDeProdutoView.php">Sessão de Marcas de Produtos</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/produtoView.php">Produtos</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/produtoView.php">Sessão de Produtos</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/itemDeProdutoView.php">Itens de Produtos</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/itemDeProdutoView.php">Sessão de Itens de Produtos</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/compraView.php">Compras</a>
+            </div>
+        </div>
     
-        <p>
-            <a href="/view/compraView.php">Sessão de Compras</a>
-        </p>
-    
-        <p>
-            <a href="/view/generoSexualView.php">Sessão de Gêneros Sexuais</a>
-        </p>
+        <div class="item">
+            <i class="settings icon"></i>
+            <div class="content">
+                <a href="/view/generoSexualView.php">Gêneros Sexuais</a>
+            </div>
+        </div>
     </div>
 MENU;
 }

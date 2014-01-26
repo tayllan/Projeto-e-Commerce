@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($produto) {
     $controller = new ProdutoController();
     $conteudo = '<form action="produtoView.php" method="POST">

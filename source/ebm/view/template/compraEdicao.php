@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($compra) {
     $controller = new CompraController();
     $conteudo = '<form action="compraView.php" method="POST">
@@ -23,11 +21,13 @@ function construirFormulario($compra) {
             <select id="usuario" name="' . Colunas::COMPRA_FK_USUARIO . '" size="1">';
     $array = $controller->listar(Colunas::USUARIO);
     foreach ($array as $linha) {
-        $conteudo .= '<option value="' . $linha[Colunas::USUARIO_ID] . '"';
-        if ($linha[Colunas::USUARIO_ID] === $compra->usuario->id) {
-            $conteudo .= ' selected';
+        if ($linha[Colunas::USUARIO_NOME] != 'USUARIO_ANONIMO') {
+            $conteudo .= '<option value="' . $linha[Colunas::USUARIO_ID] . '"';
+            if ($linha[Colunas::USUARIO_ID] === $compra->usuario->id) {
+                $conteudo .= ' selected';
+            }
+            $conteudo .= '>' . $linha[Colunas::USUARIO_NOME] . '</option>';
         }
-        $conteudo .= '>' . $linha[Colunas::USUARIO_NOME] . '</option>';
     }
     $conteudo .= '</select>
         </div>

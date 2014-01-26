@@ -44,8 +44,8 @@ class PaginaInicialView {
 
     private function construirTabela($linha) {
         $conteudo = '<form action="/view/carrinhoDeComprasView.php" method="POST">'
-            . '<tr><td><button class="comprar" type="submit" name="' . Colunas::PRODUTO_ID
-            . '" value="' . $linha[Colunas::PRODUTO_ID] . '">comprar</button></td>'
+            . '<tr><td><button type="submit" name="' . Colunas::PRODUTO_ID
+            . '" value="' . $linha[Colunas::PRODUTO_ID] . '"><i class="cart icon"></i></button></td>'
             . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'

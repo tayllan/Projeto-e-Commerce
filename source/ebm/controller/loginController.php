@@ -102,25 +102,33 @@ class LoginController {
     }
 
     public static function construirFormulario($paginaDestino) {
-        $conteudo = '<form action="/core/login.php?paginaDestino=' . $paginaDestino . '" method="POST">
-    <fieldset>
-        <legend>Login:</legend>
-
-        <div>
-            <label for="email">E-Mail:</label>
-            <input type="text" id="email" name="' . Colunas::USUARIO_LOGIN . '">
-        </div>
-
-        <div>
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="' . Colunas::USUARIO_SENHA . '">
-        </div>
-
-        <div>
-            <input type="submit" name="submeter" value="Logar">
-        </div>
-    </fieldset>
-</form>';
+        $conteudo = '<form action="/core/login.php?paginaDestino=' . $paginaDestino . '" 
+            method="POST" class="ui form segment">
+            <legend>E-Mail</legend>
+    
+            <div class="ui left labeled icon input">
+                <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
+                <i class="mail icon"></i>
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+  
+            <legend>Senha</legend>
+                
+            <div class="ui left labeled icon input">
+                <input type="password" name="' . Colunas::USUARIO_SENHA . '">
+                <i class="lock icon"></i>
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+            
+            <div>
+                <br>
+                <input type="submit" name="submeter" value="Logar" class="ui black submit button small">
+            </div>
+        </form>';
 
         return $conteudo;
     }

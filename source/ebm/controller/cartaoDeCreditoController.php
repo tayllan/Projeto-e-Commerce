@@ -69,37 +69,47 @@ class CartaoDeCreditoController extends DAO {
 
     public function construirFormularioCartao() {
         $totalCompra = $this->getValorTotalDaCompra();
-        $endereco = $this->usuario->endereco->bairro . ' ' . $this->usuario->endereco->rua
-            . ' ' . $this->usuario->endereco->numero;
+        $endereco = $this->usuario->endereco->bairro . ' - ' . $this->usuario->endereco->rua
+            . ', ' . $this->usuario->endereco->numero;
         
-        $conteudo = '<form action="/view/cartaoDeCreditoView.php" method="POST">
-            <fieldset>
-                <legend>Informações da Compra</legend>
-                
+        $conteudo = '<form class="ui form segment" action="/view/cartaoDeCreditoView.php" method="POST">
+            <fieldset class="ui form segment">
+                <legend>Informações Gerais:</legend>
+
                 <div>
-                    <label>Valor total da compra:</label>
-                    <input type="number" value="' . $totalCompra . '">
+                    <label>Valor total da compra</label>
+                    <div class="ui left labeled icon input">
+                        <input type="number" placeholder="E-Mail" value="' . $totalCompra . '">
+                        <i class="dollar icon"></i>
+                    </div>
                 </div>
-                
+
                 <div>
-                    <label>Comprador:</label>
-                    <input type="text" value="' . $this->usuario->nome . '">
+                    <label>Comprador</label>
+                    <div class="ui left labeled icon input">
+                        <input type="text" value="' . $this->usuario->nome . '">
+                        <i class="user icon"></i>
+                    </div>
                 </div>
-                
+
                 <div>
-                    <label>Endereço de entrega:</label>
-                    <input type="text" value="' . $endereco . '">
+                    <label>Endereço de Entrega</label>
+                    <div class="ui left labeled icon input">
+                        <input type="text" value="' . $endereco . '">
+                        <i class="map icon"></i>
+                    </div>
                 </div>
             </fieldset>
 
-            <fieldset>
+            <fieldset class="ui form segment">
                 <legend>Informações de Cartão de Crédito</legend>
                 
                 <p>TODO: campos a serem preenchidos, referentes ao cartão de crédito do usuário</p>
             </fieldset>
             
             <div>
-                <input type="submit" name="compraSucesso" value="Finalizar">
+                <br>
+                <input type="submit" name="compraSucesso" value="Finalizar" class="ui black submit button small">
             </div>
         </form>';
 

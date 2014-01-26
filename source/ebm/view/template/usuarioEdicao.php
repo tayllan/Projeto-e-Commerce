@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($usuario) {
     $enderecoController = new EnderecoController();
     $generoSexualController = new GeneroSexualController();
@@ -65,17 +63,19 @@ function construirFormulario($usuario) {
             <select id="endereco" name="' . Colunas::USUARIO_FK_ENDERECO. '" size="1">';
     $arrayEndereco = $enderecoController->listar(Colunas::ENDERECO);
     foreach ($arrayEndereco as $linha) {
-        $conteudo .= '<option value="' . $linha[Colunas::ENDERECO_ID] . '"';
-        if ($linha[Colunas::ENDERECO_ID] === $usuario->endereco->id) {
-            $conteudo .= ' selected';
+        if ($linha[Colunas::ENDERECO_BAIRRO] != 'BAIRRO_ANONIMO') {
+            $conteudo .= '<option value="' . $linha[Colunas::ENDERECO_ID] . '"';
+            if ($linha[Colunas::ENDERECO_ID] === $usuario->endereco->id) {
+                $conteudo .= ' selected';
+            }
+            /*
+             * O nome do endereço exibido deve ser melhorado
+             */
+            $conteudo .= '>' . $linha[Colunas::ENDERECO_BAIRRO] . ' '
+                . $linha[Colunas::ENDERECO_RUA] . ' '
+                . $linha[Colunas::ENDERECO_NUMERO] . ' '
+                . $linha[Colunas::ENDERECO_CEP] . '</option>';
         }
-        /*
-         * O nome do endereço exibido deve ser melhorado
-         */
-        $conteudo .= '>' . $linha[Colunas::ENDERECO_BAIRRO] . ' '
-            . $linha[Colunas::ENDERECO_RUA] . ' '
-            . $linha[Colunas::ENDERECO_NUMERO] . ' '
-            . $linha[Colunas::ENDERECO_CEP] . '</option>';
     }
     $conteudo .= '</select>
         </div>
@@ -85,11 +85,13 @@ function construirFormulario($usuario) {
             <select id="generoSexual" name="' . Colunas::USUARIO_FK_GENERO_SEXUAL. '" size="1">';
     $arrayGenero = $generoSexualController->listar(Colunas::GENERO_SEXUAL);
     foreach ($arrayGenero as $linha) {
-        $conteudo .= '<option value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '"';
-        if ($linha[Colunas::GENERO_SEXUAL_ID] === $usuario->generoSexual->id) {
-            $conteudo .= ' selected';
+        if ($linha[Colunas::GENERO_SEXUAL_NOME] != 'GENERO_SEXUAL_ANONIMO') {
+            $conteudo .= '<option value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '"';
+            if ($linha[Colunas::GENERO_SEXUAL_ID] === $usuario->generoSexual->id) {
+                $conteudo .= ' selected';
+            }
+            $conteudo .= '>' . $linha[Colunas::GENERO_SEXUAL_NOME] . '</option>';
         }
-        $conteudo .= '>' . $linha[Colunas::GENERO_SEXUAL_NOME] . '</option>';
     }
     $conteudo .= '</select>
         </div>

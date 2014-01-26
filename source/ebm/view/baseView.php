@@ -30,7 +30,8 @@ abstract class BaseView {
 
     protected function exibirMensagemCadastro($apelidoDaTabela, $trueFalse) {
         if ($trueFalse) {
-            $this->exibirConteudo('<p class="sucesso">' . $apelidoDaTabela . MENSAGEM_CADASTRO_SUCESSO . '</p>');
+            $this->exibirConteudo('<p class="ui green label">' . $apelidoDaTabela
+                . MENSAGEM_CADASTRO_SUCESSO . '</p>');
         }
         else {
             $this->exibirConteudo(MENSAGEM_ERRO);
@@ -39,7 +40,8 @@ abstract class BaseView {
 
     protected function exibirMensagemDelecao($apelidoDaTabela, $trueFalse) {
         if ($trueFalse) {
-            $this->exibirConteudo('<p class="sucesso">' . $apelidoDaTabela . MENSAGEM_DELECAO_SUCESSO . '</p>');
+            $this->exibirConteudo('<p class="ui green label">' . $apelidoDaTabela
+                . MENSAGEM_DELECAO_SUCESSO . '</p>');
         }
         else {
             $this->exibirConteudo(MENSAGEM_ERRO);

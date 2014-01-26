@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config.php';
-
 function construirFormulario($generoSexual) {
     $conteudo = '<form action="generoSexualView.php" method="POST">
     <fieldset>
