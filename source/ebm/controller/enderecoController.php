@@ -128,5 +128,19 @@ class EnderecoController extends BaseController {
         
         return $nomeCidade;
     }
+    
+    public function getCidadeId($cidadeNome, $cidadeFkUnidadeFederativa) {
+        $cidade = $this->cidadeController->construirObjeto(
+            array (
+                Colunas::CIDADE_FK_UNIDADE_FEDERATIVA => $cidadeFkUnidadeFederativa,
+                Colunas::CIDADE_NOME => $cidadeNome,
+                Colunas::CIDADE_ID => NULL
+            )
+        );
+        $this->cidadeController->rotearInsercao($cidade);
+        $array = $this->cidadeController->getId($cidade);
+        
+        return $array[Colunas::CIDADE_ID];
+    }
 
 }

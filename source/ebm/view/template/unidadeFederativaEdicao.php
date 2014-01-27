@@ -2,25 +2,38 @@
 
 function construirFormulario($unidadeFederativa) {
     $controller = new UnidadeFederativaController();
-    $conteudo = '<form action="unidadeFederativaView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="unidadeFederativaView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="' . Colunas::UNIDADE_FEDERATIVA_NOME
-                . '" value="' . $unidadeFederativa->nome . '">
+         <div>
+            <label>Unidade Federativa</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::UNIDADE_FEDERATIVA_NOME . '"
+                    value="' . $unidadeFederativa->nome. '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="sigla">Sigla:</label>
-            <input type="text" id="sigla" name="' . Colunas::UNIDADE_FEDERATIVA_SIGLA
-                . '" maxlength="2" size="2" value="' . $unidadeFederativa->sigla . '">
+            <label>Sigla</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::UNIDADE_FEDERATIVA_SIGLA . '"
+                    value="' . $unidadeFederativa->sigla. '" maxlength="2">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
-        <div>
-            <label for="regiao">Região:</label>
-            <select id="regiao" name="' . Colunas::UNIDADE_FEDERATIVA_FK_REGIAO. '" size="1">';
+        <div class="ui segment">
+            <i class="map icon"></i>
+            <label>Regiao</label>
+            <select name="' . Colunas::UNIDADE_FEDERATIVA_FK_REGIAO. '" size="1">';
     $array = $controller->listar(Colunas::REGIAO);
     foreach ($array as $linha) {
         if ($linha[Colunas::REGIAO_NOME] != 'REGIAO_ANONIMA') {
@@ -32,10 +45,13 @@ function construirFormulario($unidadeFederativa) {
         }
     }
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

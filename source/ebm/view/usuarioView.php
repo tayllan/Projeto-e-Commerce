@@ -29,9 +29,7 @@ class UsuarioView extends BaseView {
                     Colunas::USUARIO_CPF => $_POST[Colunas::USUARIO_CPF],
                     Colunas::USUARIO_TELEFONE => $_POST[Colunas::USUARIO_TELEFONE],
                     Colunas::USUARIO_DATA_DE_NASCIMENTO => $_POST[Colunas::USUARIO_DATA_DE_NASCIMENTO],
-                    Colunas::USUARIO_ADMINISTRADOR => $_POST[Colunas::USUARIO_ADMINISTRADOR],
-                    Colunas::USUARIO_FK_ENDERECO => $_POST[Colunas::USUARIO_FK_ENDERECO],
-                    Colunas::USUARIO_FK_GENERO_SEXUAL => $_POST[Colunas::USUARIO_FK_GENERO_SEXUAL]
+                    Colunas::USUARIO_ADMINISTRADOR => $_POST[Colunas::USUARIO_ADMINISTRADOR]
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($usuario);

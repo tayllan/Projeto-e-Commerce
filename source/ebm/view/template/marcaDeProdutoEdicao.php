@@ -1,18 +1,25 @@
 <?php
 
 function construirFormulario($marcaDeProduto) {
-    $conteudo = '<form action="marcaDeProdutoView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="marcaDeProdutoView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="' . Colunas::MARCA_DE_PRODUTO_NOME
+            <label>Marca</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::MARCA_DE_PRODUTO_NOME
                 . '" value="' . $marcaDeProduto->nome . '">
+                <i class="tag icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <br>
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

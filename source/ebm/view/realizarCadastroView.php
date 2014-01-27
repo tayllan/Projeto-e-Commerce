@@ -26,7 +26,9 @@ class RealizarCadastroView {
             }
         }
         else {
-            $this->exibirConteudo(construirFormulario());
+            $this->exibirConteudo(
+                construirFormulario(Usuario::getNullObject())
+            );
         }
     }
     

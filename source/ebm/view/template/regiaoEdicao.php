@@ -1,18 +1,25 @@
 <?php
 
 function construirFormulario($regiao) {
-    $conteudo = '<form action="regiaoView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="regiaoView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="' . Colunas::REGIAO_NOME
-                . '" value="' . $regiao->nome . '">
+            <label>Regiao</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::REGIAO_NOME . '"
+                    value="' . $regiao->nome. '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <br>
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

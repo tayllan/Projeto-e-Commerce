@@ -109,7 +109,7 @@ class LoginController {
             <div class="ui left labeled icon input">
                 <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
                 <i class="mail icon"></i>
-                <div class="ui corner label">
+                <div class="ui red corner label">
                     <i class="icon asterisk"></i>
                 </div>
             </div>
@@ -119,7 +119,7 @@ class LoginController {
             <div class="ui left labeled icon input">
                 <input type="password" name="' . Colunas::USUARIO_SENHA . '">
                 <i class="lock icon"></i>
-                <div class="ui corner label">
+                <div class="ui red corner label">
                     <i class="icon asterisk"></i>
                 </div>
             </div>

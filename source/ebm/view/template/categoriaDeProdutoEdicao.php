@@ -1,18 +1,25 @@
 <?php
 
 function construirFormulario($categoriaDeProduto) {
-    $conteudo = '<form action="categoriaDeProdutoView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="categoriaDeProdutoView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="' . Colunas::CATEGORIA_DE_PRODUTO_NOME
+            <label>Categoria</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::CATEGORIA_DE_PRODUTO_NOME
                 . '" value="' . $categoriaDeProduto->nome . '">
+                <i class="tag icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <br>
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

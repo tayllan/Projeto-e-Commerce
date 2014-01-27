@@ -13,23 +13,24 @@ class PaginaInicialView {
 
     public function listar() {
         $array = $this->controller->listar();
-        $conteudo = $this->criarTabela(
-            'Produtos Cadastrados', array(
-                'Comprar', 'Nome',
-                'Descrição', 'Marca',
-                'Categoria', 'Preço'
-            )
+        $conteudo = '<div class="ui form segment">'
+            . $this->criarTabela(
+                'Produtos Cadastrados', array(
+                    'Comprar', 'Nome',
+                    'Descrição', 'Marca',
+                    'Categoria', 'Preço'
+                )
         );
 
         foreach ($array as $linha) {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        echo $conteudo . '</tbody></table>';
+        echo $conteudo . '</tbody></table></div>';
     }
 
     private function criarTabela($caption, array $array) {
-        $conteudo = '<table border="1">
+        $conteudo = '<table class="ui table segment small">
             <caption>' . $caption . '</caption>
             
             <thead>
@@ -44,8 +45,9 @@ class PaginaInicialView {
 
     private function construirTabela($linha) {
         $conteudo = '<form action="/view/carrinhoDeComprasView.php" method="POST">'
-            . '<tr><td><button type="submit" name="' . Colunas::PRODUTO_ID
-            . '" value="' . $linha[Colunas::PRODUTO_ID] . '"><i class="cart icon"></i></button></td>'
+            . '<tr><td><button class="ui black submit button small" type="submit"'
+            . ' name="' . Colunas::PRODUTO_ID . '" value="' . $linha[Colunas::PRODUTO_ID] . '">'
+            . '<i class="cart icon"></i></button></td>'
             . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'

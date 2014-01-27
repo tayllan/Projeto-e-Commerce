@@ -2,52 +2,92 @@
 
 function construirFormulario($endereco) {
     $controller = new CidadeController();
-    $conteudo = '<form action="enderecoView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="enderecoView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="bairro">Bairro:</label>
-            <input type="text" id="bairro" name="' . Colunas::ENDERECO_BAIRRO . '" value="' . $endereco->bairro . '">
+            <label>Bairro</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::ENDERECO_BAIRRO . '" value="' . $endereco->bairro . '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="cep">CEP:</label>
-            <input type="text" id="cep" name="' . Colunas::ENDERECO_CEP. '" value="' . $endereco->cep . '">
+            <label>CEP</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::ENDERECO_CEP . '" value="' . $endereco->cep . '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="rua">Rua:</label>
-            <input type="text" id="rua" name="' . Colunas::ENDERECO_RUA . '" value="' . $endereco->rua . '">
+            <label>Rua</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::ENDERECO_RUA . '" value="' . $endereco->rua . '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="numero">Numero:</label>
-            <input type="text" id="numero" name="' . Colunas::ENDERECO_NUMERO . '" value="' . $endereco->numero . '">
+            <label>Numero</label>
+            <div class="ui left labeled icon input">
+                <input type="number" name="' . Colunas::ENDERECO_NUMERO . '" value="' . $endereco->numero . '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="cidade">Cidade:</label>
-            <select id="cidade" name="' . Colunas::ENDERECO_FK_CIDADE. '" size="1">';
-    $array = $controller->listar(Colunas::CIDADE);
+            <label>Cidade</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::CIDADE_NOME
+                    . '" value="' . $endereco->cidade->nome . '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui segment">
+            <i class="map icon"></i>
+            <label>Unidade Federativa</label>
+            <select name="' . Colunas::CIDADE_FK_UNIDADE_FEDERATIVA. '" size="1">';
+    $array = $controller->listar(Colunas::UNIDADE_FEDERATIVA);
     foreach ($array as $linha) {
-        if ($linha[Colunas::CIDADE_NOME] != 'CIDADE_ANONIMA') {
-            $conteudo .= '<option value="' . $linha[Colunas::CIDADE_ID] . '"';
-            if ($linha[Colunas::CIDADE_ID] === $endereco->cidade->id) {
+        if ($linha[Colunas::UNIDADE_FEDERATIVA_NOME] != 'UNIDADE_FEDERATIVA_ANONIMA') {
+            $conteudo .= '<option value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '"';
+            if ($linha[Colunas::UNIDADE_FEDERATIVA_ID] === $endereco->cidade->unidadeFederativa->id) {
                 $conteudo .= ' selected';
             }
-            $conteudo .= '>' . $linha[Colunas::CIDADE_NOME] . '</option>';
+            $conteudo .= '>' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . '</option>';
         }
     }
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>
-            <input type="text" name="' . Colunas::ENDERECO_ID . '" value="' . $endereco->id . '">
+            <input type="hidden" name="' . Colunas::ENDERECO_ID . '" value="' . $endereco->id . '">
         </div>
     </fieldset>
 </form>';

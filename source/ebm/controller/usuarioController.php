@@ -3,17 +3,23 @@
 require_once DIR_ROOT . 'entity/usuarioModel.php';
 require_once DIR_ROOT . 'controller/enderecoController.php';
 require_once DIR_ROOT . 'controller/generoSexualController.php';
+require_once DIR_ROOT . 'controller/cidadeController.php';
+require_once DIR_ROOT . 'controller/unidadeFederativaController.php';
 require_once 'baseController.php';
 
 class UsuarioController extends BaseController {
     
     private $enderecoController;
     private $generoSexualController;
+    private $cidadeController;
+    private $unidadeFederativaController;
     
     public function __construct() {
         parent::__construct();
         $this->enderecoController = new EnderecoController();
         $this->generoSexualController = new GeneroSexualController();
+        $this->cidadeController = new CidadeController();
+        $this->unidadeFederativaController = new UnidadeFederativaController();
     }
         
     protected function inserir($usuario) {
@@ -44,6 +50,9 @@ class UsuarioController extends BaseController {
             . ' = ?, ' . Colunas::USUARIO_ADMINISTRADOR . ' = ?, ' . Colunas::USUARIO_FK_ENDERECO
             . ' = ?, ' . Colunas::USUARIO_FK_GENERO_SEXUAL . ' = ? WHERE ' . Colunas::USUARIO_ID . ' = ?'
         );
+        if ($usuario->administrador === 'true') {
+            $usuario->administrador = TRUE;
+        }
         if (strlen($usuario->senha) < 32) {
             $usuario->senha = md5($usuario->senha);
         }
@@ -56,7 +65,7 @@ class UsuarioController extends BaseController {
                 $usuario->administrador, $usuario->endereco->id,
                 $usuario->generoSexual->id, $usuario->id
             )
-        );
+        );         
     }
     
     public function getById($id) {
@@ -83,9 +92,13 @@ class UsuarioController extends BaseController {
             . Colunas::USUARIO_SENHA . ' LIKE ?'
         );
         
+        if (strlen($usuario->senha) < 32) {
+            $usuario->senha = md5($usuario->senha);
+        }
+        
         $sqlQuery->execute(
             array(
-                $usuario->login, md5($usuario->senha)
+                $usuario->login, $usuario->senha
             )
         );
         
@@ -98,21 +111,22 @@ class UsuarioController extends BaseController {
     }
     
     public function construirObjeto(array $codigosIdentificadores = NULL) {
-        $endereco = $this->enderecoController->construirObjetoPorId(
-            $codigosIdentificadores[Colunas::USUARIO_FK_ENDERECO]
-        );
-        $generoSexual = $this->generoSexualController->construirObjetoPorId(
-            $codigosIdentificadores[Colunas::USUARIO_FK_GENERO_SEXUAL]
-        );
         $usuario = new Usuario(
-            $codigosIdentificadores[Colunas::USUARIO_ID], $codigosIdentificadores[Colunas::USUARIO_NOME],
-            $codigosIdentificadores[Colunas::USUARIO_LOGIN], $codigosIdentificadores[Colunas::USUARIO_SENHA],
-            $codigosIdentificadores[Colunas::USUARIO_CPF], $codigosIdentificadores[Colunas::USUARIO_TELEFONE],
+            $codigosIdentificadores[Colunas::USUARIO_ID],
+            $codigosIdentificadores[Colunas::USUARIO_NOME],
+            $codigosIdentificadores[Colunas::USUARIO_LOGIN],
+            $codigosIdentificadores[Colunas::USUARIO_SENHA],
+            $codigosIdentificadores[Colunas::USUARIO_CPF],
+            $codigosIdentificadores[Colunas::USUARIO_TELEFONE],
             $codigosIdentificadores[Colunas::USUARIO_DATA_DE_NASCIMENTO],
             $codigosIdentificadores[Colunas::USUARIO_ADMINISTRADOR],
-            $endereco, $generoSexual
+            $this->construirObjetoEndereco(), $this->construirObjetoGeneroSexual()
         );
-
+        
+        $this->rotearInsercao($usuario);
+        $array = $this->getId($usuario);
+        $usuario->id = $array[Colunas::USUARIO_ID];
+        
         return $usuario;
     }
     
@@ -153,6 +167,49 @@ class UsuarioController extends BaseController {
         )[Colunas::GENERO_SEXUAL_NOME];
         
         return $nomeGenero;            
+    }
+    
+    private function construirObjetoUnidadeFederativa() {
+        $unidadeFederativa = $this->unidadeFederativaController->construirObjetoPorId(
+            $_POST[Colunas::CIDADE_FK_UNIDADE_FEDERATIVA]
+        );
+        
+        return $unidadeFederativa;
+    }
+    
+    private function construirObjetoCidade() {
+        $cidade = new Cidade(
+            NULL, $_POST[Colunas::CIDADE_NOME],
+            $this->construirObjetoUnidadeFederativa()
+        );
+        
+        $this->cidadeController->rotearInsercao($cidade);
+        $array = $this->cidadeController->getId($cidade);
+        $cidade->id = $array[Colunas::CIDADE_ID];
+        
+        return $cidade;
+    }
+    
+    private function construirObjetoEndereco() {
+        $endereco = new Endereco(
+            NULL, $_POST[Colunas::ENDERECO_BAIRRO],
+            $_POST[Colunas::ENDERECO_CEP], $_POST[Colunas::ENDERECO_RUA],
+            $_POST[Colunas::ENDERECO_NUMERO], $this->construirObjetoCidade()
+        );
+        
+        $this->enderecoController->rotearInsercao($endereco);
+        $array = $this->enderecoController->getId($endereco);
+        $endereco->id = $array[Colunas::ENDERECO_ID];
+        
+        return $endereco;
+    }
+    
+    private function construirObjetoGeneroSexual() {
+        $generoSexual = $this->generoSexualController->construirObjetoPorId(
+            $_POST[Colunas::USUARIO_FK_GENERO_SEXUAL]
+        );
+        
+        return $generoSexual;
     }
 
 }

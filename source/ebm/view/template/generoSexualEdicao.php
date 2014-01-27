@@ -1,18 +1,25 @@
 <?php
 
 function construirFormulario($generoSexual) {
-    $conteudo = '<form action="generoSexualView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="generoSexualView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="' . Colunas::GENERO_SEXUAL_NOME
-                . '" value="' . $generoSexual->nome . '">
+            <label>Gênero</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::GENERO_SEXUAL_NOME
+                    . '" value="' . $generoSexual->nome . '">
+                <i class="male icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <br>
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

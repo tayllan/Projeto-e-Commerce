@@ -18,6 +18,9 @@ class EnderecoView extends BaseView {
 
     protected function rotear() {
         if (isset($_POST[Colunas::ENDERECO_ID])) {
+            $cidadeId = $this->controller->getCidadeId(
+                $_POST[Colunas::CIDADE_NOME], $_POST[Colunas::CIDADE_FK_UNIDADE_FEDERATIVA]
+            );
             $endereco = $this->controller->construirObjeto(
                 array (
                     Colunas::ENDERECO_ID => $_POST[Colunas::ENDERECO_ID],
@@ -25,7 +28,7 @@ class EnderecoView extends BaseView {
                     Colunas::ENDERECO_CEP => $_POST[Colunas::ENDERECO_CEP],
                     Colunas::ENDERECO_RUA => $_POST[Colunas::ENDERECO_RUA],
                     Colunas::ENDERECO_NUMERO => $_POST[Colunas::ENDERECO_NUMERO],
-                    Colunas::ENDERECO_FK_CIDADE => $_POST[Colunas::ENDERECO_FK_CIDADE],
+                    Colunas::ENDERECO_FK_CIDADE => $cidadeId
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($endereco);

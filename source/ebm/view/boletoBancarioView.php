@@ -26,7 +26,7 @@ class BoletoBancarioView {
             . $conteudo
             . '<div>
                     <br>
-                    <input type="submit" name="imprimir" value="Imprimir" class="ui submit button small">
+                    <input type="submit" name="imprimir" value="Imprimir" class="ui submit black button small">
                 </div>'
             . '</form>';
         rodape('Super Rodapé');

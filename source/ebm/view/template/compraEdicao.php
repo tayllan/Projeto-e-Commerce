@@ -2,23 +2,36 @@
 
 function construirFormulario($compra) {
     $controller = new CompraController();
-    $conteudo = '<form action="compraView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="compraView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="data">Data:</label>
-            <input type="text" id="data" name="' . Colunas::COMPRA_DATA . '" value="' . $compra->data . '">
+            <label>Data em que foi realizada</label>
+            <div class="ui left labeled icon input">
+                <input type="date" name="' . Colunas::COMPRA_DATA . '" value="' . $compra->data . '">
+                <i class="calendar icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="total">Total:</label>
-            <input type="text" id="total" name="' . Colunas::COMPRA_TOTAL . '" value="' . $compra->total . '">
+            <label>Valor total</label>
+            <div class="ui left labeled icon input">
+                <input type="number" name="' . Colunas::COMPRA_TOTAL . '" value="' . $compra->total . '">
+                <i class="dollar icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
-        <div>
-            <label for="usuario">Comprador:</label>
-            <select id="usuario" name="' . Colunas::COMPRA_FK_USUARIO . '" size="1">';
+        <div class="ui segment">
+            <i class="user icon"></i>
+            <label>Comprador:</label>
+            <select name="' . Colunas::COMPRA_FK_USUARIO . '" size="1">';
     $array = $controller->listar(Colunas::USUARIO);
     foreach ($array as $linha) {
         if ($linha[Colunas::USUARIO_NOME] != 'USUARIO_ANONIMO') {
@@ -30,11 +43,15 @@ function construirFormulario($compra) {
         }
     }
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
-        <div>
-            <label for="concluida">Concluida ?</label>
-            <select id="concluida" size="1" name="' . Colunas::COMPRA_CONCLUIDA . '">';
+        <div class="ui segment">
+            <i class="icon"></i>
+            <label>Concluida ?</label>
+            <select size="1" name="' . Colunas::COMPRA_CONCLUIDA . '">';
     if ($compra->concluida) {
         $conteudo .= '<option value="true" selected>SIM</option>
                 <option value="false">NÃO</option>';
@@ -45,10 +62,13 @@ function construirFormulario($compra) {
     }
     
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

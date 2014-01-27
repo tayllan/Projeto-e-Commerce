@@ -2,18 +2,26 @@
 
 function construirFormulario($cidade) {
     $controller = new CidadeController();
-    $conteudo = '<form action="cidadeView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="cidadeView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="' . Colunas::CIDADE_NOME . '" value="' . $cidade->nome . '">
+            <label>Cidade</label>
+            <div class="ui left labeled icon input">
+                <input type="text" name="' . Colunas::CIDADE_NOME . '"
+                    value="' . $cidade->nome. '">
+                <i class="map icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
-        <div>
-            <label for="unidadeFederativa">Unidade Federativa:</label>
-            <select id="unidadeFederativa" name="' . Colunas::CIDADE_FK_UNIDADE_FEDERATIVA. '" size="1">';
+        <div class="ui segment">
+            <i class="map icon"></i>
+            <labe>Unidade Federativa</label>
+            <select name="' . Colunas::CIDADE_FK_UNIDADE_FEDERATIVA. '" size="1">';
     $array = $controller->listar(Colunas::UNIDADE_FEDERATIVA);
     foreach ($array as $linha) {
         if ($linha[Colunas::UNIDADE_FEDERATIVA_NOME] != 'UNIDADE_FEDERATIVA_ANONIMA') {
@@ -26,10 +34,14 @@ function construirFormulario($cidade) {
         }
     }
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <br>
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

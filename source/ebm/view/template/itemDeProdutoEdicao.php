@@ -3,25 +3,38 @@
 function construirFormulario($itemDeProduto) {
     $compraController = new CompraController();
     $produtoController = new ProdutoController();
-    $conteudo = '<form action="itemDeProdutoView.php" method="POST">
-    <fieldset>
+    $conteudo = '<form class="ui form segment" action="itemDeProdutoView.php" method="POST">
+    <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label for="quantidade">Quantidade:</label>
-            <input type="text" id="quantidade" name="' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . '" value="'
-                . $itemDeProduto->quantidade . '">
+            <label>Quantidade</label>
+            <div class="ui left labeled icon input">
+                <input type="number" name="' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE
+                    . '" value="' . $itemDeProduto->quantidade . '">
+                <i class="add icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
         <div>
-            <label for="preco">Preço:</label>
-            <input type="text" id="preco" name="' . Colunas::ITEM_DE_PRODUTO_PRECO . '" value="'
-                . $itemDeProduto->preco . '">
+            <label>Preço Unitário</label>
+            <div class="ui left labeled icon input">
+                <input type="number" name="' . Colunas::ITEM_DE_PRODUTO_PRECO
+                    . '" value="' . $itemDeProduto->preco . '">
+                <i class="dollar icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
         </div>
         
-        <div>
-            <label for="compra">Compra:</label>
-            <select id="compra" name="' . Colunas::ITEM_DE_PRODUTO_FK_COMPRA . '" size="1">';
+        <div class="ui segment">
+            <i class="icon"></i>
+            <label>Compra:</label>
+            <select name="' . Colunas::ITEM_DE_PRODUTO_FK_COMPRA . '" size="1">';
     $arrayCompra = $compraController->listar(Colunas::COMPRA);
     foreach ($arrayCompra as $linha) {
         $conteudo .= '<option value="' . $linha[Colunas::COMPRA_ID] . '"';
@@ -32,11 +45,15 @@ function construirFormulario($itemDeProduto) {
             . $linha[Colunas::COMPRA_TOTAL] . '</option>';
     }
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
-        <div>
-            <label for="produto">Produto:</label>
-            <select id="produto" name="' . Colunas::ITEM_DE_PRODUTO_FK_PRODUTO. '" size="1">';
+        <div class="ui segment">
+            <i class="cart icon"></i>
+            <label>Produto:</label>
+            <select name="' . Colunas::ITEM_DE_PRODUTO_FK_PRODUTO. '" size="1">';
     $arrayProduto = $produtoController->listar(Colunas::PRODUTO);
     foreach ($arrayProduto as $linha) {
         $conteudo .= '<option value="' . $linha[Colunas::PRODUTO_ID] . '"';
@@ -46,10 +63,13 @@ function construirFormulario($itemDeProduto) {
         $conteudo .= '>' . $linha[Colunas::PRODUTO_NOME] . '</option>';
     }
     $conteudo .= '</select>
+            <div class="ui red corner label">
+                <i class="icon asterisk"></i>
+            </div>
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar">
+            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
             
         <div hidden>

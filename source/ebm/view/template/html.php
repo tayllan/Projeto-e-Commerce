@@ -51,7 +51,15 @@ function cabecalho($mensagem) {
 function rodape($mensagem) {
     echo <<<RODAPE
 <footer class="ui center aligned segment">
-    <p class="ui black label">{$mensagem}</p>
+    <p class="ui black label">
+        EBM e-Commerce LTDA, 02.123.123/0001-11
+    </p>
+    <p class="ui black label">
+        UTFPR Campus Cornélio Procópio - Avenida Alberto Carazzai, 1640
+    </p>
+    <p class="ui black label">
+        Cornélio Procópio - PR, 86300-000
+    </p>
 </footer>
 RODAPE;
 }

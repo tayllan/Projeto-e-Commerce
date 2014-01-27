@@ -74,14 +74,14 @@ if (isset($_SESSION[SESSAO_USUARIO_PERMISSAO])) {
         <div class="item">
             <i class="settings icon"></i>
             <div class="content">
-                <a href="/view/itemDeProdutoView.php">Itens de Produtos</a>
+                <a href="/view/compraView.php">Compras</a>
             </div>
         </div>
     
         <div class="item">
             <i class="settings icon"></i>
             <div class="content">
-                <a href="/view/compraView.php">Compras</a>
+                <a href="/view/itemDeProdutoView.php">Itens de Produtos</a>
             </div>
         </div>
     
