@@ -5,7 +5,7 @@ function criarTabela($caption, $nomeView, array $array) {
 
 <br>
 
-<table border="1">
+<table class="ui table segment">
     <caption>' . $caption . '</caption>
 
     <thead>

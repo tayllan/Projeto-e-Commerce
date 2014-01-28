@@ -39,6 +39,7 @@ class Colunas {
     const PRODUTO_DESCRICAO = 'produto_descricao';
     const PRODUTO_PRECO = 'produto_preco';
     const PRODUTO_QUANTIDADE = 'produto_quantidade';
+    const PRODUTO_IMAGEM = 'produto_caminho_imagem';
     
     const CIDADE = 'cidade';
     const CIDADE_ID = 'cidade_id';

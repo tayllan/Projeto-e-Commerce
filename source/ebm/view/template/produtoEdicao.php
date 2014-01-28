@@ -2,7 +2,8 @@
 
 function construirFormulario($produto) {
     $controller = new ProdutoController();
-    $conteudo = '<form class="ui form segment" action="produtoView.php" method="POST">
+    $conteudo = '<form class="ui form segment" action="produtoView.php" 
+        method="POST" enctype="multipart/form-data">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
@@ -80,6 +81,21 @@ function construirFormulario($produto) {
                 <i class="add icon"></i>
                 <div class="ui red corner label">
                     <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <label>Imagem</label>
+            <div class="two fields">
+                <div class="field ui left labeled icon input">
+                    <input type="text" name="' . Colunas::PRODUTO_IMAGEM
+                        . '" value="' . $produto->caminhoImagem . '">
+                    <i class="photo icon"></i>
+                </div>
+                <div class="field ui left labeled icon input">
+                    <input type="file" name="imagem">
+                    <i class="upload icon"></i>
                 </div>
             </div>
         </div>

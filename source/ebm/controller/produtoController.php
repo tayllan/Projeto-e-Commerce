@@ -21,14 +21,16 @@ class ProdutoController extends BaseController {
             'INSERT INTO ' . Colunas::PRODUTO . ' (' . Colunas::PRODUTO_FK_MARCA . ', '
             . Colunas::PRODUTO_FK_CATEGORIA . ', ' . Colunas::PRODUTO_NOME . ', '
             . Colunas::PRODUTO_DESCRICAO . ', ' . Colunas::PRODUTO_PRECO . ', '
-            . Colunas::PRODUTO_QUANTIDADE . ') VALUES (?, ?, ?, ?, ?, ?)'
+            . Colunas::PRODUTO_QUANTIDADE . ', '
+            . Colunas::PRODUTO_IMAGEM . ') VALUES (?, ?, ?, ?, ?, ?, ?)'
         );
         
         return $sqlQuery->execute(
             array(
                 $produto->marca->id, $produto->categoria->id,
                 $produto->nome, $produto->descricao,
-                $produto->preco, $produto->quantidade
+                $produto->preco, $produto->quantidade,
+                $produto->caminhoImagem
             )
         );
     }
@@ -38,14 +40,16 @@ class ProdutoController extends BaseController {
             'UPDATE ' . Colunas::PRODUTO . ' SET ' . Colunas::PRODUTO_FK_MARCA . ' = ?, '
             . Colunas::PRODUTO_FK_CATEGORIA . ' = ?, ' . Colunas::PRODUTO_NOME . ' = ?, '
             . Colunas::PRODUTO_DESCRICAO . ' = ?, ' . Colunas::PRODUTO_PRECO . ' = ?, '
-            . Colunas::PRODUTO_QUANTIDADE . ' = ? WHERE ' . Colunas::PRODUTO_ID . ' = ?'
+            . Colunas::PRODUTO_QUANTIDADE . ' = ?, '
+            . Colunas::PRODUTO_IMAGEM . ' = ? WHERE ' . Colunas::PRODUTO_ID . ' = ?'
         );
         
         return $sqlQuery->execute(
             array(
                 $produto->marca->id, $produto->categoria->id,
                 $produto->nome, $produto->descricao,
-                $produto->preco, $produto->quantidade, $produto->id
+                $produto->preco, $produto->quantidade,
+                $produto->caminhoImagem, $produto->id
             )
         );
     }
@@ -72,14 +76,16 @@ class ProdutoController extends BaseController {
             'SELECT ' . Colunas::PRODUTO_ID . ' FROM ' . Colunas::PRODUTO . ' WHERE '
             . Colunas::PRODUTO_FK_MARCA . ' = ? AND ' . Colunas::PRODUTO_FK_CATEGORIA . ' = ? AND '
             . Colunas::PRODUTO_NOME . ' LIKE ? AND ' . Colunas::PRODUTO_DESCRICAO . ' LIKE ? AND '
-            . Colunas::PRODUTO_PRECO . ' = ? AND ' . Colunas::PRODUTO_QUANTIDADE . ' = ?'
+            . Colunas::PRODUTO_PRECO . ' = ? AND ' . Colunas::PRODUTO_QUANTIDADE . ' = ? AND '
+            . Colunas::PRODUTO_IMAGEM . ' LIKE ?'
         );
         
         $sqlQuery->execute(
             array(
                 $produto->marca->id, $produto->categoria->id,
                 $produto->nome, $produto->descricao,
-                $produto->preco, $produto->quantidade
+                $produto->preco, $produto->quantidade,
+                $produto->caminhoImagem
             )
         );
         
@@ -104,8 +110,9 @@ class ProdutoController extends BaseController {
             $marcaDeProduto, $categoriaDeProduto,
             $codigosIdentificadores[Colunas::PRODUTO_DESCRICAO],
             $codigosIdentificadores[Colunas::PRODUTO_PRECO],
-            $codigosIdentificadores[Colunas::PRODUTO_QUANTIDADE]
-        );       
+            $codigosIdentificadores[Colunas::PRODUTO_QUANTIDADE],
+            $codigosIdentificadores[Colunas::PRODUTO_IMAGEM]
+        );
         
         return $produto;
     }
@@ -125,7 +132,8 @@ class ProdutoController extends BaseController {
             $marcaDeProduto, $categoriaDeProduto,
             $arrayProduto[Colunas::PRODUTO_DESCRICAO],
             $arrayProduto[Colunas::PRODUTO_PRECO],
-            $arrayProduto[Colunas::PRODUTO_QUANTIDADE]
+            $arrayProduto[Colunas::PRODUTO_QUANTIDADE],
+            $arrayProduto[Colunas::PRODUTO_IMAGEM]
         );       
         
         return $produto;
@@ -145,6 +153,30 @@ class ProdutoController extends BaseController {
         )[Colunas::CATEGORIA_DE_PRODUTO_NOME];
         
         return $nomeCategoria;
+    }
+    
+    public function getImageAddres($caminhoVazio) {
+        $imagem = $_FILES['imagem'];
+        if ($imagem['type'] === 'image/png' || $imagem['type'] === 'image/jpeg') {
+            $origem = $imagem['tmp_name'];
+            $destino = '/resource/imagens/' . $imagem['name'];
+            
+            if(move_uploaded_file($origem, '..' . $destino)) {
+		return $destino;
+            }
+            else if ($caminhoVazio) {
+                return '/resource/imagens/defaultImage.jpg';
+            }
+            else {
+                return $_POST[Colunas::PRODUTO_IMAGEM];
+            }
+        }
+        else if ($caminhoVazio) {
+            return '/resource/imagens/defaultImage.jpg';
+        }
+        else {
+            return $_POST[Colunas::PRODUTO_IMAGEM];
+        }
     }
 
 }

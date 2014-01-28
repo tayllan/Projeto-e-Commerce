@@ -12,9 +12,10 @@ class Produto {
     public $descricao;
     public $preco;
     public $quantidade;
+    public $caminhoImagem;
 
     public function __construct($id, $nome, MarcaDeProduto $marca, CategoriaDeProduto $categoria,
-        $descricao, $preco, $quantidade) {
+        $descricao, $preco, $quantidade, $caminhoImagem) {
 
         $this->id = $id;
         $this->marca = $marca;
@@ -23,6 +24,7 @@ class Produto {
         $this->nome = $nome;
         $this->preco = $preco;
         $this->quantidade = $quantidade;
+        $this->caminhoImagem = $caminhoImagem;
     }
     
     static public function getNullObject() {
@@ -30,7 +32,7 @@ class Produto {
             NULL, NULL,
             MarcaDeProduto::getNullObject(), CategoriaDeProduto::getNullObject(),
             NULL, NULL,
-            NULL
+            NULL, '/resource/imagens/defaultImage.jpg'
         );
     }
 

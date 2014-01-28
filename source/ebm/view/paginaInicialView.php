@@ -16,9 +16,10 @@ class PaginaInicialView {
         $conteudo = '<div class="ui form segment">'
             . $this->criarTabela(
                 'Produtos Cadastrados', array(
-                    'Comprar', 'Nome',
-                    'Descrição', 'Marca',
-                    'Categoria', 'Preço'
+                    'Comprar', 'Imagem',
+                    'Nome', 'Descrição',
+                    'Marca', 'Categoria',
+                    'Preço'
                 )
         );
 
@@ -48,6 +49,7 @@ class PaginaInicialView {
             . '<tr><td><button class="ui black submit button small" type="submit"'
             . ' name="' . Colunas::PRODUTO_ID . '" value="' . $linha[Colunas::PRODUTO_ID] . '">'
             . '<i class="cart icon"></i></button></td>'
+            . '<td><img src="' . $linha[Colunas::PRODUTO_IMAGEM] . '" alt="Produto" width="80" height="80"></td>'
             . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'

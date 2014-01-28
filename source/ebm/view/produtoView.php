@@ -18,6 +18,12 @@ class ProdutoView extends BaseView {
 
     protected function rotear() {
         if (isset($_POST[Colunas::PRODUTO_ID])) {
+            if (empty($_POST[Colunas::PRODUTO_IMAGEM])) {
+                $caminhoImagem = $this->controller->getImageAddres(TRUE);
+            }
+            else {
+                $caminhoImagem = $this->controller->getImageAddres(FALSE);
+            }
             $produto = $this->controller->construirObjeto(
                 array (
                     Colunas::PRODUTO_ID => $_POST[Colunas::PRODUTO_ID],
@@ -26,7 +32,8 @@ class ProdutoView extends BaseView {
                     Colunas::PRODUTO_FK_CATEGORIA => $_POST[Colunas::PRODUTO_FK_CATEGORIA],
                     Colunas::PRODUTO_DESCRICAO => $_POST[Colunas::PRODUTO_DESCRICAO],
                     Colunas::PRODUTO_PRECO => $_POST[Colunas::PRODUTO_PRECO],
-                    Colunas::PRODUTO_QUANTIDADE => $_POST[Colunas::PRODUTO_QUANTIDADE]
+                    Colunas::PRODUTO_QUANTIDADE => $_POST[Colunas::PRODUTO_QUANTIDADE],
+                    Colunas::PRODUTO_IMAGEM => $caminhoImagem
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($produto);
@@ -63,6 +70,7 @@ class ProdutoView extends BaseView {
         $conteudo = criarTabela(
             'Produtos Cadastrados', 'produtoView',
             array(
+                'Imagem',
                 'Nome', 'Descrição',
                 'Marca', 'Categoria',
                 'Preço', 'Quantidade'
@@ -77,7 +85,9 @@ class ProdutoView extends BaseView {
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="produtoView.php?editar=true&id=' . $linha[Colunas::PRODUTO_ID] . '">'
+        $conteudo = '<tr><td><img src="' . $linha[Colunas::PRODUTO_IMAGEM] . '" alt="Produto" '
+            . 'width="80" height="80"></td>'
+            . '<td><a href="produtoView.php?editar=true&id=' . $linha[Colunas::PRODUTO_ID] . '">'
             . $linha[Colunas::PRODUTO_NOME] . '</a></td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'

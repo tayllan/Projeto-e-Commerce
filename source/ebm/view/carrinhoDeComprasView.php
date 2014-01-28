@@ -70,10 +70,10 @@ class CarrinhoDeComprasView {
         $array = $this->controller->listar();
         $conteudo = $this->criarTabela(
             'Produtos Adicionados no Carrinho', array(
-                'Nome', 'Descrição',
-                'Marca', 'Categoria',
-                'Quantidade', 'Preço',
-                'Deletar'
+                'Imagem', 'Nome',
+                'Descrição', 'Marca',
+                'Categoria', 'Quantidade',
+                'Preço', 'Deletar'
             )
         );
 
@@ -107,6 +107,7 @@ class CarrinhoDeComprasView {
         );
         $conteudo = '<tr><td hidden><input type="hidden" name="' . Colunas::PRODUTO_ID
             . '[]" value="' . $produto->id . '"></td>'
+            . '<td><img src="' . $produto->caminhoImagem . '" alt="Produto" width="80" height="80"></td>'
             . '<td>' . $produto->nome . '</td>'
             . '<td>' . $produto->descricao . '</td>'
             . '<td>' . $produto->marca->nome . '</td>'
