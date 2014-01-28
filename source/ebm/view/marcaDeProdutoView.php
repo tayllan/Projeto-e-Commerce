@@ -27,10 +27,10 @@ class MarcaDeProdutoView extends BaseView {
                 'Marca de Produto', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -62,22 +62,23 @@ class MarcaDeProdutoView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="marcaDeProdutoView.php?editar=true&id='
-            . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '">' . $linha[Colunas::MARCA_DE_PRODUTO_NOME]
-            . '</a></td>'
-            . '<td><form action="marcaDeProdutoView.php" method="POST"><button class="deletar"'
-            . ' type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '">Deletar</button></form></td></tr>';
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $marcaDeProduto = $this->controller->construirObjetoPorId($_GET['id']);
+        $marcaDeProduto = $this->controller->construirObjetoPorId($_POST['editar']);
 
         $this->exibirConteudo(
             construirFormulario($marcaDeProduto)

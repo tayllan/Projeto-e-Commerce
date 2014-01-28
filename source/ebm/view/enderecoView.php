@@ -36,10 +36,10 @@ class EnderecoView extends BaseView {
                 'Endereço', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -65,7 +65,9 @@ class EnderecoView extends BaseView {
         $conteudo = criarTabela(
             'Endereços Cadastrados', 'enderecoView',
             array(
-                'Bairro', 'CEP', 'Rua', 'Número', 'Cidade'
+                'Bairro', 'CEP',
+                'Rua', 'Número',
+                'Cidade'
             )
         );
 
@@ -73,25 +75,27 @@ class EnderecoView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="enderecoView.php?editar=true&id=' . $linha[Colunas::ENDERECO_ID] . '">'
-            . $linha[Colunas::ENDERECO_BAIRRO] . '</a></td>'
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::ENDERECO_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::ENDERECO_BAIRRO] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_CEP] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_RUA] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_NUMERO] . '</td>'
             . '<td>' . $this->controller->getCityName($linha) . '</td>'
-            . '<td><form action="enderecoView.php" method="POST"><button class="deletar" '
-            . 'type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::ENDERECO_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::ENDERECO_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $endereco = $this->controller->construirObjetoPorId($_GET['id']);
+        $endereco = $this->controller->construirObjetoPorId($_POST['editar']);
 
         $this->exibirConteudo(
             construirFormulario($endereco)

@@ -34,10 +34,10 @@ class ItemDeProdutoView extends BaseView {
                 'Item De Prdotuo', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -72,24 +72,26 @@ class ItemDeProdutoView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="itemDeProdutoView.php?editar=true&id='
-            . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '">' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '</a></td>'
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '</td>'
             . '<td>' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td>'
             . '<td>' . $this->controller->getBuyName($linha) . '</td>'
             . '<td>' . $this->controller->getProductName($linha) . '</td>'
-            . '<td><form action="itemDeProdutoView.php" method="POST"><button class="deletar" '
-            . 'type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $itemDeProduto = $this->controller->construirObjetoPorId($_GET['id']);
+        $itemDeProduto = $this->controller->construirObjetoPorId($_POST['editar']);
 
         $this->exibirConteudo(
             construirFormulario($itemDeProduto)

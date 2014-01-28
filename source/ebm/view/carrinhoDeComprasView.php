@@ -50,7 +50,7 @@ class CarrinhoDeComprasView {
     }
     
     public function construirFormulario() {
-        $conteudo = '<form class="ui form segment" action="/view/pagamentoView.php" method="POST">
+        $conteudo = '<form class="ui form" action="/view/pagamentoView.php" method="POST">
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>';
         

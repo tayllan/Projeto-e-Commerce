@@ -1,19 +1,21 @@
 <?php
 
 function criarTabela($caption, $nomeView, array $array) {
-    $conteudo = '<a href="' . $nomeView . '.php?editar=false">Cadastrar</a>
+    $conteudo = '<form class="ui form" action="' . $nomeView . '.php" method="POST">
+        
+    <button type="submit" name="editar" value="false" class="ui green submit button small">
+        <i class="add icon"></i>
+    </button>
+    <table class="ui table small">
+        <caption class="ui header">' . $caption . '</caption>
 
-<br>
-
-<table class="ui table segment">
-    <caption>' . $caption . '</caption>
-
-    <thead>
-        <tr>';
+        <thead>
+            <tr>
+                <th>Alterar</th>';
     
     foreach ($array as $elemento) {
-        $conteudo .= '<th><strong>' . $elemento . '</strong></th>';
+        $conteudo .= '<th>' . $elemento . '</th>';
     }
     
-    return $conteudo . '<th><strong>Deletar</strong></th></tr></thead><tbody>';
+    return $conteudo . '<th>Deletar</th></tr></thead><tbody>';
 }

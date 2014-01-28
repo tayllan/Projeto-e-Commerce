@@ -41,10 +41,10 @@ class ProdutoView extends BaseView {
                 'Produto', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -70,10 +70,10 @@ class ProdutoView extends BaseView {
         $conteudo = criarTabela(
             'Produtos Cadastrados', 'produtoView',
             array(
-                'Imagem',
-                'Nome', 'Descrição',
-                'Marca', 'Categoria',
-                'Preço', 'Quantidade'
+                'Imagem', 'Nome',
+                'Descrição', 'Marca',
+                'Categoria', 'Preço',
+                'Quantidade'
             )
         );
 
@@ -81,27 +81,30 @@ class ProdutoView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><img src="' . $linha[Colunas::PRODUTO_IMAGEM] . '" alt="Produto" '
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::PRODUTO_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td><img src="' . $linha[Colunas::PRODUTO_IMAGEM] . '" alt="Produto" '
             . 'width="80" height="80"></td>'
-            . '<td><a href="produtoView.php?editar=true&id=' . $linha[Colunas::PRODUTO_ID] . '">'
-            . $linha[Colunas::PRODUTO_NOME] . '</a></td>'
+            . '<td>' . $linha[Colunas::PRODUTO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_DESCRICAO] . '</td>'
             . '<td>' . $this->controller->getBrandName($linha) . '</td>'
             . '<td>' . $this->controller->getCategoryName($linha) . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_PRECO] . '</td>'
             . '<td>' . $linha[Colunas::PRODUTO_QUANTIDADE] . '</td>'
-            . '<td><form action="produtoView.php" method="POST"><button class ="deletar" type="submit"'
-            . ' name="deletar" value="' . $linha[Colunas::PRODUTO_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::PRODUTO_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $produto = $this->controller->construirObjetoPorId($_GET['id']);
+        $produto = $this->controller->construirObjetoPorId($_POST['editar']);
         
         $this->exibirConteudo(
             construirFormulario($produto)

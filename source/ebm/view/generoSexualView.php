@@ -27,10 +27,10 @@ class GeneroSexualView extends BaseView {
                 'Gênero Sexual', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -62,22 +62,23 @@ class GeneroSexualView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="generoSexualView.php?editar=true&id='
-            . $linha[Colunas::GENERO_SEXUAL_ID] . '">'
-            . $linha[Colunas::GENERO_SEXUAL_NOME] . '</a></td>'
-            . '<td><form action="generoSexualView.php" method="POST"><button class="deletar" '
-            . 'type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '">Deletar</button></form></td></tr>';
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::GENERO_SEXUAL_NOME] . '</td>'
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $generoSexual = $this->controller->construirObjetoPorId($_GET['id']);
+        $generoSexual = $this->controller->construirObjetoPorId($_POST['editar']);
         
         $this->exibirConteudo(
             construirFormulario($generoSexual)

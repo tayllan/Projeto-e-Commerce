@@ -31,10 +31,10 @@ class UnidadeFederativaView extends BaseView {
                 'Unidade Federativa', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -60,7 +60,8 @@ class UnidadeFederativaView extends BaseView {
         $conteudo = criarTabela(
             'Unidades Federativas Cadastradas', 'unidadeFederativaView',
             array(
-                'Nome', 'Sigla', 'Região'
+                'Nome', 'Sigla',
+                'Região'
             )
         );
 
@@ -68,23 +69,25 @@ class UnidadeFederativaView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="unidadeFederativaView.php?editar=true&id='
-            . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '">' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . '</a></td>'
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . '</td>'
             . '<td>' . $linha[Colunas::UNIDADE_FEDERATIVA_SIGLA] . '</td>'
             . '<td>' . $this->controller->getRegionName($linha) . '</td>'
-            . '<td><form action="unidadeFederativaView.php" method="POST"><button class="deletar"'
-            . ' type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $unidadeFederativa = $this->controller->construirObjetoPorId($_GET['id']);
+        $unidadeFederativa = $this->controller->construirObjetoPorId($_POST['editar']);
 
         $this->exibirConteudo(
             construirFormulario($unidadeFederativa)

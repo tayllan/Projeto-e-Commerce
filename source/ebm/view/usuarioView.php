@@ -37,10 +37,10 @@ class UsuarioView extends BaseView {
                 'Usuario', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -69,7 +69,7 @@ class UsuarioView extends BaseView {
                 'Nome', 'Login',
                 'Senha', 'CPF',
                 'Telefone', 'Data de Nascimento',
-                'Administrador ?', 'Endereço',
+                'Admin?', 'Endereço',
                 'Gênero Sexual'
             )
         );
@@ -80,28 +80,31 @@ class UsuarioView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="usuarioView.php?editar=true&id='
-            . $linha[Colunas::USUARIO_ID] . '">' . $linha[Colunas::USUARIO_NOME] . '</a></td>'
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::USUARIO_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::USUARIO_NOME] . '</td>'
             . '<td>' . $linha[Colunas::USUARIO_LOGIN] . '</td>'
-            . '<td>**********</td>'
+            . '<td>********</td>'
             . '<td>' . $linha[Colunas::USUARIO_CPF] . '</td>'
             . '<td>' . $linha[Colunas::USUARIO_TELEFONE] . '</td>'
             . '<td>' . $linha[Colunas::USUARIO_DATA_DE_NASCIMENTO] . '</td>'
             . '<td>' . $linha[Colunas::USUARIO_ADMINISTRADOR] . '</td>'
             . '<td>' . $this->controller->getAddressName($linha) . '</td>'
             . '<td>' . $this->controller->getGenderName($linha) . '</td>'
-            . '<td><form action="usuarioView.php" method="POST"><button class="deletar" type="submit"'
-            . ' name="deletar" value="' . $linha[Colunas::USUARIO_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::USUARIO_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $usuario = $this->controller->construirObjetoPorId($_GET['id']);
+        $usuario = $this->controller->construirObjetoPorId($_POST['editar']);
 
         $this->exibirConteudo(
             construirFormulario($usuario)

@@ -32,10 +32,10 @@ class CompraView extends BaseView {
                 'Compra', $trueFalse
             );
         }
-        else if (isset($_GET['editar']) && $_GET['editar'] === 'false') {
+        else if (isset($_POST['editar']) && $_POST['editar'] === 'false') {
             $this->cadastrar();
         }
-        else if (isset($_GET['editar'])) {
+        else if (isset($_POST['editar'])) {
             $this->alterar();
         }
         else if (isset($_POST['deletar'])) {
@@ -72,24 +72,26 @@ class CompraView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form>');
     }
     
     protected function construirTabela($linha) {
-        $conteudo = '<tr><td><a href="compraView.php?editar=true&id=' . $linha[Colunas::COMPRA_ID] . '">'
-            . $linha[Colunas::COMPRA_DATA] . '</a></td>'
+        $conteudo = '<tr><td><button type="submit" name="editar" '
+            . 'value="' . $linha[Colunas::COMPRA_ID] . '" '
+            . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
+            . '<td>' . $linha[Colunas::COMPRA_DATA] . '</td>'
             . '<td>' . $linha[Colunas::COMPRA_TOTAL] . '</td>'
             . '<td>' . $this->controller->getUserName($linha) . '</td>'
             . '<td>' . $linha[Colunas::COMPRA_CONCLUIDA] . '</td>'
-            . '<td><form action="compraView.php" method="POST"><button class="deletar" '
-            . 'type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::COMPRA_ID] . '">Deletar</button></form></td></tr>';
+            . '<td><button type="submit" name="deletar" '
+            . 'value="' . $linha[Colunas::COMPRA_ID] . '" '
+            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }
 
     protected function alterar() {
-        $compra = $this->controller->construirObjetoPorId($_GET['id']);
+        $compra = $this->controller->construirObjetoPorId($_POST['editar']);
 
         $this->exibirConteudo(
             construirFormulario($compra)
