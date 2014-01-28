@@ -20,7 +20,8 @@ function construirFormulario($endereco) {
         <div>
             <label>CEP</label>
             <div class="ui left labeled icon input">
-                <input type="text" name="' . Colunas::ENDERECO_CEP . '" value="' . $endereco->cep . '">
+                <input type="text" name="' . Colunas::ENDERECO_CEP
+                    . '" value="' . $endereco->cep . '" maxlength="8">
                 <i class="map icon"></i>
                 <div class="ui red corner label">
                     <i class="icon asterisk"></i>

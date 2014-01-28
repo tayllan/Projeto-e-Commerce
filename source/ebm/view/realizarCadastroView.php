@@ -22,7 +22,7 @@ class RealizarCadastroView {
                 $this->controller->logarRedirecionar();
             }
             else {
-                echo '<p class="erro">Ocorreu algum erro no cadastro</p>';
+                $this->exibirConteudo(MENSAGEM_ERRO);
             }
         }
         else {

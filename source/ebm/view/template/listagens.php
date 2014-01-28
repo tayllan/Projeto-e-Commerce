@@ -4,7 +4,7 @@ function criarTabela($caption, $nomeView, array $array) {
     $conteudo = '<form class="ui form" action="' . $nomeView . '.php" method="POST">
         
     <button type="submit" name="editar" value="false" class="ui green submit button small">
-        <i class="add icon"></i>
+        <i class="add icon"></i>Cadastrar
     </button>
     <table class="ui table small">
         <caption class="ui header">' . $caption . '</caption>

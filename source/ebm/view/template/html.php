@@ -41,7 +41,7 @@ function cabecalho($mensagem) {
         $conteudo .= '<div class="ui label"><a href="/core/login.php" class="detail">'
             . '<i class="user icon"> Realizar login</i></a></div>'
         . '<div class="ui label"><a href="/view/realizarCadastroView.php" class="detail">'
-            . '<i class="sign in icon"> Cadastre-se</i></a></div>';
+            . '<i class="signup icon"> Cadastre-se</i></a></div>';
     }
         
     echo $conteudo . '<div class="ui label"><a href="/view/carrinhoDeComprasView.php">'
