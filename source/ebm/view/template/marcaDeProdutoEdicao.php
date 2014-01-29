@@ -1,13 +1,13 @@
 <?php
 
 function construirFormulario($marcaDeProduto) {
-    $conteudo = '<form class="ui form segment" action="marcaDeProdutoView.php" method="POST">
+    $conteudo = '<form class="ui form" action="marcaDeProdutoView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
             <label>Marca</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::MARCA_DE_PRODUTO_NOME
                 . '" value="' . $marcaDeProduto->nome . '">
                 <i class="tag icon"></i>
@@ -16,6 +16,8 @@ function construirFormulario($marcaDeProduto) {
                 </div>
             </div>
         </div>
+        
+        <div class="ui error message"></div>
         
         <div>
             <br>
@@ -26,7 +28,22 @@ function construirFormulario($marcaDeProduto) {
             <input type="text" name="' . Colunas::MARCA_DE_PRODUTO_ID . '" value="' . $marcaDeProduto->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        marca: {
+            identifier: "' . Colunas::MARCA_DE_PRODUTO_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Marca deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

@@ -1,13 +1,13 @@
 <?php
 
 function construirFormulario($regiao) {
-    $conteudo = '<form class="ui form segment" action="regiaoView.php" method="POST">
+    $conteudo = '<form class="ui form" action="regiaoView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
-            <label>Regiao</label>
-            <div class="ui left labeled icon input">
+            <label>Região</label>
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::REGIAO_NOME . '"
                     value="' . $regiao->nome. '">
                 <i class="map icon"></i>
@@ -16,6 +16,8 @@ function construirFormulario($regiao) {
                 </div>
             </div>
         </div>
+        
+        <div class="ui error message"></div>
         
         <div>
             <br>
@@ -26,7 +28,22 @@ function construirFormulario($regiao) {
             <input type="text" name="' . Colunas::REGIAO_ID . '" value="' . $regiao->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        regiao: {
+            identifier: "' . Colunas::REGIAO_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Região deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

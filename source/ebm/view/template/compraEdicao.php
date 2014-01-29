@@ -2,13 +2,13 @@
 
 function construirFormulario($compra) {
     $controller = new CompraController();
-    $conteudo = '<form class="ui form segment" action="compraView.php" method="POST">
+    $conteudo = '<form class="ui form" action="compraView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
             <label>Data em que foi realizada</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="date" name="' . Colunas::COMPRA_DATA . '" value="' . $compra->data . '">
                 <i class="calendar icon"></i>
                 <div class="ui red corner label">
@@ -18,8 +18,8 @@ function construirFormulario($compra) {
         </div>
         
         <div>
-            <label>Valor total</label>
-            <div class="ui left labeled icon input">
+            <label>Valor Total</label>
+            <div class="ui left labeled icon input field">
                 <input type="number" name="' . Colunas::COMPRA_TOTAL . '" value="' . $compra->total . '">
                 <i class="dollar icon"></i>
                 <div class="ui red corner label">
@@ -67,6 +67,8 @@ function construirFormulario($compra) {
             </div>
         </div>
         
+        <div class="ui error message"></div>
+        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -75,7 +77,31 @@ function construirFormulario($compra) {
             <input type="text" name="' . Colunas::COMPRA_ID . '" value="' . $compra->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        date: {
+            identifier: "' . Colunas::COMPRA_DATA . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Data deve ser preenchido."
+                }
+          ]
+        },
+        valor: {
+            identifier: "' . Colunas::COMPRA_TOTAL . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Valor Total deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

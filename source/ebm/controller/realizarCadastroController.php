@@ -88,6 +88,8 @@ class RealizarCadastroController {
         );
         
         $trueFalse = $this->usuarioController->rotearInsercao($this->usuario);
+        $array = $this->usuarioController->getId($this->usuario);
+        $this->usuario->id = $array[Colunas::USUARIO_ID];
         
         return $trueFalse;
     }

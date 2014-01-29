@@ -2,13 +2,13 @@
 
 function construirFormulario($unidadeFederativa) {
     $controller = new UnidadeFederativaController();
-    $conteudo = '<form class="ui form segment" action="unidadeFederativaView.php" method="POST">
+    $conteudo = '<form class="ui form" action="unidadeFederativaView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
          <div>
             <label>Unidade Federativa</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::UNIDADE_FEDERATIVA_NOME . '"
                     value="' . $unidadeFederativa->nome. '">
                 <i class="map icon"></i>
@@ -20,7 +20,7 @@ function construirFormulario($unidadeFederativa) {
         
         <div>
             <label>Sigla</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::UNIDADE_FEDERATIVA_SIGLA . '"
                     value="' . $unidadeFederativa->sigla. '" maxlength="2">
                 <i class="map icon"></i>
@@ -50,6 +50,8 @@ function construirFormulario($unidadeFederativa) {
             </div>
         </div>
         
+        <div class="ui error message"></div>
+        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -58,7 +60,31 @@ function construirFormulario($unidadeFederativa) {
             <input type="text" name="' . Colunas::UNIDADE_FEDERATIVA_ID . '" value="' . $unidadeFederativa->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        unidadeFederativa: {
+            identifier: "' . Colunas::UNIDADE_FEDERATIVA_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Unidade Federativa deve ser preenchido."
+                }
+          ]
+        },
+        sigla: {
+            identifier: "' . Colunas::UNIDADE_FEDERATIVA_SIGLA . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Sigla deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

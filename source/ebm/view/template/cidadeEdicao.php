@@ -2,13 +2,13 @@
 
 function construirFormulario($cidade) {
     $controller = new CidadeController();
-    $conteudo = '<form class="ui form segment" action="cidadeView.php" method="POST">
+    $conteudo = '<form class="ui form" action="cidadeView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
             <label>Cidade</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::CIDADE_NOME . '"
                     value="' . $cidade->nome. '">
                 <i class="map icon"></i>
@@ -39,6 +39,8 @@ function construirFormulario($cidade) {
             </div>
         </div>
         
+        <div class="ui error message"></div>
+        
         <div>
             <br>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
@@ -48,7 +50,22 @@ function construirFormulario($cidade) {
             <input type="text" name="' . Colunas::CIDADE_ID . '" value="' . $cidade->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        cidade: {
+            identifier: "' . Colunas::CIDADE_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Cidade deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

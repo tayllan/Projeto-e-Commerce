@@ -3,13 +3,13 @@
 function construirFormulario() {
     $generoSexualController = new GeneroSexualController();
     $unidadeFederativaController = new UnidadeFederativaController();
-    $conteudo = '<form class="ui form segment" action="realizarCadastroView.php" method="POST">
+    $conteudo = '<form class="ui form" action="realizarCadastroView.php" method="POST">
 	<fieldset class="ui form segment">
             <legend>Informações Gerais:</legend>
 		
             <div>
                 <label>E-Mail</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
                     <i class="mail icon"></i>
                     <div class="ui red corner label">
@@ -20,7 +20,7 @@ function construirFormulario() {
             
             <div>
                 <label>Senha</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="password" name="' . Colunas::USUARIO_SENHA . '">
                     <i class="lock icon"></i>
                     <div class="ui red corner label">
@@ -31,7 +31,7 @@ function construirFormulario() {
             
             <div>
                 <label>Confirmar Senha</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="password" name="confirmarSenha">
                     <i class="lock icon"></i>
                     <div class="ui red corner label">
@@ -46,7 +46,7 @@ function construirFormulario() {
 		
             <div>
                 <label>Nome Completo</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::USUARIO_NOME . '">
                     <i class="user icon"></i>
                     <div class="ui red corner label">
@@ -57,7 +57,7 @@ function construirFormulario() {
             
             <div>
                 <label>CPF</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::USUARIO_CPF . '" maxlength="11">
                     <i class=" icon"></i>
                     <div class="ui red corner label">
@@ -68,7 +68,7 @@ function construirFormulario() {
             
             <div>
                 <label>Telefone</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="tel" name="' . Colunas::USUARIO_TELEFONE . '">
                     <i class="phone icon"></i>
                     <div class="ui red corner label">
@@ -79,7 +79,7 @@ function construirFormulario() {
             
             <div>
                 <label>Data de Nascimento</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="date" name="' . Colunas::USUARIO_DATA_DE_NASCIMENTO . '">
                     <i class="calendar icon"></i>
                     <div class="ui red corner label">
@@ -108,7 +108,7 @@ function construirFormulario() {
 		
             <div>
                 <label>CEP</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::ENDERECO_CEP . '" maxlength="8">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
@@ -119,7 +119,7 @@ function construirFormulario() {
 		
             <div>
                 <label>Rua</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::ENDERECO_RUA . '">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
@@ -130,7 +130,7 @@ function construirFormulario() {
 		
             <div>
                 <label>Numero</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="number" name="' . Colunas::ENDERECO_NUMERO . '">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
@@ -141,7 +141,7 @@ function construirFormulario() {
 		
             <div>
                 <label>Bairro</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::ENDERECO_BAIRRO . '">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
@@ -152,7 +152,7 @@ function construirFormulario() {
 	
             <div>
                 <label>Cidade</label>
-                <div class="ui left labeled icon input">
+                <div class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::CIDADE_NOME . '">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
@@ -177,11 +177,134 @@ function construirFormulario() {
                 </div>
 	</fieldset>
         
+        <div class="ui error message"></div>
+        
         <div>
             <br>
             <input type="submit" name="submeter" value="Cadastrar" class="ui black submit button small">
         </div>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        email: {
+            identifier: "' . Colunas::USUARIO_LOGIN . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo E-Mail deve ser preenchido."
+                },
+                {
+                    type: "email",
+                    prompt: "O campo E-Mail deve ser um e-mail válido."
+                }
+          ]
+        },
+        senha: {
+            identifier: "' . Colunas::USUARIO_SENHA . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Senha deve ser preenchido."
+                },
+                {
+                    type: "length[5]",
+                    prompt: "O campo Senha deve ter ao menos 5 caracteres."
+                }
+          ]
+        },
+        nomaCompleto: {
+            identifier: "' . Colunas::USUARIO_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Nome Completo deve ser preenchido."
+                }
+          ]
+        },
+        cpf: {
+            identifier: "' . Colunas::USUARIO_CPF . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo CPF deve ser preenchido."
+                },
+                {
+                    type: "length[11]",
+                    prompt: "O campo CPF deve possuir 11 dígitos (sem nenhuma pontuação)."
+                }
+          ]
+        },
+        telefone: {
+            identifier: "' . Colunas::USUARIO_TELEFONE . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Telefone deve ser preenchido."
+                }
+          ]
+        },
+        dataDeNascimento: {
+            identifier: "' . Colunas::USUARIO_DATA_DE_NASCIMENTO . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Data de Nascimento deve ser preenchido."
+                }
+          ]
+        },
+        cep: {
+            identifier: "' . Colunas::ENDERECO_CEP . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo CEP deve ser preenchido."
+                },
+                {
+                    type: "length[8]",
+                    prompt: "O campo CEP deve conter 8 dígitos (sem nenhuma pontuação)."
+                }
+          ]
+        },
+        rua: {
+            identifier: "' . Colunas::ENDERECO_RUA . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Rua deve ser preenchido."
+                }
+          ]
+        },
+        numero: {
+            identifier: "' . Colunas::ENDERECO_NUMERO . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Número deve ser preenchido."
+                }
+          ]
+        },
+        bairro: {
+            identifier: "' . Colunas::ENDERECO_BAIRRO . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Bairro deve ser preenchido."
+                }
+          ]
+        },
+        cidade: {
+            identifier: "' . Colunas::CIDADE_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Cidade deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
 
     return $conteudo;
 }

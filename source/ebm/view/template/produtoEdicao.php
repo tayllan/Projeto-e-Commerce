@@ -2,14 +2,14 @@
 
 function construirFormulario($produto) {
     $controller = new ProdutoController();
-    $conteudo = '<form class="ui form segment" action="produtoView.php" 
+    $conteudo = '<form class="ui form" action="produtoView.php" 
         method="POST" enctype="multipart/form-data">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
             <label>Produto</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::PRODUTO_NOME . '" value="' . $produto->nome . '">
                 <i class="cart icon"></i>
                 <div class="ui red corner label">
@@ -56,7 +56,7 @@ function construirFormulario($produto) {
         
         <div>
             <label>Descrição</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::PRODUTO_DESCRICAO
                     . '" value="' . $produto->descricao . '">
             </div>
@@ -64,7 +64,7 @@ function construirFormulario($produto) {
         
         <div>
             <label>Preço</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="number" name="' . Colunas::PRODUTO_PRECO . '" value="' . $produto->preco. '">
                 <i class="dollar icon"></i>
                 <div class="ui red corner label">
@@ -75,7 +75,7 @@ function construirFormulario($produto) {
         
         <div>
             <label>Quantidade</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="number" name="' . Colunas::PRODUTO_QUANTIDADE
                     . '" value="' . $produto->quantidade . '">
                 <i class="add icon"></i>
@@ -88,7 +88,7 @@ function construirFormulario($produto) {
         <div>
             <label>Imagem</label>
             <div class="two fields">
-                <div class="field ui left labeled icon input">
+                <div class="field ui left labeled icon input field">
                     <input type="text" name="' . Colunas::PRODUTO_IMAGEM
                         . '" value="' . $produto->caminhoImagem . '">
                     <i class="photo icon"></i>
@@ -100,6 +100,8 @@ function construirFormulario($produto) {
             </div>
         </div>
         
+        <div class="ui error message"></div>
+        
         <div>
             <br>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
@@ -109,7 +111,40 @@ function construirFormulario($produto) {
             <input type="text" name="' . Colunas::PRODUTO_ID . '" value="' . $produto->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        produto: {
+            identifier: "' . Colunas::PRODUTO_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Produto deve ser preenchido."
+                }
+          ]
+        },
+        preco: {
+            identifier: "' . Colunas::PRODUTO_PRECO . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Preço deve ser preenchido."
+                }
+          ]
+        },
+        quantidade: {
+            identifier: "' . Colunas::PRODUTO_QUANTIDADE . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Quantidade deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

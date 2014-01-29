@@ -3,13 +3,13 @@
 function construirFormulario($itemDeProduto) {
     $compraController = new CompraController();
     $produtoController = new ProdutoController();
-    $conteudo = '<form class="ui form segment" action="itemDeProdutoView.php" method="POST">
+    $conteudo = '<form class="ui form" action="itemDeProdutoView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
             <label>Quantidade</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="number" name="' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE
                     . '" value="' . $itemDeProduto->quantidade . '">
                 <i class="add icon"></i>
@@ -21,7 +21,7 @@ function construirFormulario($itemDeProduto) {
         
         <div>
             <label>Preço Unitário</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="number" name="' . Colunas::ITEM_DE_PRODUTO_PRECO
                     . '" value="' . $itemDeProduto->preco . '">
                 <i class="dollar icon"></i>
@@ -68,6 +68,8 @@ function construirFormulario($itemDeProduto) {
             </div>
         </div>
         
+        <div class="ui error message"></div>
+        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -76,7 +78,31 @@ function construirFormulario($itemDeProduto) {
             <input type="text" name="' . Colunas::ITEM_DE_PRODUTO_ID . '" value="' . $itemDeProduto->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        quantidade: {
+            identifier: "' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Quantidade deve ser preenchido."
+                }
+          ]
+        },
+        preco: {
+            identifier: "' . Colunas::ITEM_DE_PRODUTO_PRECO . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Preço Unitário deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }

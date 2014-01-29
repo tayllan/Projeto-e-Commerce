@@ -103,32 +103,60 @@ class LoginController {
 
     public static function construirFormulario($paginaDestino) {
         $conteudo = '<form action="/core/login.php?paginaDestino=' . $paginaDestino . '" 
-            method="POST" class="ui form segment">
-            <legend>E-Mail</legend>
-    
-            <div class="ui left labeled icon input">
-                <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
-                <i class="mail icon"></i>
-                <div class="ui red corner label">
-                    <i class="icon asterisk"></i>
+            method="POST" class="ui form">
+            <fieldset>
+                <legend>E-Mail</legend>
+
+                <div class="ui left labeled icon input field">
+                    <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
+                    <i class="mail icon"></i>
+                    <div class="ui red corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
                 </div>
-            </div>
-  
-            <legend>Senha</legend>
-                
-            <div class="ui left labeled icon input">
-                <input type="password" name="' . Colunas::USUARIO_SENHA . '">
-                <i class="lock icon"></i>
-                <div class="ui red corner label">
-                    <i class="icon asterisk"></i>
+
+                <legend>Senha</legend>
+
+                <div class="ui left labeled icon input field">
+                    <input type="password" name="' . Colunas::USUARIO_SENHA . '">
+                    <i class="lock icon"></i>
+                    <div class="ui red corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
                 </div>
-            </div>
-            
-            <div>
-                <br>
-                <input type="submit" name="submeter" value="Logar" class="ui black submit button small">
-            </div>
-        </form>';
+
+                <div class="ui error message"></div>
+
+                <div>
+                    <br>
+                    <input type="submit" name="submeter" value="Logar" class="ui black submit button small">
+                </div>
+            </fieldset>
+        </form>
+        <script>
+        $(\'.ui.form\').form(
+            {
+                email: {
+                    identifier: "' . Colunas::USUARIO_LOGIN . '",
+                    rules: [
+                        {
+                            type: "empty",
+                            prompt: "O campo E-Mail deve ser preenchido."
+                        }
+                  ]
+                },
+                senha: {
+                    identifier: "' . Colunas::USUARIO_SENHA . '",
+                    rules: [
+                        {
+                            type: "empty",
+                            prompt: "O campo Senha deve ser preenchido."
+                        }
+                  ]
+                }
+            }
+        );
+        </script>';
 
         return $conteudo;
     }

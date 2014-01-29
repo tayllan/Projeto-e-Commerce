@@ -1,13 +1,13 @@
 <?php
 
 function construirFormulario($categoriaDeProduto) {
-    $conteudo = '<form class="ui form segment" action="categoriaDeProdutoView.php" method="POST">
+    $conteudo = '<form class="ui form" action="categoriaDeProdutoView.php" method="POST">
     <fieldset class="ui form segment">
         <legend>Informações Gerais</legend>
         
         <div>
             <label>Categoria</label>
-            <div class="ui left labeled icon input">
+            <div class="ui left labeled icon input field">
                 <input type="text" name="' . Colunas::CATEGORIA_DE_PRODUTO_NOME
                 . '" value="' . $categoriaDeProduto->nome . '">
                 <i class="tag icon"></i>
@@ -16,6 +16,8 @@ function construirFormulario($categoriaDeProduto) {
                 </div>
             </div>
         </div>
+        
+        <div class="ui error message"></div>
         
         <div>
             <br>
@@ -27,7 +29,22 @@ function construirFormulario($categoriaDeProduto) {
                 . '" value="' . $categoriaDeProduto->id . '">
         </div>
     </fieldset>
-</form>';
+</form>
+<script>
+$(\'.ui.form\').form(
+    {
+        categoria: {
+            identifier: "' . Colunas::CATEGORIA_DE_PRODUTO_NOME . '",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "O campo Categoria deve ser preenchido."
+                }
+          ]
+        }
+    }
+);
+</script>';
             
     return $conteudo;
 }
