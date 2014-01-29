@@ -67,8 +67,6 @@ function construirFormulario($compra) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -84,21 +82,18 @@ $(\'.ui.form\').form(
         date: {
             identifier: "' . Colunas::COMPRA_DATA . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Data deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         valor: {
             identifier: "' . Colunas::COMPRA_TOTAL . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Valor Total deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

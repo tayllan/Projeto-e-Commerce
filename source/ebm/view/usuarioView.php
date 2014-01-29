@@ -98,7 +98,8 @@ class UsuarioView extends BaseView {
             . '<td>' . $this->controller->getGenderName($linha) . '</td>'
             . '<td><button type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::USUARIO_ID] . '" '
-            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
+            . 'class="ui red submit button small" onclick="return confirmarDelecao()">'
+            . '<i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }

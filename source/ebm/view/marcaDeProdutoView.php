@@ -72,7 +72,8 @@ class MarcaDeProdutoView extends BaseView {
             . '<td>' . $linha[Colunas::MARCA_DE_PRODUTO_NOME] . '</td>'
             . '<td><button type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::MARCA_DE_PRODUTO_ID] . '" '
-            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
+            . 'class="ui red submit button small" onclick="return confirmarDelecao()">'
+            . '<i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }

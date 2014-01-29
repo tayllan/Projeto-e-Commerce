@@ -17,8 +17,6 @@ function construirFormulario($categoriaDeProduto) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <br>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
@@ -36,12 +34,12 @@ $(\'.ui.form\').form(
         categoria: {
             identifier: "' . Colunas::CATEGORIA_DE_PRODUTO_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Categoria deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

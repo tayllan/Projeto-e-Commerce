@@ -68,8 +68,6 @@ function construirFormulario($itemDeProduto) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -85,21 +83,18 @@ $(\'.ui.form\').form(
         quantidade: {
             identifier: "' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Quantidade deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         preco: {
             identifier: "' . Colunas::ITEM_DE_PRODUTO_PRECO . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Preço Unitário deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

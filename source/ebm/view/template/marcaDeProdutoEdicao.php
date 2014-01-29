@@ -17,8 +17,6 @@ function construirFormulario($marcaDeProduto) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <br>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
@@ -35,12 +33,12 @@ $(\'.ui.form\').form(
         marca: {
             identifier: "' . Colunas::MARCA_DE_PRODUTO_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Marca deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

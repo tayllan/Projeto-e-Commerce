@@ -39,8 +39,6 @@ function construirFormulario($cidade) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <br>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
@@ -57,12 +55,12 @@ $(\'.ui.form\').form(
         cidade: {
             identifier: "' . Colunas::CIDADE_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Cidade deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

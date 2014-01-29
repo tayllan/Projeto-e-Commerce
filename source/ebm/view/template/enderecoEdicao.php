@@ -83,8 +83,6 @@ function construirFormulario($endereco) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -100,52 +98,36 @@ $(\'.ui.form\').form(
         bairro: {
             identifier: "' . Colunas::ENDERECO_BAIRRO . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Bairro deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         cep: {
             identifier: "' . Colunas::ENDERECO_CEP . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo CEP deve ser preenchido."
-                },
-                {
-                    type: "length[8]",
-                    prompt: "O campo CEP deve conter 8 dígitos (sem nenhuma pontuação)."
-                }
+                eightCharacterRule
           ]
         },
         rua: {
             identifier: "' . Colunas::ENDERECO_RUA . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Rua deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         numero: {
             identifier: "' . Colunas::ENDERECO_NUMERO . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Número deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         cidade: {
             identifier: "' . Colunas::CIDADE_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Cidade deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

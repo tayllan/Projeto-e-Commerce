@@ -78,7 +78,8 @@ class CidadeView extends BaseView {
             . '<td>' . $this->controller->getStateName($linha) . '</td>'
             . '<td><button type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::CIDADE_ID] . '" '
-            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
+            . 'class="ui red submit button small" onclick="return confirmarDelecao()">'
+            . '<i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }

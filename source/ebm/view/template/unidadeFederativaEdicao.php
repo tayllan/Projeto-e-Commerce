@@ -50,8 +50,6 @@ function construirFormulario($unidadeFederativa) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
         </div>
@@ -67,21 +65,18 @@ $(\'.ui.form\').form(
         unidadeFederativa: {
             identifier: "' . Colunas::UNIDADE_FEDERATIVA_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Unidade Federativa deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         sigla: {
             identifier: "' . Colunas::UNIDADE_FEDERATIVA_SIGLA . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Sigla deve ser preenchido."
-                }
+                twoCharacterRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

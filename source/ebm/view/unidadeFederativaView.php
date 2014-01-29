@@ -81,7 +81,8 @@ class UnidadeFederativaView extends BaseView {
             . '<td>' . $this->controller->getRegionName($linha) . '</td>'
             . '<td><button type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '" '
-            . 'class="ui red submit button small"><i class="delete icon"></i></button></td></tr>';
+            . 'class="ui red submit button small" onclick="return confirmarDelecao()">'
+            . '<i class="delete icon"></i></button></td></tr>';
         
         return $conteudo;
     }

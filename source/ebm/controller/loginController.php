@@ -105,27 +105,31 @@ class LoginController {
         $conteudo = '<form action="/core/login.php?paginaDestino=' . $paginaDestino . '" 
             method="POST" class="ui form">
             <fieldset>
-                <legend>E-Mail</legend>
+                <legend>Login</legend>
+                
+                <div>
+                    <legend>E-Mail</legend>
 
-                <div class="ui left labeled icon input field">
-                    <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
-                    <i class="mail icon"></i>
-                    <div class="ui red corner label">
-                        <i class="icon asterisk"></i>
+                    <div class="ui left labeled icon input field">
+                        <input type="text" placeholder="E-Mail" name="' . Colunas::USUARIO_LOGIN . '">
+                        <i class="mail icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
                     </div>
                 </div>
+                
+                <div>
+                    <legend>Senha</legend>
 
-                <legend>Senha</legend>
-
-                <div class="ui left labeled icon input field">
-                    <input type="password" name="' . Colunas::USUARIO_SENHA . '">
-                    <i class="lock icon"></i>
-                    <div class="ui red corner label">
-                        <i class="icon asterisk"></i>
+                    <div class="ui left labeled icon input field">
+                        <input type="password" name="' . Colunas::USUARIO_SENHA . '">
+                        <i class="lock icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
                     </div>
                 </div>
-
-                <div class="ui error message"></div>
 
                 <div>
                     <br>
@@ -139,21 +143,18 @@ class LoginController {
                 email: {
                     identifier: "' . Colunas::USUARIO_LOGIN . '",
                     rules: [
-                        {
-                            type: "empty",
-                            prompt: "O campo E-Mail deve ser preenchido."
-                        }
+                        emptyRule
                   ]
                 },
                 senha: {
                     identifier: "' . Colunas::USUARIO_SENHA . '",
                     rules: [
-                        {
-                            type: "empty",
-                            prompt: "O campo Senha deve ser preenchido."
-                        }
+                        emptyRule
                   ]
                 }
+            },
+            {
+                inline: true
             }
         );
         </script>';

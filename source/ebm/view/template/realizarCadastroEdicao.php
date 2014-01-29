@@ -3,7 +3,8 @@
 function construirFormulario() {
     $generoSexualController = new GeneroSexualController();
     $unidadeFederativaController = new UnidadeFederativaController();
-    $conteudo = '<form class="ui form" action="realizarCadastroView.php" method="POST">
+    $conteudo = '<form class="ui form" action="realizarCadastroView.php" 
+            method="POST" onsubmit="return validarSenha()">
 	<fieldset class="ui form segment">
             <legend>Informações Gerais:</legend>
 		
@@ -31,13 +32,17 @@ function construirFormulario() {
             
             <div>
                 <label>Confirmar Senha</label>
-                <div class="ui left labeled icon input field">
+                <div id="confirmarSenha" class="ui left labeled icon input field">
                     <input type="password" name="confirmarSenha">
                     <i class="lock icon"></i>
                     <div class="ui red corner label">
                         <i class="icon asterisk"></i>
                     </div>
                 </div>
+            </div>
+            
+            <div id="confirmarSenhaError" hidden>
+                O campo Confirmar Senha deve ser igual ao campo Senha.
             </div>
 	</fieldset>
 	
@@ -177,8 +182,6 @@ function construirFormulario() {
                 </div>
 	</fieldset>
         
-        <div class="ui error message"></div>
-        
         <div>
             <br>
             <input type="submit" name="submeter" value="Cadastrar" class="ui black submit button small">
@@ -190,118 +193,72 @@ $(\'.ui.form\').form(
         email: {
             identifier: "' . Colunas::USUARIO_LOGIN . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo E-Mail deve ser preenchido."
-                },
-                {
-                    type: "email",
-                    prompt: "O campo E-Mail deve ser um e-mail válido."
-                }
+                emailRule
           ]
         },
         senha: {
             identifier: "' . Colunas::USUARIO_SENHA . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Senha deve ser preenchido."
-                },
-                {
-                    type: "length[5]",
-                    prompt: "O campo Senha deve ter ao menos 5 caracteres."
-                }
+                fiveCharacterRule
           ]
         },
         nomaCompleto: {
             identifier: "' . Colunas::USUARIO_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Nome Completo deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         cpf: {
             identifier: "' . Colunas::USUARIO_CPF . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo CPF deve ser preenchido."
-                },
-                {
-                    type: "length[11]",
-                    prompt: "O campo CPF deve possuir 11 dígitos (sem nenhuma pontuação)."
-                }
+                elevenCharacterRule
           ]
         },
         telefone: {
             identifier: "' . Colunas::USUARIO_TELEFONE . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Telefone deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         dataDeNascimento: {
             identifier: "' . Colunas::USUARIO_DATA_DE_NASCIMENTO . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Data de Nascimento deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         cep: {
             identifier: "' . Colunas::ENDERECO_CEP . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo CEP deve ser preenchido."
-                },
-                {
-                    type: "length[8]",
-                    prompt: "O campo CEP deve conter 8 dígitos (sem nenhuma pontuação)."
-                }
+                eightCharacterRule
           ]
         },
         rua: {
             identifier: "' . Colunas::ENDERECO_RUA . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Rua deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         numero: {
             identifier: "' . Colunas::ENDERECO_NUMERO . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Número deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         bairro: {
             identifier: "' . Colunas::ENDERECO_BAIRRO . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Bairro deve ser preenchido."
-                }
+                emptyRule
           ]
         },
         cidade: {
             identifier: "' . Colunas::CIDADE_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Cidade deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';

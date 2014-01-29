@@ -70,7 +70,8 @@ class RegiaoView extends BaseView {
             . '<i class="edit icon"></i></button></td>'
             . '<td>' . $linha[Colunas::REGIAO_NOME] . '</td>'
             . '<td><button type="submit" name="deletar" '
-            . 'value="' . $linha[Colunas::REGIAO_ID] . '" class="ui red submit button small">'
+            . 'value="' . $linha[Colunas::REGIAO_ID]
+            . '" class="ui red submit button small" onclick="return confirmarDelecao()">'
             . '<i class="delete icon"></i></button></td></tr>';
 
         return $conteudo;

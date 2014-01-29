@@ -17,8 +17,6 @@ function construirFormulario($generoSexual) {
             </div>
         </div>
         
-        <div class="ui error message"></div>
-        
         <div>
             <br>
             <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
@@ -36,12 +34,12 @@ $(\'.ui.form\').form(
         genero: {
             identifier: "' . Colunas::GENERO_SEXUAL_NOME . '",
             rules: [
-                {
-                    type: "empty",
-                    prompt: "O campo Gênero deve ser preenchido."
-                }
+                emptyRule
           ]
         }
+    },
+    {
+        inline: true
     }
 );
 </script>';
