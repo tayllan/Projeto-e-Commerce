@@ -84,7 +84,10 @@ function construirFormulario($endereco) {
         </div>
         
         <div>
-            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
+            <button type="submit" name="submeter" class="ui black submit button small">
+                <i class="save icon"></i>
+                Salvar
+            </button>
         </div>
             
         <div hidden>

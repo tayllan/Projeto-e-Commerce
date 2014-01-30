@@ -64,9 +64,9 @@ class CidadeController extends BaseController {
         );
 
         $sqlQuery->execute(
-                array(
-                    $cidade->unidadeFederativa->id, $cidade->nome
-                )
+            array(
+                $cidade->unidadeFederativa->id, $cidade->nome
+            )
         );
         
         if ($sqlQuery->rowCount() > 0) {

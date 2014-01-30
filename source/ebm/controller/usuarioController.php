@@ -48,10 +48,14 @@ class UsuarioController extends BaseController {
             . ' = ?, ' . Colunas::USUARIO_SENHA . ' = ?, ' . Colunas::USUARIO_CPF
             . ' = ?, ' . Colunas::USUARIO_TELEFONE . ' = ?, ' . Colunas::USUARIO_DATA_DE_NASCIMENTO
             . ' = ?, ' . Colunas::USUARIO_ADMINISTRADOR . ' = ?, ' . Colunas::USUARIO_FK_ENDERECO
-            . ' = ?, ' . Colunas::USUARIO_FK_GENERO_SEXUAL . ' = ? WHERE ' . Colunas::USUARIO_ID . ' = ?'
+            . ' = ?, ' . Colunas::USUARIO_FK_GENERO_SEXUAL . ' = ?, ' . Colunas::USUARIO_ATIVO
+            . ' = ? WHERE ' . Colunas::USUARIO_ID . ' = ?'
         );
         if ($usuario->administrador === 'true') {
             $usuario->administrador = TRUE;
+        }
+        if ($usuario->ativo === 'true') {
+            $usuario->ativo = TRUE;
         }
         if (strlen($usuario->senha) < 32) {
             $usuario->senha = md5($usuario->senha);
@@ -63,7 +67,8 @@ class UsuarioController extends BaseController {
                 $usuario->senha, $usuario->cpf,
                 $usuario->telefone, $usuario->dataDeNascimento,
                 $usuario->administrador, $usuario->endereco->id,
-                $usuario->generoSexual->id, $usuario->id
+                $usuario->generoSexual->id, $usuario->ativo,
+                $usuario->id
             )
         );         
     }
@@ -120,7 +125,8 @@ class UsuarioController extends BaseController {
             $codigosIdentificadores[Colunas::USUARIO_TELEFONE],
             $codigosIdentificadores[Colunas::USUARIO_DATA_DE_NASCIMENTO],
             $codigosIdentificadores[Colunas::USUARIO_ADMINISTRADOR],
-            $this->construirObjetoEndereco(), $this->construirObjetoGeneroSexual()
+            $this->construirObjetoEndereco(), $this->construirObjetoGeneroSexual(),
+            $codigosIdentificadores[Colunas::USUARIO_ATIVO]
         );
         
         $this->rotearInsercao($usuario);
@@ -143,7 +149,8 @@ class UsuarioController extends BaseController {
             $arrayUsuario[Colunas::USUARIO_LOGIN], $arrayUsuario[Colunas::USUARIO_SENHA],
             $arrayUsuario[Colunas::USUARIO_CPF], $arrayUsuario[Colunas::USUARIO_TELEFONE],
             $arrayUsuario[Colunas::USUARIO_DATA_DE_NASCIMENTO], $arrayUsuario[Colunas::USUARIO_ADMINISTRADOR],
-            $endereco, $generoSexual
+            $endereco, $generoSexual,
+            $arrayUsuario[Colunas::USUARIO_ATIVO]
         );
         
         return $usuario;
@@ -210,6 +217,37 @@ class UsuarioController extends BaseController {
         );
         
         return $generoSexual;
+    }
+    
+    public function getAtivoById($id) {
+        $sqlQuery = $this->conexao->prepare(
+            'SELECT ' . Colunas::USUARIO_ATIVO . ' FROM '
+            . Colunas::USUARIO . ' WHERE ' . Colunas::USUARIO_ID . ' LIKE ?'
+        );
+        
+        $sqlQuery->execute(
+            array($id)
+        );
+        
+        if ($sqlQuery->rowCount() > 0) {
+            return $sqlQuery->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+            return array();
+        }
+    }
+    
+    public function setAtivoById($id, $ativo) {
+        $sqlQuery = $this->conexao->prepare(
+            'UPDATE ' . Colunas::USUARIO . ' SET '
+            . Colunas::USUARIO_ATIVO . ' = ? WHERE ' . Colunas::USUARIO_ID . ' = ?'
+        );
+        
+        return $sqlQuery->execute(
+            array(
+                $ativo, $id
+            )
+        );         
     }
 
 }

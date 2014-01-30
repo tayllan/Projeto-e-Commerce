@@ -20,14 +20,21 @@ class EnderecoController extends BaseController {
             . ', ' . Colunas::ENDERECO_RUA . ', ' . Colunas::ENDERECO_NUMERO
             . ', ' . Colunas::ENDERECO_FK_CIDADE . ') VALUES (?, ?, ?, ?, ?)'
         );
-
-        return $sqlQuery->execute(
-                array(
-                    $endereco->bairro, $endereco->cep,
-                    $endereco->rua, $endereco->numero,
-                    $endereco->cidade->id
-                )
-        );
+        
+        $array = $this->getId($endereco);
+        
+        if (empty($array)) {
+            return $sqlQuery->execute(
+                    array(
+                        $endereco->bairro, $endereco->cep,
+                        $endereco->rua, $endereco->numero,
+                        $endereco->cidade->id
+                    )
+            );
+        }
+        else {
+            return false;
+        }
     }
 
     protected function alterar($endereco) {

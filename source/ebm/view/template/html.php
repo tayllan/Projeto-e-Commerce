@@ -30,7 +30,9 @@ function cabecalho($mensagem) {
 </div>';
     if (isset($_SESSION[SESSAO_LOGADO])) {
         $conteudo .= '<div class="ui label"><i class="mail icon"> ' . $_SESSION[SESSAO_USUARIO_LOGIN]
-            . '</i></div>';
+            . '</i></div>'
+            . '<div class="ui label"><a href="/view/perfilView.php" class="detail">'
+            . '<i class="settings icon"> Meu Perfil</i></a></div>';
         if (isset($_SESSION[SESSAO_USUARIO_PERMISSAO])) {
             $conteudo .= '<div class="ui label"><a href="/core/paginaDoAdministrador.php" class="detail">'
             . '<i class="settings icon"> Página do Administrador</i></a></div>';

@@ -29,7 +29,8 @@ class UsuarioView extends BaseView {
                     Colunas::USUARIO_CPF => $_POST[Colunas::USUARIO_CPF],
                     Colunas::USUARIO_TELEFONE => $_POST[Colunas::USUARIO_TELEFONE],
                     Colunas::USUARIO_DATA_DE_NASCIMENTO => $_POST[Colunas::USUARIO_DATA_DE_NASCIMENTO],
-                    Colunas::USUARIO_ADMINISTRADOR => $_POST[Colunas::USUARIO_ADMINISTRADOR]
+                    Colunas::USUARIO_ADMINISTRADOR => $_POST[Colunas::USUARIO_ADMINISTRADOR],
+                    Colunas::USUARIO_ATIVO => $_POST[Colunas::USUARIO_ATIVO]
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($usuario);
@@ -70,12 +71,13 @@ class UsuarioView extends BaseView {
                 'Senha', 'CPF',
                 'Telefone', 'Data de Nascimento',
                 'Admin?', 'Endereço',
-                'Gênero Sexual'
+                'Gênero Sexual', 'Ativo?'
             )
         );
 
         foreach ($array as $linha) {
             $linha[Colunas::USUARIO_ADMINISTRADOR] = ajustarPermissao($linha[Colunas::USUARIO_ADMINISTRADOR]);
+            $linha[Colunas::USUARIO_ATIVO] = ajustarAtivo($linha[Colunas::USUARIO_ATIVO]);
             
             $conteudo .= $this->construirTabela($linha);
         }
@@ -96,6 +98,7 @@ class UsuarioView extends BaseView {
             . '<td>' . $linha[Colunas::USUARIO_ADMINISTRADOR] . '</td>'
             . '<td>' . $this->controller->getAddressName($linha) . '</td>'
             . '<td>' . $this->controller->getGenderName($linha) . '</td>'
+            . '<td>' . $linha[Colunas::USUARIO_ATIVO] . '</td>'
             . '<td><button type="submit" name="deletar" '
             . 'value="' . $linha[Colunas::USUARIO_ID] . '" '
             . 'class="ui red submit button small" onclick="return confirmarDelecao()">'

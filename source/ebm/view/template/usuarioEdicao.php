@@ -65,6 +65,25 @@ function construirFormulario($usuario) {
                     <i class="icon asterisk"></i>
                 </div>
             </div>
+            
+            <div class="ui segment">
+                <i class="key icon"></i>
+                <label>Ativo ?</label>
+                <select size="1" name="' . Colunas::USUARIO_ATIVO . '">';
+    if ($usuario->ativo === 'SIM' || $usuario->ativo == NULL) {
+        $conteudo .= '<option value="true" selected>SIM</option>
+                    <option value="false">NÃO</option>';
+    }
+    else {
+        $conteudo .= '<option value="true">SIM</option>
+                    <option value="false" selected>NÃO</option>';
+    }
+
+    $conteudo .= '</select>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
 	</fieldset>
 	
 	<fieldset class="ui form segment">
@@ -125,8 +144,12 @@ function construirFormulario($usuario) {
     $arrayGeneroSexual = $generoSexualController->listar(Colunas::GENERO_SEXUAL);
     foreach ($arrayGeneroSexual as $linha) {
         if ($linha[Colunas::GENERO_SEXUAL_NOME] != 'GENERO_SEXUAL_ANONIMO') {
-            $conteudo .= '<option value="' . $linha[Colunas::GENERO_SEXUAL_ID]
-                . '">' . $linha[Colunas::GENERO_SEXUAL_NOME] . '</option>';
+            $conteudo .= '<option value="' . $linha[Colunas::GENERO_SEXUAL_ID] . '" ';
+                    
+            if ($linha[Colunas::GENERO_SEXUAL_ID] == $usuario->generoSexual->id) {
+                 $conteudo .= 'selected';
+            }
+            $conteudo .= '>' . $linha[Colunas::GENERO_SEXUAL_NOME] . '</option>';
         }
     }
     $conteudo .= '</select>
@@ -206,8 +229,11 @@ function construirFormulario($usuario) {
     $arrayUnidadeFederativa = $unidadeFederativaController->listar(Colunas::UNIDADE_FEDERATIVA);
     foreach ($arrayUnidadeFederativa as $linha) {
         if ($linha[Colunas::UNIDADE_FEDERATIVA_NOME] != 'UNIDADE_FEDERATIVA_ANONIMA') {
-            $conteudo .= '<option value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID]
-                . '">' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . ' - '
+            $conteudo .= '<option value="' . $linha[Colunas::UNIDADE_FEDERATIVA_ID] . '"';
+            if ($linha[Colunas::UNIDADE_FEDERATIVA_ID] == $usuario->endereco->cidade->unidadeFederativa->id) {
+                $conteudo .= 'selected';
+            }
+            $conteudo .= '>' . $linha[Colunas::UNIDADE_FEDERATIVA_NOME] . ' - '
                 . $linha[Colunas::UNIDADE_FEDERATIVA_SIGLA] . '</option>';
         }
     }
@@ -216,12 +242,14 @@ function construirFormulario($usuario) {
                     <i class="icon asterisk"></i>
                 </div>
             </div>
+            
+            <div>
+                <button type="submit" name="submeter" class="ui black submit button small">
+                    <i class="save icon"></i>
+                    Salvar
+                </button>
+            </div>
 	</fieldset>
-        
-        <div>
-            <br>
-            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
-        </div>
         
         <div hidden>
             <input type="hidden" name="' . Colunas::USUARIO_ID . '" value="' . $usuario->id . '">
@@ -308,6 +336,15 @@ $(".ui.form").form(
 
 function ajustarPermissao($administrador) {
     if ($administrador) {
+        return 'SIM';
+    }
+    else {
+        return 'NÃO';
+    }
+}
+
+function ajustarAtivo($ativo) {
+    if ($ativo == 1 || $ativo) {
         return 'SIM';
     }
     else {

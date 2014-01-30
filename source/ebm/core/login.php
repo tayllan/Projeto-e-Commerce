@@ -20,7 +20,7 @@ class Login {
         }
         if (isset($_POST['erro'])) {
             LoginController::exibirConteudo(
-                '<p class="erro">Login e/ou Senha inválidos</p><br>'
+                '<p class="ui red label">Login e/ou Senha inválidos</p><br><br>'
                 . LoginController::construirFormulario('/index.php')
             );
         }

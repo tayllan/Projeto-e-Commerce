@@ -18,8 +18,10 @@ function construirFormulario($marcaDeProduto) {
         </div>
         
         <div>
-            <br>
-            <input type="submit" name="submeter" value="Salvar" class="ui black submit button small">
+            <button type="submit" name="submeter" class="ui black submit button small">
+                <i class="save icon"></i>
+                Salvar
+            </button>
         </div>
             
         <div hidden>

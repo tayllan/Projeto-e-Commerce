@@ -80,11 +80,12 @@ class RealizarCadastroController {
     
     private function construirObjetoUsuario($endereco, $generoSexual) {
         $this->usuario = new Usuario(
-            NULL, $_POST[Colunas::USUARIO_NOME],
+            $_POST[Colunas::USUARIO_ID], $_POST[Colunas::USUARIO_NOME],
             $_POST[Colunas::USUARIO_LOGIN], $_POST[Colunas::USUARIO_SENHA],
             $_POST[Colunas::USUARIO_CPF], $_POST[Colunas::USUARIO_TELEFONE],
             $_POST[Colunas::USUARIO_DATA_DE_NASCIMENTO], 'false',
-            $endereco, $generoSexual
+            $endereco, $generoSexual,
+            'true'
         );
         
         $trueFalse = $this->usuarioController->rotearInsercao($this->usuario);
@@ -95,8 +96,13 @@ class RealizarCadastroController {
     }
     
     public function logarRedirecionar() {
-        LoginController::realizarLogin($this->usuario);
-        header('Location: ../index.php');
+        if ($_POST[Colunas::USUARIO_ID]) {
+            header('Location: /view/perfilView.php');
+        }
+        else {
+            LoginController::realizarLogin($this->usuario);
+            header('Location: ../index.php');
+        }
     }
 
 }

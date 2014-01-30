@@ -22,6 +22,7 @@ class Colunas {
     const USUARIO_ADMINISTRADOR = 'usuario_permissao';
     const USUARIO_FK_ENDERECO = 'usuario_fk_id_endereco';
     const USUARIO_FK_GENERO_SEXUAL = 'usuario_fk_id_genero_sexual';
+    const USUARIO_ATIVO = 'usuario_ativo';
     
     const CATEGORIA_DE_PRODUTO = 'categoriaDeProduto';
     const CATEGORIA_DE_PRODUTO_ID = 'categoria_de_produto_id';

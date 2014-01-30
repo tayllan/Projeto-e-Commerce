@@ -15,9 +15,10 @@ class Usuario {
     public $administrador;
     public $endereco;
     public $generoSexual;
+    public $ativo;
 
     public function __construct($id, $nome, $login, $senha, $cpf, $telefone, $dataDeNascimento,
-        $administrador, Endereco $endereco, GeneroSexual $generoSexual) {
+        $administrador, Endereco $endereco, GeneroSexual $generoSexual, $ativo = TRUE) {
         
         $this->id = $id;
         $this->nome = $nome;
@@ -29,6 +30,7 @@ class Usuario {
         $this->administrador = $administrador;
         $this->endereco = $endereco;
         $this->generoSexual = $generoSexual;
+        $this->ativo = $ativo;
     }
     
     static public function getNullObject() {
@@ -37,7 +39,8 @@ class Usuario {
             NULL, NULL,
             NULL, NULL,
             NULL, NULL,
-            Endereco::getNullObject(), GeneroSexual::getNullObject()
+            Endereco::getNullObject(), GeneroSexual::getNullObject(),
+            NULL
         );
     }
 

@@ -80,8 +80,17 @@ class LoginController {
         $array = LoginController::$controller->getId($usuario);
 
         if (!empty($array)) {
-            LoginController::$usuario->id = $array[Colunas::USUARIO_ID];
-            return true;
+            $ativo = LoginController::$controller->getAtivoById(
+                $array[Colunas::USUARIO_ID]
+            )[Colunas::USUARIO_ATIVO];
+            
+            if ($ativo) {
+                LoginController::$usuario->id = $array[Colunas::USUARIO_ID];
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else {
             return false;
@@ -132,10 +141,18 @@ class LoginController {
                 </div>
 
                 <div>
-                    <br>
-                    <input type="submit" name="submeter" value="Logar" class="ui black submit button small">
+                    <button type="submit" name="submeter" class="ui black submit button small">
+                        <i class="sign in icon"></i>
+                        Logar
+                    </button>
                 </div>
             </fieldset>
+        </form>
+        
+        <form class="ui form segment" action="/view/reativarContaView.php" method="POST">
+            <button type="submit" name="submeter" class="ui black submit button small">
+                Recuperar Conta
+            </button>
         </form>
         <script>
         $(\'.ui.form\').form(
