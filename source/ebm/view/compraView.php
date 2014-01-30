@@ -72,7 +72,7 @@ class CompraView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table></form>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form><script>paginarTabela()</script>');
     }
     
     protected function construirTabela($linha) {

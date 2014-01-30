@@ -69,7 +69,7 @@ class CartaoDeCreditoController extends DAO {
 
     public function construirFormularioCartao() {
         $totalCompra = $this->getValorTotalDaCompra();
-        $endereco = $this->usuario->endereco->bairro . ' - ' . $this->usuario->endereco->rua
+        $endereco = $this->usuario->endereco->bairro . ' - ' . $this->usuario->endereco->logradouro
             . ', ' . $this->usuario->endereco->numero;
         
         $conteudo = '<form class="ui form segment" action="/view/cartaoDeCreditoView.php" method="POST">
@@ -142,6 +142,7 @@ class CartaoDeCreditoController extends DAO {
         
         $compra->concluida = TRUE;
         $compra->total = $totalCompra;
+        $compra->formaPagamento = 'Cartão de Crédito';
         
         $this->compraController->rotearInsercao($compra);
     }

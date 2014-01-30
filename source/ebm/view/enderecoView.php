@@ -26,7 +26,7 @@ class EnderecoView extends BaseView {
                     Colunas::ENDERECO_ID => $_POST[Colunas::ENDERECO_ID],
                     Colunas::ENDERECO_BAIRRO => $_POST[Colunas::ENDERECO_BAIRRO],
                     Colunas::ENDERECO_CEP => $_POST[Colunas::ENDERECO_CEP],
-                    Colunas::ENDERECO_RUA => $_POST[Colunas::ENDERECO_RUA],
+                    Colunas::ENDERECO_LOGRADOURO => $_POST[Colunas::ENDERECO_LOGRADOURO],
                     Colunas::ENDERECO_NUMERO => $_POST[Colunas::ENDERECO_NUMERO],
                     Colunas::ENDERECO_FK_CIDADE => $cidadeId
                 )
@@ -66,7 +66,7 @@ class EnderecoView extends BaseView {
             'Endereços Cadastrados', 'enderecoView',
             array(
                 'Bairro', 'CEP',
-                'Rua', 'Número',
+                'Logradouro', 'Número',
                 'Cidade'
             )
         );
@@ -75,7 +75,7 @@ class EnderecoView extends BaseView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        $this->exibirConteudo($conteudo . '</tbody></table></form>');
+        $this->exibirConteudo($conteudo . '</tbody></table></form><script>paginarTabela()</script>');
     }
     
     protected function construirTabela($linha) {
@@ -84,7 +84,7 @@ class EnderecoView extends BaseView {
             . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
             . '<td>' . $linha[Colunas::ENDERECO_BAIRRO] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_CEP] . '</td>'
-            . '<td>' . $linha[Colunas::ENDERECO_RUA] . '</td>'
+            . '<td>' . $linha[Colunas::ENDERECO_LOGRADOURO] . '</td>'
             . '<td>' . $linha[Colunas::ENDERECO_NUMERO] . '</td>'
             . '<td>' . $this->controller->getCityName($linha) . '</td>'
             . '<td><button type="submit" name="deletar" '

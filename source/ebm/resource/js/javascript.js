@@ -58,3 +58,34 @@ function confirmarDelecao() {
         return false;
     }
 };
+
+function paginarTabela() {
+    $("#tabela-paginada").dynatable(
+        {
+            features: {
+                pushState: true
+            }
+        }
+    );
+};
+
+function validarCarrinhoDeCompras() {
+    var td = document.querySelector('td');
+
+    if (td === null) {
+        alert('O Carrinho de Compras está VAZIO!');
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
+function calcularValorItemDeProduto() {
+    var preco = document.querySelectorAll("[name=preco]");
+    var quantidade = document.querySelectorAll("#quantidade");
+    
+    for (var index = 0; index < preco.length; index++) {
+        preco[index].value = Number(preco[index].id) * Number(quantidade[index].value);
+    }
+};

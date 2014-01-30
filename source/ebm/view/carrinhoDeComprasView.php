@@ -50,7 +50,8 @@ class CarrinhoDeComprasView {
     }
     
     public function construirFormulario() {
-        $conteudo = '<form class="ui form" action="/view/pagamentoView.php" method="POST">
+        $conteudo = '<form class="ui form" action="/view/pagamentoView.php" 
+                method="POST" onsubmit="return validarCarrinhoDeCompras()">
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>';
         
@@ -114,9 +115,11 @@ class CarrinhoDeComprasView {
             . '<td>' . $produto->categoria->nome . '</td>'
             . '<td hidden><input type="hidden" name="' . Colunas::ITEM_DE_PRODUTO_ID
             . '[]" value="' . $itemDeProduto->id . '"></td>'
-            . '<td><input type="number" name="' . Colunas::ITEM_DE_PRODUTO_QUANTIDADE
-            . '[]" value="' . $itemDeProduto->quantidade . '" min="1" max="' . $produto->quantidade . '"></td>'
-            . '<td>' . $produto->preco . '</td>'
+            . '<td><input id="quantidade" oninput="calcularValorItemDeProduto()" type="number" name="'
+            . Colunas::ITEM_DE_PRODUTO_QUANTIDADE . '[]" value="' . $itemDeProduto->quantidade
+            . '" min="1" max="' . $produto->quantidade . '"></td>'
+            . '<td><input id="' . $produto->preco . '" type="number" readonly name="preco" '
+            . 'value="' . $produto->preco . '"></td>'
             . '<td><a href="/view/carrinhoDeComprasView.php?deletar='
             . $linha[Colunas::ITEM_DE_PRODUTO_ID] . '" class="ui red button small">'
             . '<i class="delete icon"></i></a></td></tr>';

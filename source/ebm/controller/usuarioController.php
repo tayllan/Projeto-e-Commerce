@@ -160,10 +160,10 @@ class UsuarioController extends BaseController {
         $arrayEndereco = $this->enderecoController->getById(
             $linha[Colunas::USUARIO_FK_ENDERECO]
         );
-        $nomeEndereco = $arrayEndereco[Colunas::ENDERECO_BAIRRO] . ' '
-            . $arrayEndereco[Colunas::ENDERECO_RUA] . ' '
-            . $arrayEndereco[Colunas::ENDERECO_NUMERO] . ' '
-            . $arrayEndereco[Colunas::ENDERECO_CEP];
+        $nomeEndereco = $arrayEndereco[Colunas::ENDERECO_LOGRADOURO] . ', '
+            . $arrayEndereco[Colunas::ENDERECO_NUMERO] . ' ('
+            . $arrayEndereco[Colunas::ENDERECO_BAIRRO] . ' - '
+            . $arrayEndereco[Colunas::ENDERECO_CEP] . ')';
         
         return $nomeEndereco;
     }
@@ -200,7 +200,7 @@ class UsuarioController extends BaseController {
     private function construirObjetoEndereco() {
         $endereco = new Endereco(
             NULL, $_POST[Colunas::ENDERECO_BAIRRO],
-            $_POST[Colunas::ENDERECO_CEP], $_POST[Colunas::ENDERECO_RUA],
+            $_POST[Colunas::ENDERECO_CEP], $_POST[Colunas::ENDERECO_LOGRADOURO],
             $_POST[Colunas::ENDERECO_NUMERO], $this->construirObjetoCidade()
         );
         

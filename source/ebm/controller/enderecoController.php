@@ -17,7 +17,7 @@ class EnderecoController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'INSERT INTO ' . Colunas::ENDERECO . ' (' . Colunas::ENDERECO_BAIRRO
             . ', ' . Colunas::ENDERECO_CEP
-            . ', ' . Colunas::ENDERECO_RUA . ', ' . Colunas::ENDERECO_NUMERO
+            . ', ' . Colunas::ENDERECO_LOGRADOURO . ', ' . Colunas::ENDERECO_NUMERO
             . ', ' . Colunas::ENDERECO_FK_CIDADE . ') VALUES (?, ?, ?, ?, ?)'
         );
         
@@ -27,7 +27,7 @@ class EnderecoController extends BaseController {
             return $sqlQuery->execute(
                     array(
                         $endereco->bairro, $endereco->cep,
-                        $endereco->rua, $endereco->numero,
+                        $endereco->logradouro, $endereco->numero,
                         $endereco->cidade->id
                     )
             );
@@ -41,14 +41,14 @@ class EnderecoController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'UPDATE ' . Colunas::ENDERECO . ' SET ' . Colunas::ENDERECO_BAIRRO 
             . ' = ?, ' . Colunas::ENDERECO_CEP
-            . ' = ?, ' . Colunas::ENDERECO_RUA . ' = ?, ' . Colunas::ENDERECO_NUMERO
+            . ' = ?, ' . Colunas::ENDERECO_LOGRADOURO . ' = ?, ' . Colunas::ENDERECO_NUMERO
             . ' = ?, ' . Colunas::ENDERECO_FK_CIDADE . ' = ? WHERE ' . Colunas::ENDERECO_ID . ' = ?'
         );
 
         return $sqlQuery->execute(
                 array(
                     $endereco->bairro, $endereco->cep,
-                    $endereco->rua, $endereco->numero,
+                    $endereco->logradouro, $endereco->numero,
                     $endereco->cidade->id, $endereco->id
                 )
         );
@@ -75,14 +75,14 @@ class EnderecoController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::ENDERECO_ID . ' FROM ' . Colunas::ENDERECO
             . ' WHERE ' . Colunas::ENDERECO_BAIRRO
-            . ' LIKE ? AND ' . Colunas::ENDERECO_CEP . ' LIKE ? AND ' . Colunas::ENDERECO_RUA
+            . ' LIKE ? AND ' . Colunas::ENDERECO_CEP . ' LIKE ? AND ' . Colunas::ENDERECO_LOGRADOURO
             . ' LIKE ? AND ' . Colunas::ENDERECO_NUMERO . ' LIKE ? AND ' . Colunas::ENDERECO_FK_CIDADE . ' = ?'
         );
 
         $sqlQuery->execute(
                 array(
                     $endereco->bairro, $endereco->cep,
-                    $endereco->rua, $endereco->numero,
+                    $endereco->logradouro, $endereco->numero,
                     $endereco->cidade->id
                 )
         );
@@ -103,7 +103,7 @@ class EnderecoController extends BaseController {
             $codigosIdentificadores[Colunas::ENDERECO_ID],
             $codigosIdentificadores[Colunas::ENDERECO_BAIRRO],
             $codigosIdentificadores[Colunas::ENDERECO_CEP],
-            $codigosIdentificadores[Colunas::ENDERECO_RUA],
+            $codigosIdentificadores[Colunas::ENDERECO_LOGRADOURO],
             $codigosIdentificadores[Colunas::ENDERECO_NUMERO],
             $cidade
         );
@@ -120,7 +120,7 @@ class EnderecoController extends BaseController {
             $arrayEndereco[Colunas::ENDERECO_ID],
             $arrayEndereco[Colunas::ENDERECO_BAIRRO],
             $arrayEndereco[Colunas::ENDERECO_CEP],
-            $arrayEndereco[Colunas::ENDERECO_RUA],
+            $arrayEndereco[Colunas::ENDERECO_LOGRADOURO],
             $arrayEndereco[Colunas::ENDERECO_NUMERO],
             $cidade
         );

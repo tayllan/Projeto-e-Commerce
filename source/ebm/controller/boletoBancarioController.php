@@ -81,7 +81,7 @@ class BoletoBancarioController extends DAO {
 
     public function contruirBoletoBancario() {
         $totalCompra = $this->getValorTotalDaCompra();
-        $endereco = $this->usuario->endereco->bairro . ' ' . $this->usuario->endereco->rua
+        $endereco = $this->usuario->endereco->bairro . ' ' . $this->usuario->endereco->logradouro
             . ' ' . $this->usuario->endereco->numero;
         $sacado = new Agente(
             $this->usuario->nome, $this->usuario->cpf,
@@ -115,6 +115,7 @@ class BoletoBancarioController extends DAO {
         
         $compra->concluida = TRUE;
         $compra->total = $totalCompra;
+        $compra->formaPagamento = 'Boleto Bancário';
         
         $this->compraController->rotearInsercao($compra);
     }

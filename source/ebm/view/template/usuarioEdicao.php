@@ -175,10 +175,10 @@ function construirFormulario($usuario) {
             </div>
 		
             <div>
-                <label>Rua</label>
+                <label>Logradouro</label>
                 <div class="ui left labeled icon input field">
-                    <input type="text" name="' . Colunas::ENDERECO_RUA . '"
-                        value="' . $usuario->endereco->rua . '">
+                    <input type="text" name="' . Colunas::ENDERECO_LOGRADOURO . '"
+                        value="' . $usuario->endereco->logradouro . '">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
                         <i class="icon asterisk"></i>
@@ -301,7 +301,7 @@ $(".ui.form").form(
           ]
         },
         rua: {
-            identifier: "' . Colunas::ENDERECO_RUA . '",
+            identifier: "' . Colunas::ENDERECO_LOGRADOURO . '",
             rules: [
                 emptyRule
           ]

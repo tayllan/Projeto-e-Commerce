@@ -141,8 +141,8 @@ function construirFormulario($usuario) {
             <div>
                 <label>Rua</label>
                 <div class="ui left labeled icon input field">
-                    <input type="text" name="' . Colunas::ENDERECO_RUA . '"
-                        value="' . $usuario->endereco->rua . '">
+                    <input type="text" name="' . Colunas::ENDERECO_LOGRADOURO . '"
+                        value="' . $usuario->endereco->logradouro . '">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
                         <i class="icon asterisk"></i>
@@ -210,8 +210,8 @@ function construirFormulario($usuario) {
         
         <div>
             <button type="submit" name="submeter" class="ui black submit button small">
-                <i class="signup icon"></i>
-                Reperar Conta
+                <i class="save icon"></i>
+                Salvar
             </button>
         </div>
         
@@ -265,7 +265,7 @@ $(\'.ui.form\').form(
           ]
         },
         rua: {
-            identifier: "' . Colunas::ENDERECO_RUA . '",
+            identifier: "' . Colunas::ENDERECO_LOGRADOURO . '",
             rules: [
                 emptyRule
           ]

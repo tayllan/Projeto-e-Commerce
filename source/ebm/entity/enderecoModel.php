@@ -7,15 +7,15 @@ class Endereco {
     public $id;
     public $bairro;
     public $cep;
-    public $rua;
+    public $logradouro;
     public $numero;
     public $cidade;
 
-    public function __construct($id, $bairro, $cep, $rua, $numero, Cidade $cidade) {
+    public function __construct($id, $bairro, $cep, $logradouro, $numero, Cidade $cidade) {
         $this->id = $id;
         $this->bairro = $bairro;
         $this->cep = $cep;
-        $this->rua = $rua;
+        $this->logradouro = $logradouro;
         $this->numero = $numero;
         $this->cidade = $cidade;
     }

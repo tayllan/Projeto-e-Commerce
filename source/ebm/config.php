@@ -51,7 +51,7 @@ class Colunas {
     const ENDERECO_ID = 'endereco_id';
     const ENDERECO_BAIRRO = 'endereco_bairro';
     const ENDERECO_CEP = 'endereco_cep';
-    const ENDERECO_RUA = 'endereco_rua';
+    const ENDERECO_LOGRADOURO = 'endereco_logradouro';
     const ENDERECO_NUMERO = 'endereco_numero';
     const ENDERECO_FK_CIDADE = 'endereco_fk_id_cidade';
     
@@ -65,6 +65,7 @@ class Colunas {
     const COMPRA_TOTAL = 'compra_total';
     const COMPRA_FK_USUARIO = 'compra_fk_id_usuario';
     const COMPRA_CONCLUIDA = 'compra_concluida';
+    const COMPRA_FORMA_PAGAMENTO = 'compra_forma_de_pagamento';
     
     const ITEM_DE_PRODUTO = 'itemDeProduto';
     const ITEM_DE_PRODUTO_ID = 'item_de_produto_id';

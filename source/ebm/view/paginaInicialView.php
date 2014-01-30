@@ -27,11 +27,11 @@ class PaginaInicialView {
             $conteudo .= $this->construirTabela($linha);
         }
 
-        echo $conteudo . '</tbody></table></form>';
+        echo $conteudo . '</tbody></table></form><script>paginarTabela()</script>';
     }
 
     private function criarTabela($caption, array $array) {
-        $conteudo = '<table class="ui table segment small">
+        $conteudo = '<table id="tabela-paginada" class="ui table segment small">
             <caption class="ui header">' . $caption . '</caption>
             
             <thead>

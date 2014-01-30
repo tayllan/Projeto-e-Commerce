@@ -17,13 +17,15 @@ class CompraController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'INSERT INTO ' . Colunas::COMPRA . ' (' . Colunas::COMPRA_DATA . ', '
             . Colunas::COMPRA_TOTAL. ', ' . Colunas::COMPRA_FK_USUARIO . ', '
-            . Colunas::COMPRA_CONCLUIDA . ') VALUES (?, ?, ?, ?)'
+            . Colunas::COMPRA_CONCLUIDA. ', ' . Colunas::COMPRA_FORMA_PAGAMENTO
+            . ') VALUES (?, ?, ?, ?, ?)'
         );
 
         return $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
-                    $compra->usuario->id, $compra->concluida
+                    $compra->usuario->id, $compra->concluida,
+                    $compra->formaPagamento
                 )
         );
     }
@@ -32,14 +34,15 @@ class CompraController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'UPDATE ' . Colunas::COMPRA . ' SET ' . Colunas::COMPRA_DATA . ' = ?, '
             . Colunas::COMPRA_TOTAL . ' = ?, ' . Colunas::COMPRA_FK_USUARIO . ' = ?, '
-            . Colunas::COMPRA_CONCLUIDA . ' = ? WHERE ' . Colunas::COMPRA_ID . ' = ?'
+            . Colunas::COMPRA_CONCLUIDA . ' = ?, ' . Colunas::COMPRA_FORMA_PAGAMENTO
+            . ' = ? WHERE ' . Colunas::COMPRA_ID . ' = ?'
         );
         
         return $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
                     $compra->usuario->id, $compra->concluida,
-                    $compra->id
+                    $compra->formaPagamento, $compra->id
                 )
         );
     }
@@ -110,7 +113,8 @@ class CompraController extends BaseController {
             $codigosIdentificadores[Colunas::COMPRA_DATA],
             $codigosIdentificadores[Colunas::COMPRA_TOTAL],
             $usuario,
-            $codigosIdentificadores[Colunas::COMPRA_CONCLUIDA]
+            $codigosIdentificadores[Colunas::COMPRA_CONCLUIDA],
+            $codigosIdentificadores[Colunas::COMPRA_FORMA_PAGAMENTO]
         );
 
         return $compra;
@@ -124,7 +128,7 @@ class CompraController extends BaseController {
         $compra = new Compra(
             $arrayCompra[Colunas::COMPRA_ID], $arrayCompra[Colunas::COMPRA_DATA],
             $arrayCompra[Colunas::COMPRA_TOTAL], $usuario,
-            $arrayCompra[Colunas::COMPRA_CONCLUIDA]
+            $arrayCompra[Colunas::COMPRA_CONCLUIDA], $arrayCompra[Colunas::COMPRA_FK_USUARIO]
         );
 
         return $compra;

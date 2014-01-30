@@ -45,12 +45,14 @@ class PerfilController extends DAO {
     private function construirListaDeCompras($linha) {
         $conteudo = '<table class="ui table">
             <legend class="ui black label">Compra realizada em: ' . $linha[Colunas::COMPRA_DATA]
-            . ' - Valor total: R$' . $linha[Colunas::COMPRA_TOTAL] . '</legend>
+            . ' - Valor total: R$' . $linha[Colunas::COMPRA_TOTAL] . ' - Forma de pagamento: '
+            . $linha[Colunas::COMPRA_FORMA_PAGAMENTO] . '</legend>
             <thead>
                 <tr>
                     <th>Produto</th>
                     <th>Quantidade</th>
                     <th>Preço Unitário</th>
+                    <th>Preço Total</th>
                 </tr>
             </thead>
             <tbody>';
@@ -70,6 +72,7 @@ class PerfilController extends DAO {
             <td>' . $linha[Colunas::PRODUTO_NOME] . '</td>
             <td>' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] . '</td>
             <td>' . $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td>
+            <td>' . $linha[Colunas::ITEM_DE_PRODUTO_QUANTIDADE] * $linha[Colunas::ITEM_DE_PRODUTO_PRECO] . '</td>
         </tr>';
         
         return $conteudo;

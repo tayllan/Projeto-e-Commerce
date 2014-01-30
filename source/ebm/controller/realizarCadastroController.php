@@ -59,7 +59,7 @@ class RealizarCadastroController {
     private function construirObjetoEndereco($cidade) {
         $endereco = new Endereco(
             NULL, $_POST[Colunas::ENDERECO_BAIRRO],
-            $_POST[Colunas::ENDERECO_CEP], $_POST[Colunas::ENDERECO_RUA],
+            $_POST[Colunas::ENDERECO_CEP], $_POST[Colunas::ENDERECO_LOGRADOURO],
             $_POST[Colunas::ENDERECO_NUMERO], $cidade
         );
         

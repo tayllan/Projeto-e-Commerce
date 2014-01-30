@@ -6,7 +6,11 @@ function criarTabela($caption, $nomeView, array $array) {
     <button type="submit" name="editar" value="false" class="ui green submit button small">
         <i class="add icon"></i>Cadastrar
     </button>
-    <table class="ui table small">
+
+    <br>
+    <br>
+
+    <table id="tabela-paginada" class="ui table small">
         <caption class="ui header">' . $caption . '</caption>
 
         <thead>

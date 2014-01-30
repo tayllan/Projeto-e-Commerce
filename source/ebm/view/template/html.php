@@ -10,11 +10,13 @@ function cabecalhoHTML($titulo) {
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="/resource/packaged/css/semantic.css">
         <link rel="stylesheet" type="text/css" href="/resource/css/estilo.css">
+        <link rel="stylesheet" type="text/css" href="/resource/css/jquery.dynatable.css">
 
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
         <script src="/resource/packaged/javascript/semantic.js"></script>
         <script src="/resource/js/javascript.js"></script>
+        <script src="/resource/js/jquery.dynatable.js"></script>
     </head>
     <body>
 CABECALHO_HTML;
