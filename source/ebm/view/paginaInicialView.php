@@ -13,14 +13,53 @@ class PaginaInicialView {
 
     public function listar() {
         $array = $this->controller->listar();
-        $conteudo = '<form class="ui form" action="/view/carrinhoDeComprasView.php" method="POST">'
-            . $this->criarTabela(
-                'Produtos Cadastrados', array(
-                    'Comprar', 'Imagem',
-                    'Nome', 'Descrição',
-                    'Marca', 'Categoria',
-                    'Preço'
-                )
+        $conteudo = '<div class="ui secondary pointing menu">
+            <legend class="item">Categorias</label>
+            <a class="item" href="/index.php">
+                <i class="search icon"></i>
+                Todos
+            </a>
+            <a class="item" href="/index.php?queries[search]=eletrônico">
+                <i class="search icon"></i>
+                Eletrônicos
+            </a>
+            <a class="item" href="/index.php?queries[search]=eletrodoméstico">
+                <i class="search icon"></i>
+                Eletrodomésticos
+            </a>
+            <a class="item" href="/index.php?queries[search]=erva">
+                <i class="search icon"></i>
+                Ervas
+            </a>
+            <a class="item" href="/index.php?queries[search]=categoriaX">
+                <i class="search icon"></i>
+                Categoria X
+            </a>
+            <a class="item" href="/index.php?queries[search]=categoriaY">
+                <i class="search icon"></i>
+                Categoria Y
+            </a>
+            <a class="item" href="/index.php?queries[search]=categoriaZ">
+                <i class="search icon"></i>
+                Categoria Z
+            </a>
+            <a class="item" href="/index.php?queries[search]=outracategoria">
+                <i class="search icon"></i>
+                Outra Categoria
+            </a>
+            <a class="item" href="/index.php?queries[search]=maisuma">
+                <i class="search icon"></i>
+                Mais uma
+            </a>
+        </div>
+        <form class="ui form" action="/view/carrinhoDeComprasView.php" method="POST">'
+        . $this->criarTabela(
+            'Produtos Cadastrados', array(
+                'Comprar', 'Imagem',
+                'Nome', 'Descrição',
+                'Marca', 'Categoria',
+                'Preço'
+            )
         );
 
         foreach ($array as $linha) {

@@ -164,9 +164,9 @@ function construirFormulario($usuario) {
 		
             <div>
                 <label>CEP</label>
-                <div class="ui left labeled icon input field">
+                <div id="divCep" class="ui left labeled icon input field">
                     <input type="text" name="' . Colunas::ENDERECO_CEP . '" maxlength="8"
-                        value="' . $usuario->endereco->cep . '">
+                        value="' . $usuario->endereco->cep . '" onblur="atualizaCep(this.value)">
                     <i class="map icon"></i>
                     <div class="ui red corner label">
                         <i class="icon asterisk"></i>
@@ -329,6 +329,54 @@ $(".ui.form").form(
         inline: true
     }
 );
+
+function atualizaCep(cep) {
+    url = "http://cep.correiocontrol.com.br/" + cep + ".js";
+    var script = document.createElement("script");
+    script.setAttribute("charset", "UTF-8");
+    script.src = url;
+    document.querySelector("head").appendChild(script);
+}
+
+function correiocontrolcep(valor) {
+    if (valor.erro) {
+        var div = document.querySelector("#divCep");
+        div.className += " error";
+        
+        var divError = document.createElement("div");
+        divError.className = "ui red pointing prompt label transition visible";
+        divError.style = "display: inline-block;";
+        divError.innerHTML = "CEP inválido!";
+        
+        div.appendChild(divError);
+        
+        return;
+    };
+    
+    if (valor.logradouro != "" && valor.logradouro != " ") {
+        document.querySelector("[name=' . Colunas::ENDERECO_LOGRADOURO . ']").value = valor.logradouro;
+    };
+    if (valor.bairro != "" && valor.bairro != " ") {
+        document.querySelector("[name=' . Colunas::ENDERECO_BAIRRO . ']").value = valor.bairro;
+    };
+    if (valor.localidade != "" && valor.localidade != " ") {
+        document.querySelector("[name=' . Colunas::CIDADE_NOME . ']").value = valor.localidade;
+    };
+    if (valor.uf != "" && valor.uf != " ") {
+        var options = document.querySelectorAll("select option");
+
+        for (index = 0; index < options.length; index++) {
+            var html = options[index].innerHTML;
+            var sigla = html[html.length - 2] + html[html.length - 1];
+
+            if (sigla === valor.uf) {
+                options[index].selected = true;
+                break;
+            }
+        }
+    };
+    
+}
 </script>';
 
     return $conteudo;

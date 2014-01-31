@@ -713,7 +713,7 @@
 
       if (recordsShown < recordsQueryCount && settings.features.paginate) {
         var bounds = obj.records.pageBounds();
-        text += "<span class='dynatable-record-bounds'>" + (bounds[0] + 1) + " to " + bounds[1] + "</span> of ";
+        text += "<span class='dynatable-record-bounds'>" + (bounds[0] + 1) + " à " + bounds[1] + "</span> de ";
       } else if (recordsShown === recordsQueryCount && settings.features.paginate) {
         text += recordsShown + " de ";
       }
