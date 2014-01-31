@@ -148,12 +148,6 @@ class LoginController {
                 </div>
             </fieldset>
         </form>
-        
-        <form class="ui form segment" action="/view/reativarContaView.php" method="POST">
-            <button type="submit" name="submeter" class="ui black submit button small">
-                Recuperar Conta
-            </button>
-        </form>
         <script>
         $(\'.ui.form\').form(
             {

@@ -249,5 +249,18 @@ class UsuarioController extends BaseController {
             )
         );         
     }
+    
+    public function setSenhaByEmail($email, $senha) {
+        $sqlQuery = $this->conexao->prepare(
+            'UPDATE ' . Colunas::USUARIO . ' SET '
+            . Colunas::USUARIO_SENHA . ' = ? WHERE ' . Colunas::USUARIO_LOGIN . ' LIKE ?'
+        );
+        
+        return $sqlQuery->execute(
+            array(
+                md5($senha), $email
+            )
+        );
+    }
 
 }

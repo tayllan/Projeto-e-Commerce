@@ -44,10 +44,33 @@ function cabecalho($mensagem) {
         
     }
     else {
-        $conteudo .= '<div class="ui label"><a href="/core/login.php" class="detail">'
-            . '<i class="user icon"> Realizar login</i></a></div>'
-        . '<div class="ui label"><a href="/view/realizarCadastroView.php" class="detail">'
-            . '<i class="signup icon"> Cadastre-se</i></a></div>';
+        $conteudo .= '<div class="ui pointing dropdown link item">
+            <div class="ui label">
+                <i class="user icon"></i>
+                RealizarLogin
+            </div>
+            <div class="menu">
+                <a class="item" href="/core/login.php">
+                    <i class="sign in icon"></i>
+                    Realizar Login
+                </a>
+                <a class="item" href="/view/realizarCadastroView.php">
+                    <i class="signup icon"></i>
+                    Cadastrar-se
+                </a>
+                <a class="item" href="/view/reativarContaView.php">
+                    <i class="help icon"></i>
+                    Reativar Conta
+                </a>
+                <a class="item" href="/view/recuperarSenhaView.php">
+                    <i class="lock icon"></i>
+                    Recuperar Senha
+                </a>
+            </div>
+        </div>
+        <script>
+        $(".ui.dropdown").dropdown();
+        </script>';
     }
         
     echo $conteudo . '<div class="ui label"><a href="/view/carrinhoDeComprasView.php">'
