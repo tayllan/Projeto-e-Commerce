@@ -22,13 +22,7 @@ class BoletoBancarioView {
     private function exibirConteudo($conteudo) {
         cabecalhoHTML('Boleto Bancário');
         cabecalho('Super Cabeçalho');
-        echo '<form class="ui form segment" action="" method="POST">'
-            . $conteudo
-            . '<div>
-                    <br>
-                    <input type="submit" name="imprimir" value="Imprimir" class="ui submit black button small">
-                </div>'
-            . '</form>';
+        echo '<div id="divBoleto">' . $conteudo . '</div>';
         rodape('Super Rodapé');
         rodapeHTML();
     }

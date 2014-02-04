@@ -279,7 +279,7 @@ $(".ui.form").form(
         cpf: {
             identifier: "' . Colunas::USUARIO_CPF . '",
             rules: [
-                elevenCharacterRule
+                cpfRule
             ]
         },
         telefone: {

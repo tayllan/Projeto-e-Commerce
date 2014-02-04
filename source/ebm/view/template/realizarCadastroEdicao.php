@@ -243,7 +243,7 @@ $(\'.ui.form\').form(
         cpf: {
             identifier: "' . Colunas::USUARIO_CPF . '",
             rules: [
-                elevenCharacterRule
+                cpfRule
           ]
         },
         telefone: {
@@ -300,7 +300,7 @@ function atualizaCep(cep) {
     script.setAttribute("charset", "UTF-8");
     script.src = url;
     document.querySelector("head").appendChild(script);
-}
+};
 
 function correiocontrolcep(valor) {
     if (valor.erro) {
@@ -340,7 +340,7 @@ function correiocontrolcep(valor) {
         }
     };
     
-}
+};
 </script>';
 
     return $conteudo;

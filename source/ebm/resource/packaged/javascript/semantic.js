@@ -1968,6 +1968,9 @@ $.fn.form.settings = {
   },
 
   rules: {
+    cpf: function(value) {
+        return validarCPF(value);
+    },
     checked: function() {
       return ($(this).filter(':checked').size() > 0);
     },
