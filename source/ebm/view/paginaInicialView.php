@@ -47,10 +47,6 @@ class PaginaInicialView {
                 <i class="search icon"></i>
                 Outra Categoria
             </a>
-            <a class="item" href="/index.php?queries[search]=maisuma">
-                <i class="search icon"></i>
-                Mais uma
-            </a>
         </div>
         <form class="ui form" action="/view/carrinhoDeComprasView.php" method="POST">'
         . $this->criarTabela(

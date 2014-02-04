@@ -24,12 +24,9 @@ CABECALHO_HTML;
 
 function cabecalho($mensagem) {
     $conteudo ='<header class="ui center aligned segment">
-    <p class="ui black label">' . $mensagem . '</p>
+    <a href="/index.php"><img src="/resource/imagens/logo.png"></a>
 </header>
-<div class="ui center aligned segment">
-<div class="ui label">
-    <a href="/index.php"><i class="home icon">Voltar à HOME</i></a>
-</div>';
+<div class="ui center aligned segment">';
     if (isset($_SESSION[SESSAO_LOGADO])) {
         $conteudo .= '<div class="ui green label"><i class="mail icon"> ' . $_SESSION[SESSAO_USUARIO_LOGIN]
             . '</i></div>'
