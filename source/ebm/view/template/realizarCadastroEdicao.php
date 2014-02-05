@@ -220,7 +220,7 @@ function construirFormulario($usuario) {
         </div>
 </form>
 <script>
-$(\'.ui.form\').form(
+$(".ui.form").form(
     {
         email: {
             identifier: "' . Colunas::USUARIO_LOGIN . '",

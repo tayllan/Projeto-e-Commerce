@@ -66,6 +66,7 @@ class Colunas {
     const COMPRA_FK_USUARIO = 'compra_fk_id_usuario';
     const COMPRA_CONCLUIDA = 'compra_concluida';
     const COMPRA_FORMA_PAGAMENTO = 'compra_forma_de_pagamento';
+    const COMPRA_FRETE = 'compra_frete';
     
     const ITEM_DE_PRODUTO = 'itemDeProduto';
     const ITEM_DE_PRODUTO_ID = 'item_de_produto_id';

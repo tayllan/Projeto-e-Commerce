@@ -24,7 +24,8 @@ class CompraView extends BaseView {
                     Colunas::COMPRA_DATA => $_POST[Colunas::COMPRA_DATA],
                     Colunas::COMPRA_TOTAL => $_POST[Colunas::COMPRA_TOTAL],
                     Colunas::COMPRA_FK_USUARIO => $_POST[Colunas::COMPRA_FK_USUARIO],
-                    Colunas::COMPRA_CONCLUIDA => $_POST[Colunas::COMPRA_CONCLUIDA]
+                    Colunas::COMPRA_CONCLUIDA => $_POST[Colunas::COMPRA_CONCLUIDA],
+                    Colunas::COMPRA_FRETE => $_POST[Colunas::COMPRA_FRETE]
                 )
             );
             $trueFalse = $this->controller->rotearInsercao($compra);
@@ -62,7 +63,8 @@ class CompraView extends BaseView {
             'Compras Cadastradas', 'compraView',
             array(
                 'Data', 'Total',
-                'Comprador', 'Concluída ?'
+                'Valor do Frete', 'Comprador',
+                'Concluída ?'
             )
         );
 
@@ -81,6 +83,7 @@ class CompraView extends BaseView {
             . 'class="ui black submit button small"><i class="edit icon"></i></button></td>'
             . '<td>' . $linha[Colunas::COMPRA_DATA] . '</td>'
             . '<td>' . $linha[Colunas::COMPRA_TOTAL] . '</td>'
+            . '<td>' . $linha[Colunas::COMPRA_FRETE] . '</td>'
             . '<td>' . $this->controller->getUserName($linha) . '</td>'
             . '<td>' . $linha[Colunas::COMPRA_CONCLUIDA] . '</td>'
             . '<td><button type="submit" name="deletar" '

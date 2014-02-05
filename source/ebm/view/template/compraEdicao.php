@@ -28,6 +28,17 @@ function construirFormulario($compra) {
             </div>
         </div>
         
+        <div>
+            <label>Valor do Frete</label>
+            <div class="ui left labeled icon input field">
+                <input type="number" name="' . Colunas::COMPRA_FRETE . '" value="' . $compra->frete . '">
+                <i class="dollar icon"></i>
+                <div class="ui red corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+        
         <div class="ui segment">
             <i class="user icon"></i>
             <label>Comprador:</label>
@@ -93,6 +104,12 @@ $(\'.ui.form\').form(
             rules: [
                 emptyRule
           ]
+        },
+        frete: {
+            identifier: "' . Colunas::COMPRA_FRETE . '",
+            rules: [
+                emptyRule
+            ]
         }
     },
     {

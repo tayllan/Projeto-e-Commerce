@@ -68,7 +68,8 @@ class CarrinhoDeComprasController extends DAO {
         $compra = new Compra(
             NULL, date('d/m/Y h:i:s', time()),
             0, $this->usuario,
-            'false', '-'
+            'false', '-',
+            0
         );
         $this->compraController->rotearInsercao($compra);
         $compraId = $this->compraController->getId($compra);

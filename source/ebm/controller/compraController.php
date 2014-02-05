@@ -16,16 +16,16 @@ class CompraController extends BaseController {
     protected function inserir($compra) {
         $sqlQuery = $this->conexao->prepare(
             'INSERT INTO ' . Colunas::COMPRA . ' (' . Colunas::COMPRA_DATA . ', '
-            . Colunas::COMPRA_TOTAL. ', ' . Colunas::COMPRA_FK_USUARIO . ', '
-            . Colunas::COMPRA_CONCLUIDA. ', ' . Colunas::COMPRA_FORMA_PAGAMENTO
-            . ') VALUES (?, ?, ?, ?, ?)'
+            . Colunas::COMPRA_TOTAL . ', ' . Colunas::COMPRA_FK_USUARIO . ', '
+            . Colunas::COMPRA_CONCLUIDA.  ', ' . Colunas::COMPRA_FORMA_PAGAMENTO . ', '
+            . Colunas::COMPRA_FRETE . ') VALUES (?, ?, ?, ?, ?, ?)'
         );
 
         return $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
                     $compra->usuario->id, $compra->concluida,
-                    $compra->formaPagamento
+                    $compra->formaPagamento, $compra->frete
                 )
         );
     }
@@ -34,15 +34,16 @@ class CompraController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'UPDATE ' . Colunas::COMPRA . ' SET ' . Colunas::COMPRA_DATA . ' = ?, '
             . Colunas::COMPRA_TOTAL . ' = ?, ' . Colunas::COMPRA_FK_USUARIO . ' = ?, '
-            . Colunas::COMPRA_CONCLUIDA . ' = ?, ' . Colunas::COMPRA_FORMA_PAGAMENTO
-            . ' = ? WHERE ' . Colunas::COMPRA_ID . ' = ?'
+            . Colunas::COMPRA_CONCLUIDA . ' = ?, ' . Colunas::COMPRA_FORMA_PAGAMENTO . ' = ?, '
+            . Colunas::COMPRA_FRETE . ' = ? WHERE ' . Colunas::COMPRA_ID . ' = ?'
         );
         
         return $sqlQuery->execute(
                 array(
                     $compra->data, $compra->total,
                     $compra->usuario->id, $compra->concluida,
-                    $compra->formaPagamento, $compra->id
+                    $compra->formaPagamento, $compra->frete,
+                    $compra->id
                 )
         );
     }
@@ -68,14 +69,16 @@ class CompraController extends BaseController {
         $sqlQuery = $this->conexao->prepare(
             'SELECT ' . Colunas::COMPRA_ID . ' FROM ' . Colunas::COMPRA . ' WHERE '
             . Colunas::COMPRA_DATA . ' = ? AND ' . Colunas::COMPRA_TOTAL . ' = ? AND '
-            . Colunas::COMPRA_FK_USUARIO . ' = ? AND ' . Colunas::COMPRA_CONCLUIDA . ' = ?'
+            . Colunas::COMPRA_FK_USUARIO . ' = ? AND ' . Colunas::COMPRA_CONCLUIDA . ' = ? AND '
+            . Colunas::COMPRA_FRETE . ' = ?'
         );
 
         $sqlQuery->execute(
-                array(
-                    $compra->data, $compra->total,
-                    $compra->usuario->id, $compra->concluida
-                )
+            array(
+                $compra->data, $compra->total,
+                $compra->usuario->id, $compra->concluida,
+                $compra->frete
+            )
         );
         
         if ($sqlQuery->rowCount() > 0) {
@@ -114,7 +117,8 @@ class CompraController extends BaseController {
             $codigosIdentificadores[Colunas::COMPRA_TOTAL],
             $usuario,
             $codigosIdentificadores[Colunas::COMPRA_CONCLUIDA],
-            $codigosIdentificadores[Colunas::COMPRA_FORMA_PAGAMENTO]
+            $codigosIdentificadores[Colunas::COMPRA_FORMA_PAGAMENTO],
+            $codigosIdentificadores[Colunas::COMPRA_FRETE]
         );
 
         return $compra;
@@ -128,7 +132,8 @@ class CompraController extends BaseController {
         $compra = new Compra(
             $arrayCompra[Colunas::COMPRA_ID], $arrayCompra[Colunas::COMPRA_DATA],
             $arrayCompra[Colunas::COMPRA_TOTAL], $usuario,
-            $arrayCompra[Colunas::COMPRA_CONCLUIDA], $arrayCompra[Colunas::COMPRA_FK_USUARIO]
+            $arrayCompra[Colunas::COMPRA_CONCLUIDA], $arrayCompra[Colunas::COMPRA_FK_USUARIO],
+            $arrayCompra[Colunas::COMPRA_FRETE]
         );
 
         return $compra;
