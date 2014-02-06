@@ -8,8 +8,8 @@
         display: none;
     }
     
-    div {
-        background-color: red;
+    div.ui.center.aligned.segment {
+        display: none;
     }
     
     footer {

@@ -5,10 +5,10 @@ function cabecalhoHTML($titulo) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{$titulo}</title>
         <meta charset="UTF-8">
+        <title>{$titulo}</title>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="/resource/packaged/css/semantic.css">
+        <link rel="stylesheet" type="text/css" href="/resource/packaged/css/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="/resource/css/estilo.css">
         <link rel="stylesheet" type="text/css" href="/resource/css/jquery.dynatable.css">
 

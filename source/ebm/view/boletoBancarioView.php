@@ -16,13 +16,23 @@ class BoletoBancarioView {
     }
     
     private function rotear() {
-        $this->exibirConteudo($this->controller->contruirBoletoBancario());
+        $array = $this->controller->listar();
+        if (!empty($array)) {
+            $this->exibirConteudo(
+                '<div id="divBoleto">'
+                . $this->controller->contruirBoletoBancario()
+                . '</div>'
+            );
+        }
+        else {
+            $this->exibirConteudo('<p class="ui red label">Você não realizou nenhuma compra</p>');
+        }        
     }
 
     private function exibirConteudo($conteudo) {
         cabecalhoHTML('Boleto Bancário');
         cabecalho('Super Cabeçalho');
-        echo '<div id="divBoleto">' . $conteudo . '</div>';
+        echo $conteudo;
         rodape('Super Rodapé');
         rodapeHTML();
     }
