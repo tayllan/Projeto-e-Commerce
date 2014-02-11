@@ -19,33 +19,29 @@ class PaginaInicialView {
                 <i class="search icon"></i>
                 Todos
             </a>
-            <a class="item" href="/index.php?queries[search]=eletrônico">
-                <i class="search icon"></i>
-                Eletrônicos
-            </a>
-            <a class="item" href="/index.php?queries[search]=eletrodoméstico">
-                <i class="search icon"></i>
-                Eletrodomésticos
-            </a>
             <a class="item" href="/index.php?queries[search]=erva">
                 <i class="search icon"></i>
                 Ervas
             </a>
-            <a class="item" href="/index.php?queries[search]=categoriaX">
+            <a class="item" href="/index.php?queries[search]=tereré">
                 <i class="search icon"></i>
-                Categoria X
+                Ervas de Tereré
             </a>
-            <a class="item" href="/index.php?queries[search]=categoriaY">
+            <a class="item" href="/index.php?queries[search]=chimarrão">
                 <i class="search icon"></i>
-                Categoria Y
+                Ervas de Chimarrão
             </a>
-            <a class="item" href="/index.php?queries[search]=categoriaZ">
+            <a class="item" href="/index.php?queries[search]=menta">
                 <i class="search icon"></i>
-                Categoria Z
+                Ervas com Menta
             </a>
-            <a class="item" href="/index.php?queries[search]=outracategoria">
+            <a class="item" href="/index.php?queries[search]=limão">
                 <i class="search icon"></i>
-                Outra Categoria
+                Ervas com Limão
+            </a>
+            <a class="item" href="/index.php?queries[search]=boldo">
+                <i class="search icon"></i>
+                Ervas com Boldo
             </a>
         </div>
         <form class="ui form" action="/view/carrinhoDeComprasView.php" method="POST">'
