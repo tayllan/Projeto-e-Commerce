@@ -18,6 +18,11 @@ var twoCharacterRule = {
     prompt: "O campo deve possuir ao menos 2 caracteres."
 };
 
+var threeCharacterRule = {
+    type: "length[3]",
+    prompt: "O campo deve possuir ao menos 3 caracteres."
+};
+
 var fiveCharacterRule = {
     type: "length[5]",
     prompt: "O campo deve possuir ao menos 5 caracteres."

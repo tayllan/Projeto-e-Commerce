@@ -72,7 +72,7 @@ class CartaoDeCreditoController extends DAO {
         $endereco = $this->usuario->endereco->bairro . ' - ' . $this->usuario->endereco->logradouro
             . ', ' . $this->usuario->endereco->numero;
         
-        $conteudo = '<form class="ui form segment" action="/view/cartaoDeCreditoView.php" method="POST">
+        $conteudo = '<form class="ui form" action="/view/cartaoDeCreditoView.php" method="POST">
             <fieldset class="ui form segment">
                 <legend>Informações Gerais:</legend>
 
@@ -104,14 +104,109 @@ class CartaoDeCreditoController extends DAO {
             <fieldset class="ui form segment">
                 <legend>Informações de Cartão de Crédito</legend>
                 
-                <p>TODO: campos a serem preenchidos, referentes ao cartão de crédito do usuário</p>
+                <div>
+                    <label>Titular do Cartão de Crédito</label>
+                    <div class="ui left labeled icon input field">
+                        <input type="text" name="nomeTitular" value="' . $this->usuario->nome . '">
+                        <i class="user icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label>CPF do Titular</label>
+                    <div class="ui left labeled icon input field">
+                        <input type="text" name="cpfTitular" value="' . $this->usuario->cpf . '">
+                        <i class=" icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label>Número do Cartão de Crédito</label>
+                    <div class="ui left labeled icon input field">
+                        <input type="text" name="numeroCartao">
+                        <i class="icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label>Código Verificador</label>
+                    <div class="ui left labeled icon input field">
+                        <input type="number" maxlength="3" name="codVerificador">
+                        <i class=" icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label>Data de Validade do Cartão</label>
+                    <div class="ui left labeled icon input field">
+                        <input type="date" name="validadeCartao">
+                        <i class="calendar icon"></i>
+                        <div class="ui red corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
             </fieldset>
             
             <div>
-                <br>
-                <input type="submit" name="compraSucesso" value="Finalizar" class="ui black submit button small">
+                <button type="submit" name="submeter" class="ui black submit button small">
+                    Finalizar Compra
+                </button>
             </div>
-        </form>';
+            
+            <input type="hidden" name="compraSucesso">
+        </form>
+        <script>
+        $(".ui.form").form(
+            {
+                nome: {
+                    identifier: "nomeTitular",
+                    rules: [
+                        emptyRule
+                  ]
+                },
+                cpf: {
+                    identifier: "cpfTitular",
+                    rules: [
+                        cpfRule
+                  ]
+                },
+                numeroCartao: {
+                    identifier: "numeroCartao",
+                    rules: [
+                        emptyRule
+                  ]
+                },
+                codVerificador: {
+                    identifier: "codVerificador",
+                    rules: [
+                        threeCharacterRule
+                    ]
+                },
+                validadeCartao: {
+                    identifier: "validadeCartao",
+                    rules: [
+                        emptyRule
+                    ]
+                }
+            },
+            {
+                inline: true
+            }
+        );
+        </script>';
 
         return $conteudo;
     }

@@ -17,7 +17,7 @@ class CartaoDeCreditoView {
     
     private function rotear() {
         if (isset($_POST['compraSucesso'])) {
-            $this->exibirConteudo('<p class="sucesso">Compra Efetuada com sucesso!</p>');
+            $this->exibirConteudo('<p class="ui green label">Compra Efetuada com sucesso!</p>');
             $this->controller->finalizarCompra();
         }
         else {

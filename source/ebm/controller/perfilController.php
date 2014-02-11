@@ -46,7 +46,7 @@ class PerfilController extends DAO {
         $conteudo = '<table class="ui table">
             <legend class="ui black label">Compra realizada em: ' . $linha[Colunas::COMPRA_DATA]
             . ' - Valor total: R$' . $linha[Colunas::COMPRA_TOTAL] . ' - Forma de pagamento: '
-            . $linha[Colunas::COMPRA_FORMA_PAGAMENTO] . ' - Valor de Frete: '
+            . $linha[Colunas::COMPRA_FORMA_PAGAMENTO] . ' - Valor de Frete: R$ '
             . $linha[Colunas::COMPRA_FRETE] . '</legend>
             <thead>
                 <tr>

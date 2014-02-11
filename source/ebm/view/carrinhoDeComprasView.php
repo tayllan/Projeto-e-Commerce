@@ -55,7 +55,9 @@ class CarrinhoDeComprasView {
             <fieldset>
                 <legend>Meu Carrinho de Compras</legend>';
         
-        $conteudo .= $this->listar()
+        $conteudo .= $this->listar();            
+        $conteudo .= $this->controller->construirFrete()
+            
             . '<div>
                     <br>
                     <input type="submit" name="submeter" value="Efetuar Pagamento"
