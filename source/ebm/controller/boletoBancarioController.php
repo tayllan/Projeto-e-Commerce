@@ -46,7 +46,13 @@ class BoletoBancarioController extends DAO {
             $totalCompra += $arrayItensDeProdutosQuantidade[$index++] * $itemDeProduto->preco;
         }
         
-        $this->finalizarCompra($array['0'][Colunas::COMPRA_ID], $totalCompra);
+        $compra = $this->compraController->construirObjetoPorId($array['0'][Colunas::COMPRA_ID]);
+        $totalCompra += $compra->frete;
+        $compra->concluida = TRUE;
+        $compra->total = $totalCompra;
+        $compra->formaPagamento = 'Boleto Bancário';
+        
+        $this->compraController->rotearInsercao($compra);
 
         return $totalCompra;
     }
@@ -139,16 +145,6 @@ class BoletoBancarioController extends DAO {
         );
 
         return $boleto->getOutput();
-    }
-    
-    private function finalizarCompra($compraId, $totalCompra) {
-        $compra = $this->compraController->construirObjetoPorId($compraId);
-        
-        $compra->concluida = TRUE;
-        $compra->total = $totalCompra;
-        $compra->formaPagamento = 'Boleto Bancário';
-        
-        $this->compraController->rotearInsercao($compra);
     }
 
 }

@@ -140,7 +140,8 @@ class CarrinhoDeComprasController extends DAO {
             'SELECT ' . Colunas::COMPRA_ID. ' FROM '
             . Colunas::USUARIO . ', ' . Colunas::COMPRA . ' WHERE '
             . Colunas::USUARIO_ID . ' = ? AND '
-            . Colunas::USUARIO_ID . ' = ' . Colunas::COMPRA_FK_USUARIO
+            . Colunas::USUARIO_ID . ' = ' . Colunas::COMPRA_FK_USUARIO . ' AND '
+            . Colunas::COMPRA_CONCLUIDA . ' = FALSE'
         );
         
         $sqlQuery->execute(
@@ -171,6 +172,7 @@ class CarrinhoDeComprasController extends DAO {
             $compraId = $array['0'][Colunas::COMPRA_ID];
             $compra = $this->compraController->construirObjetoPorId($compraId);
             $compra->frete = $valorFrete;
+            $compra->total += $valorFrete;
             
             $this->compraController->rotearInsercao($compra);
         }

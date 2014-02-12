@@ -27,16 +27,24 @@ class CartaoDeCreditoController extends DAO {
         $totalCompra = 0;
 
         foreach ($array as $linha) {
+            $produto = $this->produtoController->construirObjetoPorId(
+                $linha[Colunas::PRODUTO_ID]
+            );
             $itemDeProduto = $this->itemDeProdutoController->construirObjetoPorId(
                 $linha[Colunas::ITEM_DE_PRODUTO_ID]
             );
             $itemDeProduto->quantidade = $arrayItensDeProdutosQuantidade[$index];
             $this->itemDeProdutoController->rotearInsercao($itemDeProduto);
             
+            $produto->quantidade -= $itemDeProduto->quantidade;
+            $this->produtoController->rotearInsercao($produto);            
+            
             $totalCompra += $arrayItensDeProdutosQuantidade[$index++] * $itemDeProduto->preco;
         }
+        
+        $compra = $this->compraController->construirObjetoPorId($array['0'][Colunas::COMPRA_ID]);
 
-        return $totalCompra;
+        return $totalCompra + $compra->frete;
     }
 
     private function listar() {
@@ -236,7 +244,7 @@ class CartaoDeCreditoController extends DAO {
         $compra = $this->compraController->construirObjetoPorId($array['0'][Colunas::COMPRA_ID]);
         
         $compra->concluida = TRUE;
-        $compra->total = $totalCompra;
+        $compra->total = $totalCompra + $compra->frete;
         $compra->formaPagamento = 'Cartão de Crédito';
         
         $this->compraController->rotearInsercao($compra);
